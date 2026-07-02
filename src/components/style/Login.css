@@ -1,0 +1,175 @@
+.login-page {
+min-height: 100vh;
+  background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url("/images/airport-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 1%;;
+  font-family: 'Poppins', sans-serif;
+}
+
+.hero-text {
+  color: white;
+  margin-top: -400px; /* ارفعي أو نزلي من هنا حسب الرؤية عندك */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: -50px
+}
+
+.main-logo-area {
+  display: flex;
+  align-items: center;
+  /* لغينا الـ gap خالص عشان نتحكم بالمارجن */
+  gap: 0; 
+}
+
+.hero-logo {
+  width: 200px; /* الحجم اللي أنتِ عايزاه */
+  height: auto;
+  /* لو اللوجو فيه فراغ شفاف من اليمين، هنلغيه بالسطر ده */
+  margin-right: -40px; 
+}
+
+.hero-text h1 { 
+  font-size: 55px; 
+  font-weight: 800; 
+  color: white; 
+  margin: 0; 
+  padding: 0;
+  line-height: 1;
+  /* السطر ده هيسحب الكلمة ناحية اللوجو غصب عنها */
+  margin-left: -10px; 
+}
+
+.hero-text p { 
+  color: white; 
+  font-size: 20px; 
+  opacity: 0.9; 
+  margin: 0;
+  /* الرقم ده (160px) محسوب عشان يجي تحت الكلمة بالظبط بعد ما دخلنا اللوجو جوه */
+  margin-left: 160px; 
+  margin-top: -40px; /* عشان يلزق في الكلمة اللي فوقه */
+  font-weight: 400;
+}
+/* --- الكارد الأساسي كما هو مع تحسينات بسيطة --- */
+
+.auth-card {
+  background: white;
+  width: 420px;
+  padding: 40px;
+  border-radius: 60px; 
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+  margin-top: 60px;
+    max-height: 100vh;
+  overflow-y: auto;
+    margin-bottom: 60px;
+
+}
+
+.card-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 25px; }
+.brand-img { width: 45px; height: auto; }
+.brand-text h4 { margin: 0; color: #0d3b66; font-weight: 700; font-size: 18px; }
+.brand-text span { font-size: 11px; color: #0d3b66; display: block; }
+
+.welcome-section { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+.plane-icon { color: #c89b2f; font-size: 22px; transform: rotate(-45deg); display: inline-block;}
+.welcome-text h3 { margin: 0; font-size: 22px; font-weight: 700; color: #333; }
+.welcome-text p { margin: 0; font-size: 13px; color: #888; }
+
+.divider { border-top: 1px solid #eee; margin: 20px 0; }
+
+.form-group label { display: block; font-weight: 600; font-size: 14px; margin-bottom: 5px; color: #333; }
+.custom-input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 8px 15px;
+  background: #fff;
+  margin-bottom: 15px;
+}
+.custom-input-group input { border: none; outline: none; width: 100%; padding: 5px 10px; font-size: 14px; }
+.icon { color: #999; }
+
+.login-submit-btn {
+  width: 100%;
+  background: #0d3b66;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.login-submit-btn:hover { background: #082644; transform: translateY(-2px); }
+
+.footer-links { text-align: center; margin-top: 20px; }
+.forgot-link { color: #0d3b66; text-decoration: none; font-weight: 700; display: block; margin-bottom: 10px; }
+.signup-prompt { font-size: 14px; color: #666; }
+.signup-prompt a { color: #c89b2f; font-weight: 700; text-decoration: none; }
+.or-divider {
+  text-align: center;
+  margin: 18px 0;
+  position: relative;
+}
+
+.or-divider span {
+  background: white;
+  padding: 0 12px;
+  color: #777;
+  font-size: 14px;
+  position: relative;
+  z-index: 2;
+}
+
+.or-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #ddd;
+  z-index: 1;
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social-btn {
+  width: 100%;
+  border: 1px solid #ddd;
+  background: white;
+  padding: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+.social-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.social-btn:hover {
+  background: #f7f7f7;
+  transform: translateY(-2px);
+}
+
+.signup-prompt {
+  text-align: center;
+  margin-top: 18px;
+}

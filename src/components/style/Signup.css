@@ -1,0 +1,51 @@
+/* تعديل خاص بكارد التسجيل عشان الحقول كتير */
+.auth-card {
+  background: white;
+  
+  /* التعديل هنا لتقليل العرض من 420px لـ 380px */
+  width: 400px !important; 
+  height: 650px !important; 
+
+  
+  /* يمكنك أيضاً تقليل الـ padding الأفقي (الشمال واليمين) ليتناسب مع الحجم الجديد */
+  padding: 20px !important; 
+  
+  border-radius: 40px!important; /* القوس الكبير الذي يميز التصميم */
+  box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+}
+.signup-card {
+  padding: 15px 30px !important; /* تقليل الفراغات عشان الفورم طويلة */
+  width: 300px !important;
+  height: 200px !important; /* عرض أكبر سيكة عشان الأرقام والأسماء */
+}
+
+.signup-card .card-title {
+  color: #0d3b66;
+  font-weight: 800;
+  font-size: 28px;
+}
+
+/* تصغير المسافات بين الحقول في التسجيل */
+.signup-card .form-group {
+  margin-bottom: 5px !important;
+}
+
+.signup-card .custom-input-group {
+  padding: 8px 15px; /* تصغير حجم الـ input شوية عشان الـ scroll */
+}
+.custom-input-group {
+  height: 50px;
+  padding: 5px 10px; /* كان 8px */
+  border-radius: 15px;
+}
+.icon{
+  background: none !important;
+  margin-top: 10px !important;
+}
+
+.custom-input-group input {
+  font-size: 12px;
+}
+.form-group{
+  margin-bottom: 6px;
+}

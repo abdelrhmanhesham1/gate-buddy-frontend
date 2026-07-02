@@ -1,0 +1,726 @@
+/* ── Home Page Styles ──────────────────────────────────────────────────────── */
+/* Colors: primary #002D6B (navy), secondary #EDB046 (gold), grey #f5f5f5     */
+
+:root {
+  --navy: #002D6B;
+  --navy-dark: #001f4d;
+  --gold: #EDB046;
+  --gold-light: #f5c97a;
+  --white: #ffffff;
+  --grey-bg: #f8f9fc;
+  --text-dark: #002D6B;
+  --text-mid: #4a5568;
+  --font-body: 'DM Sans', sans-serif;
+  --radius: 12px;
+}
+
+.hm-page {
+  width: 100%;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background: var(--white);
+}
+
+.hm-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Hero ────────────────────────────────────────────────────────────────── */
+.hm-hero {
+  position: relative;
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hm-hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit:fill;
+  z-index: 0;
+}
+
+.hm-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,29,77,0.82) 15%, rgba(0,29,77,0.2) 50%);
+  z-index: 1;
+}
+
+.hm-hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  padding: 60px 40px;
+  color: white;
+}
+
+.hm-hero-content h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  font-family: 'Playfair Display', serif;
+}
+
+.hm-hero-content p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.88);
+}
+
+.hm-hero-plane {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0.5;
+}
+
+/* ── Flight Updates ──────────────────────────────────────────────────────── */
+.hm-flight-updates {
+  padding: 40px 0 30px;
+  background: var(--white);
+}
+
+.hm-section-title-plain {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 24px;
+  border-left: 4px solid var(--gold);
+  padding-left: 12px;
+}
+
+.hm-cards-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.hm-flight-card {
+  flex: 1;
+  min-width: 220px;
+  border-radius: var(--radius);
+  padding: 0;
+  background: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0,45,107,0.07);
+  overflow: hidden;
+}
+
+.hm-flight-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+  background: var(--navy);
+  padding: 10px 14px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.hm-flight-num {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+}
+
+.hm-flight-badge {
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--gold);
+}
+
+.hm-flight-route {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+  color: var(--navy);
+  padding: 10px 14px 0;
+}
+
+.hm-flight-change {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-bottom: 5px;
+  color: var(--text-mid);
+  padding: 0 14px;
+}
+
+.hm-flight-route strong {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.hm-arrow {
+  color: var(--navy);
+  font-weight: bold;
+}
+.hm-val-red {
+  color: #fc8181;
+  font-weight: 600;
+}
+
+.hm-val-green {
+  color: #68d391;
+  font-weight: 600;
+}
+
+/* ── Section Icon Title ───────────────────────────────────────────────────── */
+.hm-section-icon-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 28px;
+  padding: 30px 0 0;
+}
+
+.hm-icon-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ── Tracked Flight ──────────────────────────────────────────────────────── */
+.hm-tracked {
+  padding: 0 0 40px;
+  background: var(--white);
+}
+
+.hm-tracked-grid {
+  display: flex;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.hm-tracked-card {
+  flex: 1;
+  min-width: 280px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  background: white;
+}
+
+.hm-qr-desc {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--gold);
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.hm-btn-scan {
+  background: var(--navy);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  transition: background 0.2s;
+  width: 100%;
+  justify-content: center;
+}
+
+.hm-btn-scan:hover { background: var(--navy-dark); }
+
+.hm-btn-download-app {
+  background: var(--gold);
+  color: var(--navy-dark);
+  border: none;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  width: 100%;
+  transition: background 0.2s;
+}
+
+.hm-btn-download-app:hover { background: var(--gold-light); }
+
+.hm-tracked-img-wrap {
+  flex: 1;
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-height: 220px;
+  max-height: 280px;
+}
+
+.hm-tracked-img {
+  width: 100%;
+  height: 100%;
+  object-fit:fill;
+  display: block;
+}
+
+/* ── Airport Services ────────────────────────────────────────────────────── */
+.hm-airport-services {
+  background: var(--white);
+}
+
+/* VIP Banner */
+.hm-vip-banner {
+  position: relative;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.hm-vip-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hm-vip-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 20, 60, 0.65);
+  z-index: 1;
+}
+
+.hm-vip-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 50px;
+  color: white;
+}
+
+.hm-vip-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.hm-vip-brand {
+  color: white;
+  font-weight: 800;
+}
+
+.hm-vip-sep {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.hm-vip-content p {
+  font-size: 0.95rem;
+  max-width: 480px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.88);
+}
+
+.hm-btn-vip {
+  background: var(--gold);
+  color: var(--navy-dark);
+  border: none;
+  padding: 11px 26px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 18px;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+
+.hm-btn-vip:hover { background: var(--gold-light); }
+
+/* Service Cards */
+.hm-services-grid {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
+}
+
+.hm-service-card {
+  flex: 1;
+  min-width: 240px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 2px 12px rgba(0,45,107,0.07);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hm-service-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,45,107,0.13);
+}
+
+.hm-service-img-wrap {
+  height: 180px;
+  overflow: hidden;
+}
+
+.hm-service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hm-service-icon {
+  margin: 16px auto 8px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hm-service-title {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.hm-service-sub {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.hm-service-discover {
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.hm-service-discover:hover { color: var(--gold); }
+
+.hm-discover-arrow {
+  color: var(--gold);
+  font-size: 1rem;
+}
+
+/* Accessibility Banner */
+.hm-access-banner {
+  position: relative;
+  min-height: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+.hm-access-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hm-access-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 20, 60, 0.55);
+  z-index: 1;
+}
+
+.hm-access-content {
+  position: relative;
+  z-index: 2;
+  padding: 40px 60px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+}
+.hm-access-content h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.hm-access-content p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 400px;
+  margin-bottom: 18px;
+  color: rgba(255,255,255,0.88);
+}
+
+.hm-btn-access {
+  background: var(--gold);
+  color: var(--navy-dark);
+  border: none;
+  padding: 11px 26px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  transition: all 0.2s;
+}
+
+.hm-btn-access:hover { background: var(--gold-light); }
+
+/* ── Info Section ────────────────────────────────────────────────────────── */
+.hm-info-section {
+  background: var(--grey-bg);
+  padding: 50px 0;
+}
+
+.hm-info-grid {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* Weather Card */
+.hm-weather-card {
+  flex: 1;
+  min-width: 260px;
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: 0 2px 12px rgba(0,45,107,0.07);
+}
+
+.hm-weather-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hm-weather-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hm-weather-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hm-sun {
+  font-size: 2.5rem;
+}
+
+.hm-temp {
+  font-size: 0.75rem;
+  color: var(--text-mid);
+}
+
+.hm-temp-val {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.hm-temp-desc {
+  font-size: 0.78rem;
+  color: var(--text-mid);
+  text-transform: capitalize;
+}
+
+.hm-weather-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.75rem;
+  color: var(--text-mid);
+  margin-left: auto;
+}
+
+/* Airport Info Card */
+.hm-airport-info-card {
+  flex: 1.4;
+  min-width: 300px;
+  background: white;
+  border-radius: var(--radius);
+  padding: 24px 28px;
+  box-shadow: 0 2px 12px rgba(0,45,107,0.07);
+}
+
+.hm-info-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hm-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hm-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--grey-bg);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.hm-info-icon {
+  font-size: 1.1rem;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.hm-info-label {
+  flex: 1;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.hm-info-val {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+.hm-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.85);
+  padding: 48px 0 32px;
+}
+
+.hm-footer-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.hm-footer-brand {
+  flex: 2;
+  min-width: 200px;
+}
+
+.hm-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.hm-footer-brand p {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.7);
+}
+
+.hm-footer-col {
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hm-footer-col h4 {
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.hm-footer-col a {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.hm-footer-col a:hover { color: var(--gold); }
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hm-hero-content { padding: 40px 20px; }
+  .hm-hero-content h1 { font-size: 1.7rem; }
+  .hm-hero-plane { display: none; }
+  .hm-cards-row { flex-direction: column; }
+  .hm-tracked-grid { flex-direction: column; }
+  .hm-services-grid { flex-direction: column; }
+  .hm-info-grid { flex-direction: column; }
+  .hm-access-content { padding: 40px 24px; }
+  .hm-vip-content { padding: 30px 24px; }
+  .hm-footer-grid { gap: 28px; }
+}
