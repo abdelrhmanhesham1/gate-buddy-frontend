@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import "../style/Home.css";
 import { homeAPI } from "../../../utils/Api.js";
+import { useAuthGuard } from "../shared/useAuthGuard.js";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 const PlaneIcon = () => (
@@ -170,6 +171,7 @@ function TrackedFlightSection() {
 
 function AirportServicesSection() {
   const navigate = useNavigate();
+  const { requireAuth } = useAuthGuard();
   const services = [
     {
       img: "/images/counters.jpeg",
@@ -216,7 +218,7 @@ function AirportServicesSection() {
             <span className="hm-vip-sep">| VIP</span>
           </div>
           <p>VIP Experience world where everything is made simple, comfortable, just for you</p>
-          <button className="hm-btn-vip" onClick={() => navigate("/vip")}>
+          <button className="hm-btn-vip" onClick={() => requireAuth(() => navigate("/vip"), "VIP Experience")}>
             <span>🛡️</span>
             VIP Experience
           </button>
@@ -258,7 +260,7 @@ function AirportServicesSection() {
             Enjoy a smoother, more comfortable airport journey with our special assistance
             services shown on the map.
           </p>
-          <button className="hm-btn-access" onClick={() => navigate("/accessibility")}>
+          <button className="hm-btn-access" onClick={() => requireAuth(() => navigate("/accessibility"), "Accessibility & Assistance")}>
             <WheelchairIcon />
             Accessibility
           </button>

@@ -191,7 +191,7 @@ function Hero() {
           >
             <h1 className="hero-title">{slide.title}</h1>
             <p className="hero-subtitle">{slide.subtitle}</p>
-            <button className="btn-hero" onClick={() => requireAuth(() => navigate("/home"))}>Learn More</button>
+            <button className="btn-hero" onClick={() => requireAuth(() => navigate("/home"), "the Home Dashboard")}>Learn More</button>
           </div>
         ))}
       </div>
@@ -340,7 +340,7 @@ function VIPBanner() {
           <span className="vip-tag">| VIP</span>
         </div>
         <p className="vip-desc">VIP Experience world where everything is made simple, comfortable, just for you</p>
-        <button className="btn-vip" onClick={() => requireAuth(() => navigate("/vip"))}>
+        <button className="btn-vip" onClick={() => requireAuth(() => navigate("/vip"), "VIP Experience")}>
           <VIPCrownIcon />
           VIP Experience
         </button>
@@ -414,7 +414,7 @@ function Accessibility() {
       <div className="access-content">
         <h2>Accessibility &amp; Assistance ♿</h2>
         <p>Enjoy a smoother, more comfortable airport journey with our special assistance services shown on the map.</p>
-        <button className="btn-access" onClick={() => requireAuth(() => navigate("/accessibility"))}>
+        <button className="btn-access" onClick={() => requireAuth(() => navigate("/accessibility"), "Accessibility & Assistance")}>
           <WheelchairIcon />
           Accessibility
         </button>
