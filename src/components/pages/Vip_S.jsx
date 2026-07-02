@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
 
@@ -115,6 +116,15 @@ const perks = [
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function VipS() {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    if (!token) navigate("/login");
+  }, [navigate]);
+
+  if (!localStorage.getItem("auth_token")) return null;
+
   return (
     <div style={s.page}>
       <Navbar />
@@ -233,7 +243,7 @@ export default function VipS() {
           <p style={s.ctaSub}>
             Upgrade your journey and access world-class VIP lounges today.
           </p>
-          <button style={s.ctaBtn}>Explore VIP Lounges</button>
+          <button style={s.ctaBtn} onClick={() => navigate("/map")}>Explore VIP Lounges</button>
         </div>
       </section>
 

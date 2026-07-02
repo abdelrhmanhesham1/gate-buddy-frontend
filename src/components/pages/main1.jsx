@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../style/main1.css";
+import { useAuthGuard } from "../shared/useAuthGuard.js";
 
 // ── Icons (inline SVGs) ──────────────────────────────────────────────────────
 const PlaneIcon = ({ size = 24, color = "currentColor" }) => (
@@ -91,6 +92,7 @@ const VIPCrownIcon = () => (
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -110,7 +112,7 @@ function Navbar() {
           <Link to="/contact">Contact Us</Link>
                   </div>
         <div className="nav-actions">
-          <button className="btn-primary nav-download">Download App</button>
+          <button className="btn-primary nav-download" onClick={() => navigate("/signup")}>Get Started</button>
         </div>
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           <span /><span /><span />
@@ -144,6 +146,7 @@ const heroSlides = [
 function Hero() {
   const [current, setCurrent] = useState(0);
   const navigate = useNavigate();
+  const { requireAuth } = useAuthGuard();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -188,7 +191,7 @@ function Hero() {
           >
             <h1 className="hero-title">{slide.title}</h1>
             <p className="hero-subtitle">{slide.subtitle}</p>
-            <button className="btn-hero">Learn More</button>
+            <button className="btn-hero" onClick={() => requireAuth(() => navigate("/home"))}>Learn More</button>
           </div>
         ))}
       </div>
@@ -323,6 +326,8 @@ function HowItWorks() {
 
 // ── VIP Banner ────────────────────────────────────────────────────────────────
 function VIPBanner() {
+  const navigate = useNavigate();
+  const { requireAuth } = useAuthGuard();
   return (
     <section className="vip-banner">
       <img src="/images/img666.jpg" alt="VIP" className="vip-bg-img" />
@@ -335,7 +340,7 @@ function VIPBanner() {
           <span className="vip-tag">| VIP</span>
         </div>
         <p className="vip-desc">VIP Experience world where everything is made simple, comfortable, just for you</p>
-        <button className="btn-vip">
+        <button className="btn-vip" onClick={() => requireAuth(() => navigate("/vip"))}>
           <VIPCrownIcon />
           VIP Experience
         </button>
@@ -401,13 +406,15 @@ function Services() {
 
 // ── Accessibility ─────────────────────────────────────────────────────────────
 function Accessibility() {
+  const navigate = useNavigate();
+  const { requireAuth } = useAuthGuard();
   return (
     <section className="accessibility-section">
       <div className="access-overlay" />
       <div className="access-content">
         <h2>Accessibility &amp; Assistance ♿</h2>
         <p>Enjoy a smoother, more comfortable airport journey with our special assistance services shown on the map.</p>
-        <button className="btn-access">
+        <button className="btn-access" onClick={() => requireAuth(() => navigate("/accessibility"))}>
           <WheelchairIcon />
           Accessibility
         </button>
