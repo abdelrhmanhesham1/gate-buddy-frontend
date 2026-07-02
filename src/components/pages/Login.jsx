@@ -13,31 +13,31 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  //  بدون backend
-  localStorage.setItem('auth_token', 'test_token_123');
-  navigate("/home");
-};
-  /*
-  const handleSubmit = async (e) => {
     e.preventDefault();
     setErr("");
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/login', { email, password });
-      if (res.data.success) {
-        localStorage.setItem('auth_token', res.data.token);
-        Swal.fire({ icon: "success", title: "Login successful!", showConfirmButton: false, timer: 1500 });
-        navigate("/home");
-      } else {
-        setErr(res.data.error || "Login failed");
-      }
+      const res = await axios.post(
+        "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1/users/login",
+        { email, password },
+        { withCredentials: true }
+      );
+      const { token, data } = res.data;
+      localStorage.setItem("auth_token", token);
+      localStorage.setItem("user_profile", JSON.stringify({
+        name: data.user.name,
+        email: data.user.email,
+        photo: data.user.photo || "https://i.pravatar.cc/40",
+        id: data.user._id,
+      }));
+      Swal.fire({ icon: "success", title: "Welcome back!", showConfirmButton: false, timer: 1200 });
+      navigate("/home");
     } catch (error) {
-      setErr(error.response?.data?.error || "Failed to connect to the server");
+      setErr(error.response?.data?.message || "Incorrect email or password");
     } finally {
       setLoading(false);
     }
-  }; */
+  };
 
   return (
     <div className="login-page">

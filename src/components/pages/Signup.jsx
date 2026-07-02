@@ -17,22 +17,6 @@ export default function Signup() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (formData.password !== formData.confirmPassword) {
-    return setErr("Passwords do not match!");
-  }
-  // مؤقت للتيست بدون backend
-  localStorage.setItem('auth_token', 'test_token_123');
-  localStorage.setItem('user_profile', JSON.stringify({
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-    photo: "https://i.pravatar.cc/80?img=11"
-  }));
-  navigate("/home");
-};
-  /*
-  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       return setErr("Passwords do not match!");
@@ -40,15 +24,32 @@ export default function Signup() {
     setErr("");
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/signup', formData);
-      Swal.fire({ icon: "success", title: "Success!", text: "Account created successfully" });
-      navigate("/login");
+      const res = await axios.post(
+        "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1/users/signup",
+        {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          passwordConfirm: formData.confirmPassword,
+        },
+        { withCredentials: true }
+      );
+      const { token, data } = res.data;
+      localStorage.setItem("auth_token", token);
+      localStorage.setItem("user_profile", JSON.stringify({
+        name: data.user.name,
+        email: data.user.email,
+        photo: data.user.photo || "https://i.pravatar.cc/80?img=11",
+        id: data.user._id,
+      }));
+      Swal.fire({ icon: "success", title: "Account created!", showConfirmButton: false, timer: 1200 });
+      navigate("/home");
     } catch (error) {
-      setErr(error.response?.data?.error || "Signup failed");
+      setErr(error.response?.data?.message || "Signup failed. Please try again.");
     } finally {
       setLoading(false);
     }
-  }; */
+  };
 
   return (
     <div className="login-page">

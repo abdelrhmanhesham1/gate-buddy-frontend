@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
+import { chatAPI } from "../../../utils/Api.js";
 
 const PRIMARY = "#002D6B";
 const SECONDARY = "#EDB046";
@@ -43,13 +44,6 @@ const SUGGESTIONS = [
   { label: "🛋️ VIP lounge", q: "VIP lounge access" },
 ];
 
-const BOT_REPLIES = {
-  "where is gate b7": "Gate B7 is on Level 2 of Terminal 2. Take the escalator near Starbucks and turn left — about a 5-minute walk. 🗺️",
-  "lost & found": "Lost & Found office is at Terminal 1, Ground Floor, Counter 12. Open daily 6am–11pm. 📦",
-  "nearest restaurant": "Closest options:\n• Cilantro Café – Gate A3 (2 min)\n• Hardee's – T2 Food Court (5 min)\n• Gad Restaurant – Departure Hall (7 min) 🍽️",
-  "vip lounge access": "VIP lounge available with Business Class tickets or Gate Buddy Premium. EgyptAir Lounge at Gate D, Level 3. 🛋️",
-  "currency exchange": "Exchange desks:\n• Arrival Hall (24/7)\n• Gate B Corridor, Level 1\n• Near Gate D5\nBanque Misr & CIB kiosks available. 💱",
-};
 
 const TypingDots = () => (
   <span style={{ display: "inline-flex", gap: 4, alignItems: "center" }}>
@@ -78,18 +72,30 @@ export default function Chatbot() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
-  const sendMessage = (text) => {
+  const sendMessage = async (text) => {
     const trimmed = (text || input).trim();
     if (!trimmed || isTyping) return;
-    setMessages(p => [...p, { id: Date.now(), role: "user", text: trimmed, time: new Date() }]);
+
+    const userMsg = { id: Date.now(), role: "user", text: trimmed, time: new Date() };
+    setMessages(p => [...p, userMsg]);
     setInput("");
     setIsTyping(true);
-    setTimeout(() => {
-      const key = Object.keys(BOT_REPLIES).find(k => trimmed.toLowerCase().includes(k));
-      const reply = key ? BOT_REPLIES[key] : "I'm here to help! Ask me about gates, flights, restaurants, or any airport service. ✈️";
-      setMessages(p => [...p, { id: Date.now()+1, role: "bot", text: reply, time: new Date() }]);
+
+    // Build history from last 4 exchanges (8 messages)
+    const history = messages.slice(-8).map(m => ({
+      role: m.role === "bot" ? "assistant" : "user",
+      text: m.text,
+    }));
+
+    try {
+      const res = await chatAPI.sendMessage(trimmed, history);
+      const reply = res.data?.data?.reply || "I'm here to help! Ask me about gates, flights, restaurants, or any airport service. ✈️";
+      setMessages(p => [...p, { id: Date.now() + 1, role: "bot", text: reply, time: new Date() }]);
+    } catch {
+      setMessages(p => [...p, { id: Date.now() + 1, role: "bot", text: "Sorry, I'm having trouble connecting right now. Please try again. ✈️", time: new Date() }]);
+    } finally {
       setIsTyping(false);
-    }, 1300);
+    }
   };
 
   const fmt = d => d.toLocaleTimeString("en-EG", { hour: "2-digit", minute: "2-digit" });

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import "../style/Home.css";
+import { homeAPI } from "../../../utils/Api.js";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 const PlaneIcon = () => (
@@ -68,52 +69,32 @@ const ShopsIcon = () => (
   </svg>
 );
 
-// ── Fake flight data (matching Figma) ─────────────────────────────────────────
-const flightUpdates = [
-  {
-    id: 1,
-    flight: "Flight: EK905",
-    status: "Delayed",
-    statusColor: "#EDB046",
-    from: "Cairo",
-    to: "Dubai",
-    beforeLabel: "Departure",
-    beforeVal: "10:30 AM",
-    afterLabel: "Departure",
-    afterVal: "11:00 AM",
-    changeType: "time",
-  },
-  {
-    id: 2,
-    flight: "Flight: EK905",
-    status: "Gate changed",
-    statusColor: "#17a2b8",
-    from: "Cairo",
-    to: "Dubai",
-    beforeLabel: "Gate",
-    beforeVal: "B12",
-    afterLabel: "Gate",
-    afterVal: "C7",
-    changeType: "gate",
-  },
-  {
-    id: 3,
-    flight: "Flight: EK905",
-    status: "Delayed",
-    statusColor: "#EDB046",
-    from: "Cairo",
-    to: "Dubai",
-    beforeLabel: "Departure",
-    beforeVal: "10:30 AM",
-    afterLabel: "Departure",
-    afterVal: "11:00 AM",
-    changeType: "time",
-  },
-];
+const STATUS_COLOR = { DELAYED: "#EDB046", CANCELLED: "#e53e3e", BOARDING: "#38a169", ON_TIME: "#17a2b8", GATE_CHANGE: "#17a2b8" };
+
+function formatTime(iso) {
+  if (!iso) return "—";
+  return new Date(iso).toLocaleTimeString("en-EG", { hour: "2-digit", minute: "2-digit" });
+}
+
+function mapFlight(f) {
+  const isGateChange = f.status === "GATE_CHANGE";
+  return {
+    id: f._id,
+    flight: `Flight: ${f.flightNumber}`,
+    status: isGateChange ? "Gate changed" : f.status?.charAt(0) + f.status?.slice(1).toLowerCase(),
+    statusColor: STATUS_COLOR[f.status] || "#EDB046",
+    from: f.route?.from || "—",
+    to: f.route?.to || "—",
+    beforeLabel: isGateChange ? "Gate" : "Departure",
+    beforeVal: isGateChange ? (f.previousGate || f.gate) : formatTime(f.departure?.scheduledTime),
+    afterLabel: isGateChange ? "Gate" : "Departure",
+    afterVal: isGateChange ? f.gate : formatTime(f.departure?.estimatedTime),
+  };
+}
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function FlightUpdatesSection() {
+function FlightUpdatesSection({ flights }) {
   return (
     <section className="hm-flight-updates">
       <div className="hm-container">
@@ -121,7 +102,7 @@ function FlightUpdatesSection() {
           Stay informed about the latest flight and gate changes
         </h2>
         <div className="hm-cards-row">
-          {flightUpdates.map((f) => (
+          {flights.map((f) => (
             <div className="hm-flight-card" key={f.id}>
               <div className="hm-flight-card-header">
                 <span className="hm-flight-num">{f.flight}</span>
@@ -347,21 +328,26 @@ function AirportInfoSection() {
 // ── Main Home Page ────────────────────────────────────────────────────────────
 export default function Home() {
   const navigate = useNavigate();
+  const [flightUpdates, setFlightUpdates] = useState([]);
 
   useEffect(() => {
     const token = localStorage.getItem("auth_token");
-    if (!token) {
-      navigate("/login");
-    }
+    if (!token) { navigate("/login"); return; }
+
+    homeAPI.getDashboard()
+      .then((res) => {
+        const raw = res.data?.data?.updatedFlights || [];
+        setFlightUpdates(raw.slice(0, 3).map(mapFlight));
+      })
+      .catch(() => {});
   }, [navigate]);
 
-  // Don't render until auth check passes
   const token = localStorage.getItem("auth_token");
   if (!token) return null;
 
   return (
     <div className="hm-page">
-            <Navbar />
+      <Navbar />
       {/* ── Hero ── */}
       <section className="hm-hero">
         <img src="/images/home.jpeg" alt="hero" className="hm-hero-bg" />
@@ -373,10 +359,9 @@ export default function Home() {
             real-time flight information and explore airport amenities.
           </p>
         </div>
-
       </section>
 
-      <FlightUpdatesSection />
+      <FlightUpdatesSection flights={flightUpdates} />
       <TrackedFlightSection />
       <AirportServicesSection />
       <AirportInfoSection />

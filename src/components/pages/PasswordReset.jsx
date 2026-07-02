@@ -1,27 +1,30 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import '../style/PasswordReset.css';
 
 
 
 // ── API helpers ───────────────────────────────────────────────
-const API = "http://localhost:3001";
+const API = "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1";
 
 async function apiSendOTP(email) {
-  const res  = await fetch(`${API}/api/send-otp`, {
-    method:  "POST",
-    headers: { "Content-Type": "application/json" },
-    body:    JSON.stringify({ email }),
+  const res = await fetch(`${API}/users/forgotPassword`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-client-type": "mobile" },
+    body: JSON.stringify({ email }),
   });
-  return res.json(); // { ok: true } or { ok: false, msg }
+  const data = await res.json();
+  return { ok: data.status === "success", msg: data.message };
 }
 
-async function apiVerifyOTP(email, otp) {
-  const res  = await fetch(`${API}/api/verify-otp`, {
-    method:  "POST",
+async function apiVerifyOTP(email, code) {
+  const res = await fetch(`${API}/users/verifyResetCode`, {
+    method: "POST",
     headers: { "Content-Type": "application/json" },
-    body:    JSON.stringify({ email, otp }),
+    body: JSON.stringify({ email, code }),
   });
-  return res.json(); // { valid: true } or { valid: false, msg }
+  const data = await res.json();
+  return { valid: data.status === "success", resetToken: data.resetToken, msg: data.message };
 }
 
 // ── Logo ──────────────────────────────────────────────────────
@@ -136,7 +139,7 @@ function GetCode({ email, onNext, onBack }) {
     setBusy(true);
     try {
       const data = await apiVerifyOTP(email, code);
-      if (data.valid) { onNext(); }
+      if (data.valid) { onNext(data.resetToken); }
       else setError(data.msg || "Wrong code. Try again.");
     } catch {
       setError("Server unreachable.");
@@ -183,14 +186,30 @@ function ResetPassword({ onDone }) {
   const [error, setError] = useState("");
   const [busy,  setBusy]  = useState(false);
 
-  function submit() {
+  async function submit() {
     setError("");
-    if (!pass)            return setError("Enter a new password.");
-    if (pass.length < 6)  return setError("At least 6 characters.");
-    if (pass !== conf)    return setError("Passwords don't match.");
+    if (!pass)           return setError("Enter a new password.");
+    if (pass.length < 8) return setError("At least 8 characters.");
+    if (pass !== conf)   return setError("Passwords don't match.");
     setBusy(true);
-    // Here you would call your backend to update the password in the DB
-    setTimeout(() => { setBusy(false); onDone(); }, 700);
+    try {
+      const res = await fetch(`${API}/users/resetPassword`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: pass, passwordConfirm: conf }),
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (data.status === "success") {
+        localStorage.setItem("auth_token", data.token);
+        onDone();
+      } else {
+        setError(data.message || "Reset failed. Try again.");
+      }
+    } catch {
+      setError("Cannot reach server.");
+    }
+    setBusy(false);
   }
 
   return (
@@ -253,6 +272,7 @@ function Done({ onLogin }) {
 export default function PasswordResetFlow() {
   const [step,  setStep]  = useState(1);
   const [email, setEmail] = useState("");
+  const navigate = useNavigate();
 
   return (
     <Page>
@@ -270,7 +290,7 @@ export default function PasswordResetFlow() {
         <ResetPassword onDone={() => setStep(4)} />
       )}
       {step === 4 && (
-        <Done onLogin={() => { setStep(1); setEmail(""); }} />
+        <Done onLogin={() => navigate("/login")} />
       )}
     </Page>
   );
