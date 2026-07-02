@@ -20,6 +20,7 @@ import Map from "./components/pages/Map.jsx";
 import Profile from "./components/pages/Profile.jsx";
 import EditProfile from "./components/pages/EditProfile.jsx";
 import PasswordReset from"./components/pages/PasswordReset.jsx";
+import OAuthCallback from "./components/pages/OAuthCallback.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -55,6 +56,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/PasswordReset" element={<PasswordReset />}/>
+        <Route path="/oauth/github" element={<OAuthCallback />}/>
 
       </Routes>
     </>

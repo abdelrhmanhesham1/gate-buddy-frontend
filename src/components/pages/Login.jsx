@@ -4,6 +4,23 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import axios from 'axios';
+import { useGoogleLogin } from "@react-oauth/google";
+
+const BASE = "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1";
+const GITHUB_CLIENT_ID = "Ov23li88HESnZEKNc5I5";
+const FACEBOOK_APP_ID = "1186697809728981";
+
+function saveUserAndRedirect(token, user, navigate) {
+  localStorage.setItem("auth_token", token);
+  localStorage.setItem("user_profile", JSON.stringify({
+    name: user.name,
+    email: user.email,
+    photo: user.photo || "https://i.pravatar.cc/40",
+    id: user._id,
+  }));
+  Swal.fire({ icon: "success", title: "Welcome!", showConfirmButton: false, timer: 1200 });
+  navigate("/home");
+}
 
 export default function Login() {
   const navigate = useNavigate();
@@ -11,6 +28,60 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
+  const [socialLoading, setSocialLoading] = useState("");
+
+  // ── Google ──
+  const handleGoogle = useGoogleLogin({
+    onSuccess: async (tokenResponse) => {
+      setSocialLoading("google");
+      try {
+        const res = await axios.post(`${BASE}/users/google`, { idToken: tokenResponse.access_token }, { withCredentials: true });
+        saveUserAndRedirect(res.data.token, res.data.data.user, navigate);
+      } catch {
+        setErr("Google login failed. Please try again.");
+      } finally { setSocialLoading(""); }
+    },
+    onError: () => setErr("Google login was cancelled."),
+  });
+
+  // ── GitHub ──
+  const handleGitHub = () => {
+    const redirectUri = `${window.location.origin}/oauth/github`;
+    const url = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&scope=user:email&redirect_uri=${encodeURIComponent(redirectUri)}`;
+    window.location.href = url;
+  };
+
+  // ── Facebook ──
+  const handleFacebook = () => {
+    setSocialLoading("facebook");
+    if (!window.FB) {
+      window.fbAsyncInit = () => {
+        window.FB.init({ appId: FACEBOOK_APP_ID, cookie: true, xfbml: true, version: "v19.0" });
+        triggerFBLogin();
+      };
+      const script = document.createElement("script");
+      script.src = "https://connect.facebook.net/en_US/sdk.js";
+      document.body.appendChild(script);
+    } else {
+      triggerFBLogin();
+    }
+
+    function triggerFBLogin() {
+      window.FB.login(async (response) => {
+        if (response.authResponse?.accessToken) {
+          try {
+            const res = await axios.post(`${BASE}/users/facebook`, { accessToken: response.authResponse.accessToken }, { withCredentials: true });
+            saveUserAndRedirect(res.data.token, res.data.data.user, navigate);
+          } catch {
+            setErr("Facebook login failed. Please try again.");
+          }
+        } else {
+          setErr("Facebook login was cancelled.");
+        }
+        setSocialLoading("");
+      }, { scope: "public_profile,email" });
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,18 +177,18 @@ export default function Login() {
   {/* social login */}
   <div className="social-login">
 
-    <button type="button" className="social-btn google-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" />
-      Continue with Google
+    <button type="button" className="social-btn google-btn" onClick={handleGoogle} disabled={!!socialLoading}>
+      <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google" />
+      {socialLoading === "google" ? "Connecting..." : "Continue with Google"}
     </button>
 
-    <button type="button" className="social-btn facebook-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" />
-      Continue with Facebook
+    <button type="button" className="social-btn facebook-btn" onClick={handleFacebook} disabled={!!socialLoading}>
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
+      {socialLoading === "facebook" ? "Connecting..." : "Continue with Facebook"}
     </button>
 
-    <button type="button" className="social-btn github-btn">
-      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" />
+    <button type="button" className="social-btn github-btn" onClick={handleGitHub} disabled={!!socialLoading}>
+      <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" />
       Continue with GitHub
     </button>
 
