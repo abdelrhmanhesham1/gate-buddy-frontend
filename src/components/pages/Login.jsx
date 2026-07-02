@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import axios from 'axios';
-import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 
 const BASE = "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1";
 const GITHUB_CLIENT_ID = "Ov23li88HESnZEKNc5I5";
@@ -31,18 +31,15 @@ export default function Login() {
   const [socialLoading, setSocialLoading] = useState("");
 
   // ── Google ──
-  const handleGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      setSocialLoading("google");
-      try {
-        const res = await axios.post(`${BASE}/users/google`, { idToken: tokenResponse.access_token }, { withCredentials: true });
-        saveUserAndRedirect(res.data.token, res.data.data.user, navigate);
-      } catch {
-        setErr("Google login failed. Please try again.");
-      } finally { setSocialLoading(""); }
-    },
-    onError: () => setErr("Google login was cancelled."),
-  });
+  const handleGoogleSuccess = async (credentialResponse) => {
+    setSocialLoading("google");
+    try {
+      const res = await axios.post(`${BASE}/users/google`, { idToken: credentialResponse.credential }, { withCredentials: true });
+      saveUserAndRedirect(res.data.token, res.data.data.user, navigate);
+    } catch {
+      setErr("Google login failed. Please try again.");
+    } finally { setSocialLoading(""); }
+  };
 
   // ── GitHub ──
   const handleGitHub = () => {
@@ -177,10 +174,17 @@ export default function Login() {
   {/* social login */}
   <div className="social-login">
 
-    <button type="button" className="social-btn google-btn" onClick={handleGoogle} disabled={!!socialLoading}>
-      <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" alt="Google" />
-      {socialLoading === "google" ? "Connecting..." : "Continue with Google"}
-    </button>
+    <div style={{ width: "100%" }}>
+      <GoogleLogin
+        onSuccess={handleGoogleSuccess}
+        onError={() => setErr("Google login failed.")}
+        width="100%"
+        text="continue_with"
+        shape="rectangular"
+        theme="outline"
+        size="large"
+      />
+    </div>
 
     <button type="button" className="social-btn facebook-btn" onClick={handleFacebook} disabled={!!socialLoading}>
       <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" />
