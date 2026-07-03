@@ -24,13 +24,16 @@ function SimpleNavbar() {
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-container">
-        <div className="nav-logo">
+        <Link to="/" className="nav-logo" style={{ textDecoration: "none", cursor: "pointer" }}>
           <PlaneIcon size={28} color="#F5A623" />
           <span className="logo-text">Gate Buddy</span>
-        </div>
+        </Link>
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <Link to="/">Home</Link>
           <a href="#about">About</a>
           <Link to="/contact">Contact Us</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign Up</Link>
         </div>
         <div className="nav-actions">
           <button className="btn-primary nav-download" onClick={openApk}>Download App</button>

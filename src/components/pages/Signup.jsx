@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
 import { authAPI } from "../../../utils/Api.js";
 import { useAuth } from "../../context/AuthContext.jsx";
+import SocialAuthButtons from "../shared/SocialAuthButtons.jsx";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -132,6 +133,8 @@ export default function Signup() {
           <button type="submit" className="login-submit-btn" disabled={loading}>
             {loading ? "Creating Account..." : "Sign Up"}
           </button>
+
+          <SocialAuthButtons onError={setErr} />
 
           <div className="footer-links">
             <p className="signup-prompt">
