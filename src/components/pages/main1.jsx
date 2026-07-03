@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../style/main1.css";
 import { useAuthGuard } from "../shared/useAuthGuard.js";
 import { statsAPI } from "../../../utils/Api.js";
+import { openApk } from "../../config.js";
 
 // ── Icons (inline SVGs) ──────────────────────────────────────────────────────
 const PlaneIcon = ({ size = 24, color = "currentColor" }) => (
@@ -93,7 +94,6 @@ const VIPCrownIcon = () => (
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -113,7 +113,7 @@ function Navbar() {
           <Link to="/contact">Contact Us</Link>
                   </div>
         <div className="nav-actions">
-          <button className="btn-primary nav-download" onClick={() => navigate("/signup")}>Get Started</button>
+          <button className="btn-primary nav-download" onClick={openApk}>Get Started</button>
         </div>
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           <span /><span /><span />

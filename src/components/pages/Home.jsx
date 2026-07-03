@@ -5,6 +5,7 @@ import Navbar from "../shared/Navbar.jsx";
 import "../style/Home.css";
 import { homeAPI } from "../../../utils/Api.js";
 import { useAuthGuard } from "../shared/useAuthGuard.js";
+import { openApk } from "../../config.js";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 const PlaneIcon = () => (
@@ -161,7 +162,7 @@ function TrackedFlightSection() {
               <CameraIcon />
               Scan Your Boarding pass
             </button>
-            <button className="hm-btn-download-app">Download App to track</button>
+            <button className="hm-btn-download-app" onClick={openApk}>Download App to track</button>
           </div>
           <div className="hm-tracked-img-wrap">
             <img src="/images/scan.jpeg" alt="Travel" className="hm-tracked-img" />

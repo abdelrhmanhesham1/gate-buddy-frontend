@@ -11,6 +11,7 @@ const hotelsData = [
     price: 150,
     distance: 0,
     url: "https://www.marriott.com/en-us/hotels/caieg-le-meridien-cairo-airport",
+    img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&w=600",
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const hotelsData = [
     price: 120,
     distance: 5,
     url: "https://all.accor.com/hotel/7425/index.en.shtml",
+    img: "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&w=600",
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const hotelsData = [
     price: 180,
     distance: 10,
     url: "https://www.hilton.com",
+    img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&w=600",
   },
   {
     id: 4,
@@ -35,6 +38,7 @@ const hotelsData = [
     price: 160,
     distance: 20,
     url: "https://www.hilton.com",
+    img: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&w=600",
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ const hotelsData = [
     price: 220,
     distance: 18,
     url: "https://www.fairmont.com",
+    img: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&w=600",
   },
   {
     id: 6,
@@ -51,6 +56,7 @@ const hotelsData = [
     price: 200,
     distance: 12,
     url: "https://www.ihg.com",
+    img: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&w=600",
   },
 ];
 
@@ -103,7 +109,11 @@ export default function HotelsUI() {
 
           {filteredHotels.map((hotel) => (
             <div className="hotel-card" key={hotel.id}>
-              <img src="/images/142.jpg" alt="hotel" />
+              <img
+                src={hotel.img}
+                alt={hotel.name}
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = "/images/142.jpg"; }}
+              />
 
               <div className="hotel-info">
                 <h3>{hotel.name}</h3>

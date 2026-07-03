@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/main1.css";
 import { faqAPI } from "../../../utils/Api.js";
+import { openApk } from "../../config.js";
 
 // ── Plane Icon ────────────────────────────────────────────────────────────────
 const PlaneIcon = ({ size = 24, color = "currentColor" }) => (
@@ -50,7 +51,7 @@ function FAQNavbar() {
 
         </div>
         <div className="nav-actions">
-          <button className="btn-primary nav-download">Download App</button>
+          <button className="btn-primary nav-download" onClick={openApk}>Download App</button>
         </div>
       </div>
     </nav>

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
+import { openApk } from "../../config.js";
 
 // ── Colors ────────────────────────────────────────────────────────────────────
 const PRIMARY = "#002D6B";
@@ -208,7 +209,7 @@ export default function Map() {
 
           {/* Buttons */}
           <div style={styles.buttonsRow}>
-            <button style={styles.btnDownload}>
+            <button style={styles.btnDownload} onClick={openApk}>
               <DownloadIcon />
               Download APP
             </button>

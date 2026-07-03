@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
 import { servicesAPI } from "../../../utils/Api.js";
@@ -120,7 +119,6 @@ const FEATURE_ICONS = [<LoungeIcon />, <FoodIcon />, <WifiIcon />, <SmokingIcon 
 export default function VipS() {
   const [hoveredCard, setHoveredCard] = useState(null);
   const [lounges, setLounges] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     let alive = true;
@@ -175,7 +173,7 @@ export default function VipS() {
       </section>
 
       {/* ── Features Grid ── */}
-      <section style={s.section}>
+      <section style={s.section} id="vip-lounges">
         <div style={s.container}>
           <div style={s.sectionHead}>
             <span style={s.sectionEyebrow}>WHAT&apos;S INCLUDED</span>
@@ -200,7 +198,12 @@ export default function VipS() {
                 onMouseLeave={() => setHoveredCard(null)}
               >
                 <div style={s.cardImgWrap}>
-                  <img src={f.image} alt={f.title} style={s.cardImg} />
+                  <img
+                    src={f.image}
+                    alt={f.title}
+                    style={s.cardImg}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800"; }}
+                  />
                   <div style={s.cardImgOverlay} />
                 </div>
                 <div style={s.cardBody}>
@@ -263,7 +266,7 @@ export default function VipS() {
           <p style={s.ctaSub}>
             Upgrade your journey and access world-class VIP lounges today.
           </p>
-          <button style={s.ctaBtn} onClick={() => navigate("/map")}>Explore VIP Lounges</button>
+          <button style={s.ctaBtn} onClick={() => document.getElementById("vip-lounges")?.scrollIntoView({ behavior: "smooth" })}>Explore VIP Lounges</button>
         </div>
       </section>
 

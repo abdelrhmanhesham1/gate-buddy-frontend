@@ -2,6 +2,7 @@ import '../style/Aboutus.css';
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FaDollarSign, FaChartLine, FaMapMarkedAlt, FaWheelchair, FaCrown, FaShoppingBag } from "react-icons/fa";
+import { openApk } from "../../config.js";
 
 // ── Navbar ────────────────────────────────────────────────────
 const PlaneIcon = ({ size = 24, color = "currentColor" }) => (
@@ -32,7 +33,7 @@ function SimpleNavbar() {
           <Link to="/contact">Contact Us</Link>
         </div>
         <div className="nav-actions">
-          <button className="btn-primary nav-download">Download App</button>
+          <button className="btn-primary nav-download" onClick={openApk}>Download App</button>
         </div>
         <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
           <span /><span /><span />
@@ -77,7 +78,7 @@ export default function AboutSection() {
                 Explore Services
               </button>
 
-              <button className="btn secondary">
+              <button className="btn secondary" onClick={openApk}>
                 Download App
               </button>
             </div>
@@ -376,8 +377,8 @@ To redefine the air travel experience by creating a world where no passenger eve
     </p>
 
     <div className="cta-buttons">
-      <button>Google Play</button>
-      <button>App Store</button>
+      <button onClick={openApk}>Google Play</button>
+      <button onClick={openApk}>App Store</button>
     </div>
 
     <div className="cta-features">

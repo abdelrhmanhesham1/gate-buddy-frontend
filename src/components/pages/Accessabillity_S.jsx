@@ -254,7 +254,12 @@ export default function AccessabillityS() {
                 }}
               >
                 <div style={S.cardImgWrap}>
-                  <img src={svc.image} alt={svc.title} style={S.cardImg} />
+                  <img
+                    src={svc.image}
+                    alt={svc.title}
+                    style={S.cardImg}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"; }}
+                  />
                   <div style={S.cardOverlay} />
                 </div>
                 <div style={S.cardBody}>
