@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import "../style/Home.css";
-import { homeAPI } from "../../../utils/Api.js";
+import { flightAPI } from "../../../utils/Api.js";
 import { useAuthGuard } from "../shared/useAuthGuard.js";
 import { openApk } from "../../config.js";
 
@@ -99,7 +99,8 @@ function mapFlight(f) {
 
 // ── Sub-components ────────────────────────────────────────────────────────────
 
-function FlightUpdatesSection({ flights }) {
+function FlightUpdatesSection({ flights, showAll, onToggle }) {
+  const shown = showAll ? flights : flights.slice(0, 3);
   return (
     <section className="hm-flight-updates">
       <div className="hm-container">
@@ -107,7 +108,7 @@ function FlightUpdatesSection({ flights }) {
           Stay informed about the latest flight and gate changes
         </h2>
         <div className="hm-cards-row">
-          {flights.map((f) => (
+          {shown.map((f) => (
             <div className="hm-flight-card" key={f.id}>
               <div className="hm-flight-card-header">
                 <span className="hm-flight-num">{f.flight}</span>
@@ -136,6 +137,20 @@ function FlightUpdatesSection({ flights }) {
             </div>
           ))}
         </div>
+        {flights.length > 3 && (
+          <div style={{ textAlign: "center", marginTop: 24 }}>
+            <button
+              onClick={onToggle}
+              style={{
+                background: "#002D6B", color: "#EDB046", border: "1.5px solid #EDB046",
+                borderRadius: 50, padding: "11px 30px", fontSize: "0.9rem", fontWeight: 700,
+                cursor: "pointer", fontFamily: "inherit",
+              }}
+            >
+              {showAll ? "Show less" : `See more (${flights.length})`}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -334,12 +349,14 @@ function AirportInfoSection() {
 // ── Main Home Page ────────────────────────────────────────────────────────────
 export default function Home() {
   const [flightUpdates, setFlightUpdates] = useState([]);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    homeAPI.getDashboard()
+    // Full list of today's updated flights (for the "See more" toggle).
+    flightAPI.getUpdated({ limit: 30 })
       .then((res) => {
-        const raw = res.data?.data?.updatedFlights || [];
-        setFlightUpdates(raw.slice(0, 3).map(mapFlight));
+        const raw = res.data?.data?.flights || [];
+        setFlightUpdates(raw.map(mapFlight));
       })
       .catch(() => {});
   }, []);
@@ -360,7 +377,7 @@ export default function Home() {
         </div>
       </section>
 
-      <FlightUpdatesSection flights={flightUpdates} />
+      <FlightUpdatesSection flights={flightUpdates} showAll={showAll} onToggle={() => setShowAll((v) => !v)} />
       <TrackedFlightSection />
       <AirportServicesSection />
       <AirportInfoSection />

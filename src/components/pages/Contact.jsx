@@ -59,7 +59,7 @@ export default function Contact() {
         <div className="contact-options">
           <button type="button" className="active" onClick={() => navigate("/chatbot")}>💬 Live chat</button>
           <button type="button" onClick={() => { window.location.href = `mailto:${SUPPORT_EMAIL}`; }}>✉ Email Us</button>
-          <button type="button" onClick={() => { window.location.href = "tel:+20226555000"; }}>📞 Call Us</button>
+          <button type="button" onClick={() => { window.location.href = "tel:+201000107202"; }}>📞 Call Us</button>
         </div>
 
         <form onSubmit={handleSubmit}>

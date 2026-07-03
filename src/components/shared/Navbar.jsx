@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Bell, Menu, X, ChevronDown } from "lucide-react";
 import { useAuth } from "../../context/AuthContext.jsx";
@@ -10,6 +10,39 @@ const CATEGORY_ROUTE = {
   FINANCIAL: "/financial",
   ACCESSIBILITY: "/accessibility",
 };
+
+const POLL_MS = 45000;
+
+// Short two-note chime via Web Audio (no asset needed).
+function playChime() {
+  try {
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    const ctx = new AC();
+    const now = ctx.currentTime;
+    [880, 1320].forEach((freq, i) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = "sine";
+      o.frequency.value = freq;
+      const t = now + i * 0.18;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + 0.3);
+      o.start(t); o.stop(t + 0.32);
+    });
+    setTimeout(() => ctx.close(), 1200);
+  } catch { /* audio blocked — the OS notification still chimes */ }
+}
+
+function notifyBrowser(title, body) {
+  try {
+    if (typeof Notification !== "undefined" && Notification.permission === "granted") {
+      new Notification(title || "Gate Buddy", { body: body || "", icon: "/gatebuddy_logo.jpg" });
+    }
+  } catch { /* ignore */ }
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,15 +58,41 @@ export default function Navbar() {
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const userPhoto = user?.photo || "https://i.pravatar.cc/40";
+  const prevCountRef = useRef(null);
 
+  // Poll for notifications; on a new one (flight reminder / update) chime + notify.
   useEffect(() => {
-    if (!isAuthenticated) { setUnreadCount(0); return; }
+    if (!isAuthenticated) { setUnreadCount(0); prevCountRef.current = null; return; }
     let alive = true;
-    notificationsAPI
-      .getUnreadCount()
-      .then((res) => { if (alive) setUnreadCount(res.data?.data?.unreadCount || 0); })
-      .catch(() => {});
-    return () => { alive = false; };
+
+    try {
+      if (typeof Notification !== "undefined" && Notification.permission === "default") {
+        Notification.requestPermission();
+      }
+    } catch { /* ignore */ }
+
+    const poll = async () => {
+      try {
+        const res = await notificationsAPI.getUnreadCount();
+        if (!alive) return;
+        const count = res.data?.data?.unreadCount || 0;
+        const prev = prevCountRef.current;
+        if (prev !== null && count > prev) {
+          playChime();
+          try {
+            const latest = await notificationsAPI.getAll({ limit: 1 });
+            const n = latest.data?.data?.notifications?.[0];
+            notifyBrowser(n?.title, n?.message);
+          } catch { notifyBrowser("Gate Buddy", "You have a new notification"); }
+        }
+        prevCountRef.current = count;
+        setUnreadCount(count);
+      } catch { /* ignore */ }
+    };
+
+    poll();
+    const id = setInterval(poll, POLL_MS);
+    return () => { alive = false; clearInterval(id); };
   }, [isAuthenticated]);
 
   const openSearch = () => { setSearchOpen((v) => !v); setNotifOpen(false); };
@@ -72,6 +131,7 @@ export default function Navbar() {
   const markAll = async () => {
     try { await notificationsAPI.markAllRead(); } catch { /* ignore */ }
     setUnreadCount(0);
+    prevCountRef.current = 0;
     setNotifs((n) => n.map((x) => ({ ...x, read: true })));
   };
 
