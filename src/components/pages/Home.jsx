@@ -80,7 +80,26 @@ function formatTime(iso) {
 
 // Maps the live flight shape: airline is an object, route.from is an IATA code,
 // gate lives under departure.gate, and status is an enum (ON_TIME/DELAYED/…).
+// The /flights/updated endpoint tags each flight with changeType (GATE/DELAYED/CANCELLED).
 function mapFlight(f) {
+  const from = f.route?.from || f.route?.fromCode || "—";
+  const to = f.route?.to || f.route?.toCode || "—";
+
+  // Gate change → show old gate → new gate.
+  if (f.changeType === "GATE" || f.gateAfter) {
+    return {
+      id: f._id || f.id,
+      flight: `Flight: ${f.flightNumber}`,
+      status: "Gate changed",
+      statusColor: "#17a2b8",
+      from, to,
+      beforeLabel: "Gate",
+      beforeVal: f.gateBefore || "—",
+      afterLabel: "Gate",
+      afterVal: f.gateAfter || "—",
+    };
+  }
+
   const status = f.status || "";
   const nice = status ? status.charAt(0) + status.slice(1).toLowerCase().replace(/_/g, " ") : "—";
   return {
@@ -88,8 +107,7 @@ function mapFlight(f) {
     flight: `Flight: ${f.flightNumber}`,
     status: nice,
     statusColor: STATUS_COLOR[status] || "#EDB046",
-    from: f.route?.from || f.route?.fromCode || "—",
-    to: f.route?.to || f.route?.toCode || "—",
+    from, to,
     beforeLabel: "Departure",
     beforeVal: formatTime(f.departure?.scheduledTime),
     afterLabel: "Departure",

@@ -109,6 +109,16 @@ export default function Navbar() {
     finally { setSearching(false); }
   };
 
+  // Live search: query as the user types (debounced 300ms).
+  useEffect(() => {
+    const q = searchQ.trim();
+    if (!q) { setSearchResults([]); setSearching(false); return; }
+    setSearching(true);
+    const t = setTimeout(() => { runSearch(); }, 300);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchQ]);
+
   const goResult = (svc) => {
     setSearchOpen(false);
     setSearchQ("");

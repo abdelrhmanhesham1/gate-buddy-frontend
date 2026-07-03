@@ -164,4 +164,11 @@ export const statsAPI = {
   rate: (rating, review) => api.post("/stats/rate", { rating, review }),
 };
 
+// ── Parking (saved parking spots) ───────────────────────────────────────────────
+export const parkingAPI = {
+  getAll: () => api.get("/parking"),
+  create: (data) => api.post("/parking", data),
+  remove: (id) => api.delete(`/parking/${id}`),
+};
+
 export default api;

@@ -108,15 +108,25 @@ export default function AScan() {
       if (!alive) return;
       const flights = res.data?.data?.flights || [];
       if (flights.length) {
-        setUpdated(flights.slice(0, 3).map((f) => ({
-          flight: `Flight: ${f.flightNumber}`,
-          from: f.route?.from || f.route?.fromCode || "—",
-          to: f.route?.to || f.route?.toCode || "—",
-          before: `Departure ${fmtTime(f.departure?.scheduledTime)}`,
-          after: `Departure ${fmtTime(f.departure?.estimatedTime)}`,
-          status: niceStatus(f.status),
-          badgeColor: STATUS_COLOR[f.status] || "#EDB046",
-        })));
+        setUpdated(flights.slice(0, 3).map((f) => {
+          const from = f.route?.from || f.route?.fromCode || "—";
+          const to = f.route?.to || f.route?.toCode || "—";
+          if (f.changeType === "GATE" || f.gateAfter) {
+            return {
+              flight: `Flight: ${f.flightNumber}`, from, to,
+              before: `Gate ${f.gateBefore || "—"}`,
+              after: `Gate ${f.gateAfter || "—"}`,
+              status: "Gate changed", badgeColor: "#17a2b8",
+            };
+          }
+          return {
+            flight: `Flight: ${f.flightNumber}`, from, to,
+            before: `Departure ${fmtTime(f.departure?.scheduledTime)}`,
+            after: `Departure ${fmtTime(f.departure?.estimatedTime)}`,
+            status: niceStatus(f.status),
+            badgeColor: STATUS_COLOR[f.status] || "#EDB046",
+          };
+        }));
       }
     }).catch(() => {});
     flightAPI.getMyFlight().then((res) => { if (alive) setTrack(res.data?.data || null); }).catch(() => {});
@@ -171,10 +181,10 @@ export default function AScan() {
         <img src="/images/airport-bg.jpg" alt="hero" style={styles.heroBg} />
         <div style={styles.heroOverlay} />
         <div style={styles.heroContent}>
-          <h1 style={styles.heroTitle}>Welcome to Gate Buddy</h1>
+          <h1 style={styles.heroTitle}>Track Your Flight</h1>
           <p style={styles.heroSub}>
-            Your ultimate flight tracking and airport services companion. Stay
-            updated with real-time flight information and explore airport amenities.
+            Scan your boarding pass to start tracking — get gate updates, boarding
+            reminders, and destination tips in one place.
           </p>
         </div>
       </section>
