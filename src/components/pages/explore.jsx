@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
+import { flightAPI } from "../../../utils/Api.js";
 
 const PlaneIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="#F5A623">
@@ -8,7 +10,7 @@ const PlaneIcon = () => (
   </svg>
 );
 
-const destinations = [
+const DEFAULT_DESTINATIONS = [
   {
     id: 1,
     name: "Burj Khalifa",
@@ -32,8 +34,53 @@ const destinations = [
   },
 ];
 
+const fmtTime = (iso) =>
+  iso ? new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) : "";
+const fmtDate = (iso) =>
+  iso ? new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" }) : "";
+
 export default function Explore() {
   const navigate = useNavigate();
+  const [track, setTrack] = useState(null);
+  const [destinations, setDestinations] = useState(DEFAULT_DESTINATIONS);
+
+  useEffect(() => {
+    let alive = true;
+    flightAPI
+      .getMyFlight()
+      .then((res) => {
+        if (!alive) return;
+        const d = res.data?.data;
+        setTrack(d || null);
+        const recs = d?.recommendations || [];
+        if (recs.length) {
+          setDestinations(
+            recs.slice(0, 3).map((r, i) => ({
+              id: i,
+              name: r.name,
+              tagline: r.name,
+              description: r.description || r.vicinity || r.category || "",
+              image: r.image || DEFAULT_DESTINATIONS[i % 3].image,
+            }))
+          );
+        }
+      })
+      .catch(() => { /* not logged in / no active track → keep defaults */ });
+    return () => { alive = false; };
+  }, []);
+
+  // Tracked-flight card values (fall back to the static sample when no active track).
+  const f = track?.flight;
+  const airlineName = f?.airline?.name || "Egypt Air";
+  const flightNo = f?.flightNumber || "MS359";
+  const gate = f?.gate || f?.departure?.gate || "C14";
+  const statusLabel = f?.status
+    ? f.status.charAt(0) + f.status.slice(1).toLowerCase().replace(/_/g, " ")
+    : "Boarding";
+  const routeTime = fmtTime(f?.departure?.scheduledTime) || "11:25";
+  const routeDate = fmtDate(f?.departure?.scheduledTime) || "15 Oct 2025";
+  const routeCode = f?.route ? `${f.route.fromCode || f.route.from}→${f.route.toCode || f.route.to}` : "HENI→DUXB";
+  const routeTerminal = f?.departure?.terminal || track?.airport?.code || "T2";
 
   return (
     <div style={styles.page}>
@@ -99,21 +146,21 @@ export default function Explore() {
                     />
                   </div>
                   <div>
-                    <div style={styles.airlineName}>Egypt Air</div>
-                    <div style={styles.flightNumSmall}>Flight No: MS359</div>
+                    <div style={styles.airlineName}>{airlineName}</div>
+                    <div style={styles.flightNumSmall}>Flight No: {flightNo}</div>
                   </div>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <div style={styles.gateText}>Gate: C14</div>
-                  <div style={styles.boardingBadge}>● Boarding</div>
+                  <div style={styles.gateText}>Gate: {gate}</div>
+                  <div style={styles.boardingBadge}>● {statusLabel}</div>
                 </div>
               </div>
 
               {/* Route Row */}
               <div style={styles.routeRow}>
                 <div>
-                  <div style={styles.routeTime}>11:25</div>
-                  <div style={styles.routeDate}>15 Oct 2025</div>
+                  <div style={styles.routeTime}>{routeTime}</div>
+                  <div style={styles.routeDate}>{routeDate}</div>
                 </div>
                 <div style={styles.routeArrow}>
                   <svg width="80" height="16" viewBox="0 0 80 16">
@@ -127,8 +174,8 @@ export default function Explore() {
   alignItems: "center",
   textAlign: "center"
 }}>
-  <div style={styles.routeCode}>HENI→DUXB</div>
-  <div style={styles.routeTerminal}>T2</div>
+  <div style={styles.routeCode}>{routeCode}</div>
+  <div style={styles.routeTerminal}>{routeTerminal}</div>
 </div>
               </div>
 

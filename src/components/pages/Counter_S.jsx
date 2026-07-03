@@ -1,109 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
+import { servicesAPI } from "../../../utils/Api.js";
 
-const DOMESTIC_COUNTERS = [
-  {
-    id: "D01",
-    airline: "EgyptAir",
-    terminal: "Terminal 2",
-    zone: "Zone B",
-    status: "Open",
-    waitTime: "~8 min",
-    logo: "/images/egyair logo.png",
-    gates: ["G12", "G13", "G14"],
-    services: ["Check-in", "Baggage Drop", "Special Assistance"],
-    bookingUrl: "https://www.egyptair.com",
-  },
-  {
-    id: "D02",
-    airline: "Nile Air",
-    terminal: "Terminal 1",
-    zone: "Zone A",
-    status: "Open",
-    waitTime: "~12 min",
-    logo: null,
-    gates: ["A4", "A5"],
-    services: ["Check-in", "Baggage Drop"],
-    bookingUrl: "https://www.nileair.com",
-  },
-  {
-    id: "D03",
-    airline: "Air Arabia Egypt",
-    terminal: "Terminal 1",
-    zone: "Zone C",
-    status: "Closed",
-    waitTime: "—",
-    logo: null,
-    gates: ["C7", "C8"],
-    services: ["Check-in"],
-    bookingUrl: "https://www.airarabia.com",
-  },
-  {
-    id: "D04",
-    airline: "Fly Egypt",
-    terminal: "Terminal 3",
-    zone: "Zone D",
-    status: "Open",
-    waitTime: "~5 min",
-    logo: null,
-    gates: ["D2"],
-    services: ["Check-in", "Baggage Drop"],
-    bookingUrl: "https://www.flyegypt.com",
-  },
+// Regional/European carriers → "Domestic" tab; everything else → "International".
+// (The service model has no domestic/intl flag, so we split by carrier region.)
+const REGIONAL_CARRIERS = [
+  "KLM", "Transavia", "easyJet", "Ryanair", "Vueling", "Air France", "Lufthansa",
+  "Swiss", "British Airways", "Aer Lingus", "Wizz", "Eurowings", "Brussels",
+  "SAS", "Finnair", "TAP", "Iberia", "Austrian", "ITA", "Norwegian",
 ];
+const isRegional = (airline = "") =>
+  REGIONAL_CARRIERS.some((c) => airline.toLowerCase().includes(c.toLowerCase()));
 
-const INTERNATIONAL_COUNTERS = [
-  {
-    id: "I02",
-    airline: "Qatar Airways",
-    terminal: "Terminal 3",
-    zone: "Zone G",
-    status: "Closed",
-    waitTime: "—",
-    logo: null,
-    gates: ["H1", "H2"],
-    services: ["Check-in", "Premium Lounge Access", "Special Assistance"],
-    bookingUrl: "https://www.qatarairways.com",
-  },
-  {
-    id: "I05",
-    airline: "Emirates",
-    terminal: "Terminal 3",
-    zone: "Zone H",
-    status: "Open",
-    waitTime: "~15 min",
-    logo: null,
-    gates: ["E1", "E2", "E3"],
-    services: ["Check-in", "Baggage Drop", "Business Class"],
-    bookingUrl: "https://www.emirates.com",
-  },
-  {
-    id: "I07",
-    airline: "Turkish Airlines",
-    terminal: "Terminal 2",
-    zone: "Zone F",
-    status: "Open",
-    waitTime: "~10 min",
-    logo: null,
-    gates: ["F6", "F7"],
-    services: ["Check-in", "Miles&Smiles Desk"],
-    bookingUrl: "https://www.turkishairlines.com",
-  },
-  {
-    id: "I09",
-    airline: "Lufthansa",
-    terminal: "Terminal 2",
-    zone: "Zone E",
-    status: "Open",
-    waitTime: "~6 min",
-    logo: null,
-    gates: ["E8"],
-    services: ["Check-in", "Star Alliance Desk"],
-    bookingUrl: "https://www.lufthansa.com",
-  },
-];
+// Map a live COUNTERS service into the card shape this page already renders.
+function mapCounter(s) {
+  const airline =
+    s.airline || s.name.replace(/\s*Check-?in.*$/i, "").replace(/\s*\(.*$/, "").trim();
+  return {
+    id: (s._id || "").slice(-4).toUpperCase() || s.name.slice(0, 3),
+    airline,
+    terminal: s.terminal || "—",
+    zone: s.zone || s.gate || "—",
+    status: s.status === "Open" ? "Open" : s.status === "Busy" ? "Open" : "Closed",
+    waitTime: s.waitTime ? `~${s.waitTime} min` : "—",
+    logo: s.airlineLogo || null,
+    gates: s.gates && s.gates.length ? s.gates : s.gate ? [s.gate] : [],
+    services: s.services && s.services.length ? s.services : s.amenities || [],
+    bookingUrl: `https://www.google.com/search?q=${encodeURIComponent(airline + " book flight")}`,
+  };
+}
 
 const AIRLINE_COLORS = {
   EgyptAir: "#006DB7",
@@ -214,7 +141,6 @@ function AirlineLogo({ airline, logo }) {
 
 function CounterCard({ counter }) {
   const isOpen = counter.status === "Open";
-  const accentColor = AIRLINE_COLORS[counter.airline] || "#002D6B";
 
   return (
     <div className="cs-card">
@@ -272,8 +198,26 @@ function CounterCard({ counter }) {
 export default function CounterS() {
   const [activeTab, setActiveTab] = useState("domestic");
   const [search, setSearch] = useState("");
+  const [domestic, setDomestic] = useState([]);
+  const [international, setInternational] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const allCounters = activeTab === "domestic" ? DOMESTIC_COUNTERS : INTERNATIONAL_COUNTERS;
+  useEffect(() => {
+    let alive = true;
+    servicesAPI
+      .getAll("COUNTERS")
+      .then((res) => {
+        if (!alive) return;
+        const mapped = (res.data?.data?.services || []).map(mapCounter);
+        setDomestic(mapped.filter((c) => isRegional(c.airline)));
+        setInternational(mapped.filter((c) => !isRegional(c.airline)));
+      })
+      .catch(() => {})
+      .finally(() => alive && setLoading(false));
+    return () => { alive = false; };
+  }, []);
+
+  const allCounters = activeTab === "domestic" ? domestic : international;
   const filtered = allCounters.filter((c) =>
     c.airline.toLowerCase().includes(search.toLowerCase()) ||
     c.id.toLowerCase().includes(search.toLowerCase()) ||
@@ -418,7 +362,12 @@ export default function CounterS() {
           </div>
 
           <div className="cs-grid">
-            {filtered.length === 0 ? (
+            {loading ? (
+              <div className="cs-empty">
+                <div className="cs-empty-icon">⏳</div>
+                <h3>Loading counters…</h3>
+              </div>
+            ) : filtered.length === 0 ? (
               <div className="cs-empty">
                 <div className="cs-empty-icon">🔍</div>
                 <h3>No counters found</h3>

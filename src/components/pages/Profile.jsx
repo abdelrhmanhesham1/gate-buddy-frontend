@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
+import { useAuth } from "../../context/AuthContext.jsx";
+import { userAPI } from "../../../utils/Api.js";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -12,16 +14,19 @@ const LANGUAGES = [
 
 export default function Profile() {
   const navigate = useNavigate();
+  const { user: authUser, refreshUser, logout, clearSession } = useAuth();
   const [view, setView] = useState("profile"); // "profile" | "settings" | "language"
 
-  const [user, setUser] = useState({
-    name: "Mostafa Emad",
-    email: "mostafaemad@gmail.com",
-    photo: "https://i.pravatar.cc/150?img=11",
-  });
+  const [user, setUser] = useState(
+    authUser || {
+      name: "Mostafa Emad",
+      email: "mostafaemad@gmail.com",
+      photo: "https://i.pravatar.cc/150?img=11",
+    }
+  );
 
   // Settings state
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(!!authUser?.preferences?.darkMode);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordData, setPasswordData] = useState({ current: "", newPass: "", confirm: "" });
@@ -30,27 +35,33 @@ export default function Profile() {
 
   // Language state
   const [selectedLang, setSelectedLang] = useState(
-    localStorage.getItem("app_language") || "en"
+    authUser?.preferences?.language || localStorage.getItem("app_language") || "en"
   );
   const [tempLang, setTempLang] = useState(selectedLang);
 
+  // Keep the local view in sync with the server-hydrated user, and refetch on mount.
+  useEffect(() => { refreshUser(); }, [refreshUser]);
   useEffect(() => {
-    const savedUser = localStorage.getItem("user_profile");
-    if (savedUser) setUser(JSON.parse(savedUser));
-  }, []);
+    if (authUser) {
+      setUser(authUser);
+      if (authUser.preferences?.darkMode !== undefined) setDarkMode(!!authUser.preferences.darkMode);
+      if (authUser.preferences?.language) { setSelectedLang(authUser.preferences.language); setTempLang(authUser.preferences.language); }
+    }
+  }, [authUser]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("user_profile");
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
-  const handleDeleteAccount = () => {
-    localStorage.clear();
+  const handleDeleteAccount = async () => {
+    try { await userAPI.deleteMe(); } catch { /* clear locally regardless */ }
+    clearSession();
+    localStorage.removeItem("app_language");
     navigate("/login");
   };
 
-  const handlePasswordUpdate = () => {
+  const handlePasswordUpdate = async () => {
     setPasswordError("");
     setPasswordSuccess("");
     if (!passwordData.current || !passwordData.newPass || !passwordData.confirm) {
@@ -61,22 +72,34 @@ export default function Profile() {
       setPasswordError("New passwords do not match.");
       return;
     }
-    if (passwordData.newPass.length < 6) {
-      setPasswordError("Password must be at least 6 characters.");
+    if (passwordData.newPass.length < 8) {
+      setPasswordError("Password must be at least 8 characters.");
       return;
     }
-    setPasswordSuccess("Password updated successfully!");
-    setTimeout(() => {
-      setShowPasswordModal(false);
-      setPasswordData({ current: "", newPass: "", confirm: "" });
-      setPasswordSuccess("");
-    }, 1500);
+    try {
+      await userAPI.updatePassword(passwordData.current, passwordData.newPass, passwordData.confirm);
+      setPasswordSuccess("Password updated successfully!");
+      setTimeout(() => {
+        setShowPasswordModal(false);
+        setPasswordData({ current: "", newPass: "", confirm: "" });
+        setPasswordSuccess("");
+      }, 1500);
+    } catch (e) {
+      setPasswordError(e.response?.data?.message || "Could not update password.");
+    }
   };
 
   const handleSaveLanguage = () => {
     setSelectedLang(tempLang);
     localStorage.setItem("app_language", tempLang);
+    userAPI.updatePreferences({ language: tempLang }).catch(() => {});
     setView("settings");
+  };
+
+  const handleToggleDarkMode = () => {
+    const next = !darkMode;
+    setDarkMode(next);
+    userAPI.updatePreferences({ darkMode: next }).catch(() => {});
   };
 
   const openLanguage = () => {
@@ -191,7 +214,7 @@ export default function Profile() {
                         <span>🌙</span>
                         <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>Dark mode</span>
                       </div>
-                      <div onClick={() => setDarkMode(!darkMode)} style={{ width: 46, height: 24, borderRadius: 12, cursor: "pointer", background: darkMode ? "#EDB046" : "#ccc", position: "relative", transition: "background 0.2s" }}>
+                      <div onClick={handleToggleDarkMode} style={{ width: 46, height: 24, borderRadius: 12, cursor: "pointer", background: darkMode ? "#EDB046" : "#ccc", position: "relative", transition: "background 0.2s" }}>
                         <div style={{ width: 18, height: 18, borderRadius: "50%", background: "white", position: "absolute", top: 3, left: darkMode ? 24 : 4, transition: "left 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
                       </div>
                     </div>

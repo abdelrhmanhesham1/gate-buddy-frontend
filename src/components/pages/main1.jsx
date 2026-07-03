@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../style/main1.css";
 import { useAuthGuard } from "../shared/useAuthGuard.js";
+import { statsAPI } from "../../../utils/Api.js";
 
 // ── Icons (inline SVGs) ──────────────────────────────────────────────────────
 const PlaneIcon = ({ size = 24, color = "currentColor" }) => (
@@ -231,11 +232,20 @@ function Welcome() {
 
 // ── Metrics ──────────────────────────────────────────────────────────────────
 function Metrics() {
+  const [m, setM] = useState(null);
+
+  useEffect(() => {
+    statsAPI.getStats()
+      .then((res) => setM(res.data?.data?.metrics || null))
+      .catch(() => {});
+  }, []);
+
+  const fmt = (n) => (typeof n === "number" ? n.toLocaleString("en-US") : n);
   const metrics = [
-    { icon: <UsersIcon />, label: "Active Users", value: "12,450" },
-    { icon: <FlightIcon />, label: "Flight Tracked/Delays", value: "3,256/112" },
-    { icon: <AirportIcon />, label: "Airports Covered", value: "85" },
-    { icon: <RatingIcon />, label: "User Rating", value: "4.8/5" },
+    { icon: <UsersIcon />, label: "Active Users", value: m ? fmt(m.activeUsers) : "12,450" },
+    { icon: <FlightIcon />, label: "Flight Tracked/Delays", value: m ? `${fmt(m.flightsTracked)}/${fmt(m.delays)}` : "3,256/112" },
+    { icon: <AirportIcon />, label: "Airports Covered", value: m ? fmt(m.airportsCovered) : "85" },
+    { icon: <RatingIcon />, label: "User Rating", value: m ? m.userRating : "4.8/5" },
   ];
 
   return (

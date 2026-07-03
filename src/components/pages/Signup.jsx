@@ -1,11 +1,13 @@
-import '../style/Signup.css'; 
+import '../style/Signup.css';
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import { authAPI } from "../../../utils/Api.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const { setSession } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,24 +26,15 @@ export default function Signup() {
     setErr("");
     setLoading(true);
     try {
-      const res = await axios.post(
-        "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1/users/signup",
-        {
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-          passwordConfirm: formData.confirmPassword,
-        },
-        { withCredentials: true }
+      // Note: the API user model has no `phone` field, so it is intentionally not sent.
+      const res = await authAPI.signup(
+        formData.name,
+        formData.email,
+        formData.password,
+        formData.confirmPassword
       );
       const { token, data } = res.data;
-      localStorage.setItem("auth_token", token);
-      localStorage.setItem("user_profile", JSON.stringify({
-        name: data.user.name,
-        email: data.user.email,
-        photo: data.user.photo || "https://i.pravatar.cc/80?img=11",
-        id: data.user._id,
-      }));
+      setSession(token, data.user);
       Swal.fire({ icon: "success", title: "Account created!", showConfirmButton: false, timer: 1200 });
       navigate("/home");
     } catch (error) {

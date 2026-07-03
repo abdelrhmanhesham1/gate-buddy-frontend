@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
+import { servicesAPI } from "../../../utils/Api.js";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const WheelchairIcon = () => (
@@ -169,9 +171,36 @@ const S = {
   ctaBtn: { background: "linear-gradient(135deg, #EDB046 0%, #d4943a 100%)", color: "#002D6B", border: "none", padding: "14px 44px", borderRadius: "50px", fontSize: "0.95rem", fontWeight: 700, cursor: "pointer", fontFamily: "inherit", boxShadow: "0 8px 24px rgba(237,176,70,0.35)", letterSpacing: "0.02em" },
 };
 
+const A11Y_ICONS = [<WheelchairIcon />, <RestroomIcon />, <GolfCartIcon />, <LuggageIcon />, <EscortIcon />];
+
 // ── Component ──────────────────────────────────────────────────────────────────
 export default function AccessabillityS() {
   const navigate = useNavigate();
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    let alive = true;
+    servicesAPI
+      .getAll("ACCESSIBILITY")
+      .then((res) => {
+        if (!alive) return;
+        const mapped = (res.data?.data?.services || []).map((s, i) => ({
+          id: s._id || i,
+          icon: A11Y_ICONS[i % A11Y_ICONS.length],
+          title: s.name,
+          desc: s.description || (s.amenities || []).join(" · "),
+          image: (s.images && s.images[0]) ||
+            "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800",
+        }));
+        setItems(mapped);
+      })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
+
+  // Real accessibility services when available, otherwise the static cards.
+  const cards = items.length ? items : services;
+
   return (
     <div style={S.page}>
       <Navbar />
@@ -207,7 +236,7 @@ export default function AccessabillityS() {
             </p>
           </div>
           <div style={S.grid}>
-            {services.map((svc) => (
+            {cards.map((svc) => (
               <div
                 key={svc.id}
                 style={S.card}

@@ -3,51 +3,67 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
 import Swal from "sweetalert2";
+import { useAuth } from "../../context/AuthContext.jsx";
+import { userAPI } from "../../../utils/Api.js";
 
 export default function EditProfile() {
   const navigate = useNavigate();
+  const { user: authUser, refreshUser, logout } = useAuth();
 
-  const [user, setUser] = useState({
-    name: "Mostafa Emad",
-    email: "mostafaemad@gmail.com",
-    photo: "https://i.pravatar.cc/150?img=11",
-  });
+  const [user, setUser] = useState(
+    authUser || {
+      name: "Mostafa Emad",
+      email: "mostafaemad@gmail.com",
+      photo: "https://i.pravatar.cc/150?img=11",
+    }
+  );
   const [formData, setFormData] = useState({ name: "", email: "" });
+  const [photoFile, setPhotoFile] = useState(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user_profile");
-    if (savedUser) {
-      const parsed = JSON.parse(savedUser);
-      setUser(parsed);
-      setFormData({ name: parsed.name, email: parsed.email });
+    if (authUser) {
+      setUser(authUser);
+      setFormData({ name: authUser.name || "", email: authUser.email || "" });
     } else {
       setFormData({ name: user.name, email: user.email });
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authUser]);
 
-  const handleSave = () => {
-    const updated = { ...user, name: formData.name, email: formData.email };
-    localStorage.setItem("user_profile", JSON.stringify(updated));
-    setUser(updated);
-    Swal.fire({ icon: "success", title: "Saved!", text: "Profile updated successfully.", showConfirmButton: false, timer: 1500 });
-    setTimeout(() => navigate("/profile"), 1600);
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      let payload;
+      if (photoFile) {
+        payload = new FormData();
+        payload.append("name", formData.name);
+        payload.append("photo", photoFile);
+      } else {
+        payload = { name: formData.name };
+      }
+      await userAPI.updateMe(payload);       // email is intentionally not sent (API ignores it)
+      await refreshUser();
+      Swal.fire({ icon: "success", title: "Saved!", text: "Profile updated successfully.", showConfirmButton: false, timer: 1500 });
+      setTimeout(() => navigate("/profile"), 1600);
+    } catch (e) {
+      Swal.fire({ icon: "error", title: "Update failed", text: e.response?.data?.message || "Please try again." });
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    setPhotoFile(file);                       // kept to upload on Save
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      const updated = { ...user, photo: ev.target.result };
-      setUser(updated);
-      localStorage.setItem("user_profile", JSON.stringify(updated));
-    };
+    reader.onload = (ev) => setUser((u) => ({ ...u, photo: ev.target.result })); // instant preview
     reader.readAsDataURL(file);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("auth_token");
-    localStorage.removeItem("user_profile");
+  const handleLogout = async () => {
+    await logout();
     navigate("/login");
   };
 
@@ -143,11 +159,12 @@ export default function EditProfile() {
                   <input
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    readOnly
+                    title="Email cannot be changed"
                     style={{
                       width: 360, border: "1.5px solid #002D6B", borderRadius: 8,
-                      padding: "11px 16px", fontSize: "0.9rem", color: "#1a1a1a",
-                      outline: "none", background: "white", boxSizing: "border-box"
+                      padding: "11px 16px", fontSize: "0.9rem", color: "#6b7280",
+                      outline: "none", background: "#f5f7fa", boxSizing: "border-box", cursor: "not-allowed"
                     }}
                   />
                 </div>
@@ -161,11 +178,11 @@ export default function EditProfile() {
                   borderRadius: 8, padding: "9px 26px", cursor: "pointer",
                   fontSize: "0.85rem", fontWeight: 600
                 }}>Cancel</button>
-                <button onClick={handleSave} style={{
+                <button onClick={handleSave} disabled={saving} style={{
                   background: "#002D6B", color: "white", border: "none",
-                  borderRadius: 8, padding: "9px 26px", cursor: "pointer",
-                  fontSize: "0.85rem", fontWeight: 700
-                }}>Save Changes</button>
+                  borderRadius: 8, padding: "9px 26px", cursor: saving ? "not-allowed" : "pointer",
+                  fontSize: "0.85rem", fontWeight: 700, opacity: saving ? 0.7 : 1
+                }}>{saving ? "Saving..." : "Save Changes"}</button>
               </div>
 
             </div>

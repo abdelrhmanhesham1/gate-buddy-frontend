@@ -1,20 +1,26 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Search, Bell, Menu, X, ChevronDown } from "lucide-react";
+import { useAuth } from "../../context/AuthContext.jsx";
+import { notificationsAPI } from "../../../utils/Api.js";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [aboutOpen, setAboutOpen] = useState(false);
-  const [userPhoto, setUserPhoto] = useState("https://i.pravatar.cc/40");
+  const [, setAboutOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const { user, isAuthenticated } = useAuth();
+  const userPhoto = user?.photo || "https://i.pravatar.cc/40";
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("user_profile");
-    if (savedUser) {
-      const parsed = JSON.parse(savedUser);
-      if (parsed.photo) setUserPhoto(parsed.photo);
-    }
-  }, []);
+    if (!isAuthenticated) { setUnreadCount(0); return; }
+    let alive = true;
+    notificationsAPI
+      .getUnreadCount()
+      .then((res) => { if (alive) setUnreadCount(res.data?.data?.unreadCount || 0); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, [isAuthenticated]);
 
   return (
     <>
@@ -192,7 +198,19 @@ export default function Navbar() {
         {/* Icons */}
         <div className="nb-icons">
           <Search />
-          <Bell />
+          <span style={{ position: "relative", display: "inline-flex" }}>
+            <Bell />
+            {unreadCount > 0 && (
+              <span style={{
+                position: "absolute", top: -6, right: -6, minWidth: 16, height: 16,
+                padding: "0 4px", borderRadius: 8, background: "#EDB046", color: "#002D6B",
+                fontSize: "0.6rem", fontWeight: 800, display: "flex", alignItems: "center",
+                justifyContent: "center", lineHeight: 1,
+              }}>
+                {unreadCount > 9 ? "9+" : unreadCount}
+              </span>
+            )}
+          </span>
           <Link to="/profile">
             <img
               src={userPhoto}

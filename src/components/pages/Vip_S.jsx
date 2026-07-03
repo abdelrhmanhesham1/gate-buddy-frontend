@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
+import { servicesAPI } from "../../../utils/Api.js";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const LoungeIcon = () => (
@@ -114,16 +115,35 @@ const perks = [
 ];
 
 // ── Component ─────────────────────────────────────────────────────────────────
+const FEATURE_ICONS = [<LoungeIcon />, <FoodIcon />, <WifiIcon />, <SmokingIcon />, <MapPinIcon />];
+
 export default function VipS() {
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [lounges, setLounges] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("auth_token");
-    if (!token) navigate("/login");
-  }, [navigate]);
+    let alive = true;
+    servicesAPI
+      .getAll("VIP_SERVICES")
+      .then((res) => {
+        if (!alive) return;
+        const mapped = (res.data?.data?.services || []).map((s, i) => ({
+          id: s._id || i,
+          icon: FEATURE_ICONS[i % FEATURE_ICONS.length],
+          title: s.name,
+          desc: s.description || (s.amenities || []).join(" · "),
+          image: (s.images && s.images[0]) ||
+            "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800",
+        }));
+        setLounges(mapped);
+      })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
 
-  if (!localStorage.getItem("auth_token")) return null;
+  // Real lounges when available, otherwise the static "what's included" cards.
+  const cards = lounges.length ? lounges : vipFeatures;
 
   return (
     <div style={s.page}>
@@ -166,7 +186,7 @@ export default function VipS() {
           </div>
 
           <div style={s.grid}>
-            {vipFeatures.map((f) => (
+            {cards.map((f) => (
               <div
                 key={f.id}
                 style={{

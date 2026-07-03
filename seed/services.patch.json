@@ -1,0 +1,2224 @@
+[
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bff",
+  "category": "RESTAURANTS",
+  "name": "Asian Fusion — G Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bfe",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — G Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bfd",
+  "category": "RESTAURANTS",
+  "name": "Bar & Grill — G Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bfc",
+  "category": "RESTAURANTS",
+  "name": "The Grand Café — G Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bfb",
+  "category": "RESTAURANTS",
+  "name": "Wine & Tapas Bar — F Gate",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bfa",
+  "category": "RESTAURANTS",
+  "name": "Gate Café — F Pier End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf8",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — F Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be9",
+  "category": "RESTAURANTS",
+  "name": "Café Schengen — D Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bea",
+  "category": "RESTAURANTS",
+  "name": "Gate Bar — D Pier End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7beb",
+  "category": "RESTAURANTS",
+  "name": "Coffee Corner — D Gate End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bec",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — E Pier (airside)",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bed",
+  "category": "RESTAURANTS",
+  "name": "Heineken — The Airport Brewery",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bee",
+  "category": "RESTAURANTS",
+  "name": "Sushiya — E Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bef",
+  "category": "RESTAURANTS",
+  "name": "Burger King — E Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf0",
+  "category": "RESTAURANTS",
+  "name": "Gall & Gall — Wine Bar E Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf1",
+  "category": "RESTAURANTS",
+  "name": "Sky Lounge Restaurant — E Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf2",
+  "category": "RESTAURANTS",
+  "name": "Gate Café — E Pier End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf3",
+  "category": "RESTAURANTS",
+  "name": "Snack Bar — E Gate End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf4",
+  "category": "RESTAURANTS",
+  "name": "Coffee & Bagels — E Gate",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf5",
+  "category": "RESTAURANTS",
+  "name": "Noodle Bar — C Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf6",
+  "category": "RESTAURANTS",
+  "name": "Obika Mozzarella Bar — F Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf7",
+  "category": "RESTAURANTS",
+  "name": "Heineken Bar — F Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bf9",
+  "category": "RESTAURANTS",
+  "name": "Noodle Bar — F Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be0",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — C Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be1",
+  "category": "RESTAURANTS",
+  "name": "Grab & Fly — C Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bde",
+  "category": "RESTAURANTS",
+  "name": "Gate Café — B Pier End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bdc",
+  "category": "RESTAURANTS",
+  "name": "Grab & Fly — B Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bdd",
+  "category": "RESTAURANTS",
+  "name": "Healthy Bites — B Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bdf",
+  "category": "RESTAURANTS",
+  "name": "Snack Bar — B Gate End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be3",
+  "category": "RESTAURANTS",
+  "name": "Healthy Bites — C Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be4",
+  "category": "RESTAURANTS",
+  "name": "Gate Café — C Pier End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be5",
+  "category": "RESTAURANTS",
+  "name": "Sandwich Bar — C Gate End",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be2",
+  "category": "RESTAURANTS",
+  "name": "Beer House — C Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be6",
+  "category": "RESTAURANTS",
+  "name": "Sushiya — D Pier (Schengen)",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be8",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — D Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7be7",
+  "category": "RESTAURANTS",
+  "name": "Kebapçı Istanbul — D Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd4",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bcc",
+  "category": "RESTAURANTS",
+  "name": "Subway — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bcb",
+  "category": "RESTAURANTS",
+  "name": "La Place — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bcd",
+  "category": "RESTAURANTS",
+  "name": "McDonald's — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bce",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — Departure Hall 3",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bcf",
+  "category": "RESTAURANTS",
+  "name": "Burger King — Departure Hall 3",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd0",
+  "category": "RESTAURANTS",
+  "name": "Café Junction — Departure Hall 3",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd1",
+  "category": "RESTAURANTS",
+  "name": "Hard Rock Cafe — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd2",
+  "category": "RESTAURANTS",
+  "name": "La Place — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd3",
+  "category": "RESTAURANTS",
+  "name": "Eurest — Schiphol Plaza Canteen",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd5",
+  "category": "RESTAURANTS",
+  "name": "McDonald's — Arrivals Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd6",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — Arrivals Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd9",
+  "category": "RESTAURANTS",
+  "name": "Coffee Corner — Arrivals Hall 3",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd7",
+  "category": "RESTAURANTS",
+  "name": "Café & Bar — Arrivals Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bdb",
+  "category": "RESTAURANTS",
+  "name": "The Pub — B Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bda",
+  "category": "RESTAURANTS",
+  "name": "Café B — B Pier",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bd8",
+  "category": "RESTAURANTS",
+  "name": "McDonald's — Arrivals Hall 3",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc8",
+  "category": "RESTAURANTS",
+  "name": "Subway — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bbc",
+  "category": "SHOPS",
+  "name": "Jewellery Boutique — F Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bbb",
+  "category": "SHOPS",
+  "name": "Chocolates & Belgian Sweets — F Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bbe",
+  "category": "SHOPS",
+  "name": "Gift Shop — F Pier Gate End",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bbf",
+  "category": "SHOPS",
+  "name": "Newsagent & Snacks — G Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bba",
+  "category": "SHOPS",
+  "name": "Luxury Watches — F Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc1",
+  "category": "SHOPS",
+  "name": "Chocolate & Delicacies — G Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc2",
+  "category": "SHOPS",
+  "name": "Drugstore — Arrivals Hall 2",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc3",
+  "category": "SHOPS",
+  "name": "Newsagent — Arrivals Hall 3",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc5",
+  "category": "RESTAURANTS",
+  "name": "Burger King — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc6",
+  "category": "RESTAURANTS",
+  "name": "Dunkin' — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc7",
+  "category": "RESTAURANTS",
+  "name": "Café Amsterdam — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc9",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bca",
+  "category": "RESTAURANTS",
+  "name": "Pret a Manger — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc4",
+  "category": "RESTAURANTS",
+  "name": "Starbucks — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Dine-in",
+    "Takeaway",
+    "Card Payments",
+    "Free Wi-Fi"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bbd",
+  "category": "SHOPS",
+  "name": "Mini Market — F Pier Gate End",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d4d8e8c4f555bd7bc0",
+  "category": "SHOPS",
+  "name": "Dutch Souvenir Kiosk — G Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bab",
+  "category": "SHOPS",
+  "name": "Perfume & Cosmetics — D Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bac",
+  "category": "SHOPS",
+  "name": "Dutch Treats Shop — D Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bad",
+  "category": "SHOPS",
+  "name": "Duty Free by Heinemann — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bae",
+  "category": "SHOPS",
+  "name": "Rituals — E Pier (airside)",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7baf",
+  "category": "SHOPS",
+  "name": "Chanel Beauty — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb0",
+  "category": "SHOPS",
+  "name": "Swarovski — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb1",
+  "category": "SHOPS",
+  "name": "Bose — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb2",
+  "category": "SHOPS",
+  "name": "DUFRY Travel Value — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb3",
+  "category": "SHOPS",
+  "name": "WHSmith — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb4",
+  "category": "SHOPS",
+  "name": "Nespresso — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb5",
+  "category": "SHOPS",
+  "name": "Mini Market — E Pier Gate End",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb6",
+  "category": "SHOPS",
+  "name": "Chocolates Kiosk — E Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb7",
+  "category": "SHOPS",
+  "name": "Duty Free by Heinemann — F Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb9",
+  "category": "SHOPS",
+  "name": "Dior — F Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7bb8",
+  "category": "SHOPS",
+  "name": "Hermès — F Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7baa",
+  "category": "SHOPS",
+  "name": "Duty Free by Heinemann — D Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba9",
+  "category": "SHOPS",
+  "name": "Chocolates & Sweets — C Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba8",
+  "category": "SHOPS",
+  "name": "WHSmith — C Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b9b",
+  "category": "SHOPS",
+  "name": "Holland & Barrett — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b95",
+  "category": "SHOPS",
+  "name": "Hugo Boss — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b96",
+  "category": "SHOPS",
+  "name": "Michael Kors — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b97",
+  "category": "SHOPS",
+  "name": "Pandora — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b98",
+  "category": "SHOPS",
+  "name": "Apple Authorised Reseller — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b99",
+  "category": "SHOPS",
+  "name": "Lego Store — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b9a",
+  "category": "SHOPS",
+  "name": "Mango — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b9c",
+  "category": "SHOPS",
+  "name": "Amsterdam House — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b9d",
+  "category": "SHOPS",
+  "name": "WHSmith — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b9e",
+  "category": "SHOPS",
+  "name": "Airport Pharmacy — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba0",
+  "category": "SHOPS",
+  "name": "WHSmith — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba7",
+  "category": "SHOPS",
+  "name": "Grab & Go Shop — C Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba5",
+  "category": "SHOPS",
+  "name": "Newsagent & Snacks — B Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba6",
+  "category": "SHOPS",
+  "name": "Dutch Souvenirs — B Pier",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba4",
+  "category": "SHOPS",
+  "name": "Airport Pharmacy — Departure Hall 3",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba3",
+  "category": "SHOPS",
+  "name": "WHSmith — Departure Hall 3",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba2",
+  "category": "SHOPS",
+  "name": "Swarovski — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7ba1",
+  "category": "SHOPS",
+  "name": "Nespresso — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b9f",
+  "category": "SHOPS",
+  "name": "Travel Accessories — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b84",
+  "category": "ACCESSIBILITY",
+  "name": "Schiphol Medical Centre",
+  "set": {
+   "description": "Schiphol Medical Centre in Departure Hall 2 · Departures Level 2, offering first aid, gp consultation and travel vaccinations. Open 07:00–22:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b83",
+  "category": "ACCESSIBILITY",
+  "name": "Baby Care Room — Departure Hall 2",
+  "set": {
+   "description": "Baby Care Room in Departure Hall 2 · Departures Level 2, offering changing tables, nursing area and bottle warming. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b85",
+  "category": "ACCESSIBILITY",
+  "name": "Quiet Room — Departure Hall 2",
+  "set": {
+   "description": "Quiet Room in Departure Hall 2 · Departures Level 2, offering sensory-friendly, low noise and dimmed lighting. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b86",
+  "category": "ACCESSIBILITY",
+  "name": "Schiphol Assistance Desk — Departure Hall 3",
+  "set": {
+   "description": "Schiphol Assistance Desk in Departure Hall 3 · Departures Level 2 (before security), offering wheelchair assistance, electric cart and priority security. Open 04:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b87",
+  "category": "ACCESSIBILITY",
+  "name": "Baby Care Room — Departure Hall 3",
+  "set": {
+   "description": "Baby Care Room in Departure Hall 3 · Departures Level 2, offering changing tables, nursing area and bottle warming. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b88",
+  "category": "ACCESSIBILITY",
+  "name": "Schiphol Assistance Desk — Arrivals Hall 2",
+  "set": {
+   "description": "Schiphol Assistance Desk in Arrivals Hall 2 · Arrivals Level 1, offering wheelchair assistance, meet & greet and baggage assistance. Open 04:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b89",
+  "category": "ACCESSIBILITY",
+  "name": "Baby Care Room — Arrivals Hall 2",
+  "set": {
+   "description": "Baby Care Room in Arrivals Hall 2 · Arrivals Level 1, offering changing tables and nursing area. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b8a",
+  "category": "ACCESSIBILITY",
+  "name": "Lost & Found — Schiphol Plaza",
+  "set": {
+   "description": "Lost & Found in Schiphol Plaza · Level 1, offering lost property registration, online tracking and baggage claim support. Open 07:00–22:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b8b",
+  "category": "ACCESSIBILITY",
+  "name": "Schiphol Assistance Desk — Arrivals Hall 3",
+  "set": {
+   "description": "Schiphol Assistance Desk in Arrivals Hall 3 · Arrivals Level 1, offering wheelchair assistance, meet & greet and escort service. Open 04:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b8c",
+  "category": "ACCESSIBILITY",
+  "name": "Schiphol Assistance Desk — Arrivals Hall 4",
+  "set": {
+   "description": "Schiphol Assistance Desk in Arrivals Hall 4 · Arrivals Level 1, offering wheelchair assistance, meet & greet and escort service. Open 04:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b8d",
+  "category": "ACCESSIBILITY",
+  "name": "Quiet Room — B Pier (Schengen)",
+  "set": {
+   "description": "Quiet Room in Schengen · B Pier mid (airside), offering sensory-friendly, low noise and dimmed lighting. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b8f",
+  "category": "ACCESSIBILITY",
+  "name": "Prayer Room — D Pier (Schengen)",
+  "set": {
+   "description": "Prayer Room in Schengen · D Pier mid (airside), offering multi-faith, ablution facilities and prayer mats. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b91",
+  "category": "ACCESSIBILITY",
+  "name": "Prayer Room — E Pier (Non-Schengen)",
+  "set": {
+   "description": "Prayer Room in Non-Schengen · E Pier mid (airside), offering multi-faith, ablution facilities and prayer mats. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b92",
+  "category": "SHOPS",
+  "name": "Rituals — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b90",
+  "category": "ACCESSIBILITY",
+  "name": "Quiet Room — D Pier (Schengen)",
+  "set": {
+   "description": "Quiet Room in Schengen · D Pier mid (airside), offering sensory-friendly, low noise and dimmed lighting. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b93",
+  "category": "SHOPS",
+  "name": "De Bijenkorf Boutique — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b94",
+  "category": "SHOPS",
+  "name": "Lacoste — Schiphol Plaza",
+  "set": {
+   "amenities": [
+    "Card Payments",
+    "Tax-Free Shopping",
+    "Contactless"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b82",
+  "category": "ACCESSIBILITY",
+  "name": "Prayer Room — Departure Hall 2",
+  "set": {
+   "description": "Prayer Room in Departure Hall 2 · Departures Level 2, offering multi-faith, ablution facilities and prayer mats. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b8e",
+  "category": "ACCESSIBILITY",
+  "name": "Assistance Point — C Pier (Schengen)",
+  "set": {
+   "description": "Assistance Point in Schengen · C Pier mid (airside), offering wheelchair assistance, boarding support and electric cart pickup. Open 05:00–22:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b7f",
+  "category": "ACCESSIBILITY",
+  "name": "Prayer Room — Departure Hall 1",
+  "set": {
+   "description": "Prayer Room in Departure Hall 1 · Departures Level 2, offering multi-faith, ablution facilities and prayer mats. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1559386484-97dfc0e15539?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b80",
+  "category": "ACCESSIBILITY",
+  "name": "Baby Care Room — Departure Hall 1",
+  "set": {
+   "description": "Baby Care Room in Departure Hall 1 · Departures Level 2, offering changing tables, nursing area and bottle warming. Open 24 hours a day.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b7c",
+  "category": "VIP_SERVICES",
+  "name": "Qatar Airways Al Mourjan Lounge — F/G Pier",
+  "set": {
+   "description": "Qatar Airways Al Mourjan Lounge, located in Non-Schengen · F/G Pier (airside). Guests enjoy free wi-fi, gourmet buffet and full bar. Open 05:00–22:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b7e",
+  "category": "ACCESSIBILITY",
+  "name": "Schiphol Assistance Desk — Departure Hall 1",
+  "set": {
+   "description": "Schiphol Assistance Desk in Departure Hall 1 · Departures Level 2 (before security), offering wheelchair assistance, electric cart and priority security. Open 04:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b7d",
+  "category": "VIP_SERVICES",
+  "name": "Turkish Airlines Lounge — G Pier",
+  "set": {
+   "description": "Turkish Airlines Lounge, located in Non-Schengen · G Pier (airside). Guests enjoy free wi-fi, hot buffet and bar. Open 05:00–22:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b81",
+  "category": "ACCESSIBILITY",
+  "name": "Schiphol Assistance Desk — Departure Hall 2",
+  "set": {
+   "description": "Schiphol Assistance Desk in Departure Hall 2 · Departures Level 2 (before security), offering wheelchair assistance, electric cart and priority security. Open 04:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b73",
+  "category": "FINANCIAL",
+  "name": "ABN AMRO ATM — F Pier (Non-Schengen)",
+  "set": {
+   "description": "Self-service cash machine in Non-Schengen · F Pier (airside). Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b72",
+  "category": "FINANCIAL",
+  "name": "ING ATM — E Pier (Non-Schengen)",
+  "set": {
+   "description": "Self-service cash machine in Non-Schengen · E Pier (after security). Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b74",
+  "category": "VIP_SERVICES",
+  "name": "Aspire Lounge — B Pier (Schengen)",
+  "set": {
+   "description": "Aspire Lounge, located in Schengen · B Pier mid (airside). Guests enjoy free wi-fi, hot food and bar. Open 05:00–21:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b75",
+  "category": "VIP_SERVICES",
+  "name": "No1 Lounge — C Pier (Schengen)",
+  "set": {
+   "description": "No1 Lounge, located in Schengen · C Pier mid (airside). Guests enjoy free wi-fi, buffet and bar. Open 05:30–21:30.",
+   "images": [
+    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b71",
+  "category": "FINANCIAL",
+  "name": "GWK Travelex — Non-Schengen E Pier",
+  "set": {
+   "amenities": [
+    "Currency Exchange",
+    "Card Payments",
+    "Multi-Currency"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b70",
+  "category": "FINANCIAL",
+  "name": "Rabobank ATM — Schiphol Plaza",
+  "set": {
+   "description": "Self-service cash machine in Schiphol Plaza · Shopping Centre Level 1. Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b6f",
+  "category": "FINANCIAL",
+  "name": "ING ATM — Arrivals Hall 3",
+  "set": {
+   "description": "Self-service cash machine in Arrivals Hall 3 · Arrivals Level 1. Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b6e",
+  "category": "FINANCIAL",
+  "name": "GWK Travelex — Arrivals Hall 3",
+  "set": {
+   "amenities": [
+    "Currency Exchange",
+    "Card Payments",
+    "Multi-Currency"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b6d",
+  "category": "FINANCIAL",
+  "name": "ABN AMRO ATM — Arrivals Hall 2",
+  "set": {
+   "description": "Self-service cash machine in Arrivals Hall 2 · Arrivals Level 1. Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b77",
+  "category": "VIP_SERVICES",
+  "name": "Lufthansa Business Lounge — D Pier",
+  "set": {
+   "description": "Lufthansa Business Lounge, located in Schengen · D Pier mid (airside). Guests enjoy free wi-fi, buffet and bar. Open 05:30–21:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b78",
+  "category": "VIP_SERVICES",
+  "name": "KLM Crown Lounge 25 (Non-Schengen)",
+  "set": {
+   "description": "KLM Crown Lounge 25 (Non-Schengen), located in Non-Schengen · E Pier mid (airside). Guests enjoy free wi-fi, hot meals and full bar. Open 05:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b79",
+  "category": "VIP_SERVICES",
+  "name": "The Lounge Amsterdam — Non-Schengen",
+  "set": {
+   "description": "The Lounge Amsterdam, located in Non-Schengen · E Pier mid (airside). Guests enjoy free wi-fi, hot & cold buffet and premium bar. Open 05:00–23:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b7a",
+  "category": "VIP_SERVICES",
+  "name": "Singapore Airlines SilverKris Lounge",
+  "set": {
+   "description": "Singapore Airlines SilverKris Lounge, located in Non-Schengen · F Pier mid (airside). Guests enjoy free wi-fi, à la carte dining and premium bar. Open 06:00–20:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b7b",
+  "category": "VIP_SERVICES",
+  "name": "Emirates Business Class Lounge",
+  "set": {
+   "description": "Emirates Business Class Lounge, located in Non-Schengen · F Pier mid (airside). Guests enjoy free wi-fi, gourmet buffet and cocktail bar. Open 05:00–21:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b76",
+  "category": "VIP_SERVICES",
+  "name": "KLM Crown Lounge 52 (Schengen)",
+  "set": {
+   "description": "KLM Crown Lounge 52 (Schengen), located in Schengen · D Pier mid (airside). Guests enjoy free wi-fi, snacks and bar. Open 05:00–22:00.",
+   "images": [
+    "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b68",
+  "category": "FINANCIAL",
+  "name": "ABN AMRO ATM — Departure Hall 2",
+  "set": {
+   "description": "Self-service cash machine in Departure Hall 2 · Departures Level 2. Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b5f",
+  "category": "COUNTERS",
+  "name": "Etihad Airways Check-in (Desks 22–28)",
+  "set": {
+   "description": "Etihad Airways check-in and bag drop in Departure Hall 3 · Departures Level 2 serving gates F9 and F11. Offers First & Business Class, Guest Services and Baggage Drop. Open 05:30–21:30.",
+   "amenities": [
+    "First & Business Class",
+    "Guest Services",
+    "Baggage Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b5e",
+  "category": "COUNTERS",
+  "name": "Singapore Airlines Check-in (Desks 30–36)",
+  "set": {
+   "description": "Singapore Airlines check-in and bag drop in Departure Hall 3 · Departures Level 2 serving gates F5 and F7. Offers First & Business Class, KrisFlyer Desk and Baggage Drop. Open 06:00–20:00.",
+   "amenities": [
+    "First & Business Class",
+    "KrisFlyer Desk",
+    "Baggage Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b60",
+  "category": "COUNTERS",
+  "name": "United Airlines Check-in (Desks 35–40)",
+  "set": {
+   "description": "United Airlines check-in and bag drop in Departure Hall 3 · Departures Level 2 serving gates G5 and G7. Offers Check-in, Baggage Drop and MileagePlus Desk. Open 05:00–21:00.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "MileagePlus Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b61",
+  "category": "COUNTERS",
+  "name": "Cathay Pacific Check-in (Desks 41–46)",
+  "set": {
+   "description": "Cathay Pacific check-in and bag drop in Departure Hall 3 · Departures Level 2 serving gates G9 and G11. Offers First & Business Class, Marco Polo Desk and Baggage Drop. Open 06:00–21:00.",
+   "amenities": [
+    "First & Business Class",
+    "Marco Polo Desk",
+    "Baggage Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b62",
+  "category": "COUNTERS",
+  "name": "Delta Air Lines Check-in (Desks 47–52)",
+  "set": {
+   "description": "Delta Air Lines check-in and bag drop in Departure Hall 3 · Departures Level 2 serving gates G13 and G15. Offers Check-in, Baggage Drop and SkyMiles Desk. Open 05:00–20:00.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "SkyMiles Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b63",
+  "category": "COUNTERS",
+  "name": "American Airlines Check-in (Desks 53–58)",
+  "set": {
+   "description": "American Airlines check-in and bag drop in Departure Hall 3 · Departures Level 2 serving gates G17 and G19. Offers Check-in, Baggage Drop and AAdvantage Desk. Open 05:30–20:30.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "AAdvantage Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b64",
+  "category": "COUNTERS",
+  "name": "Iberia Check-in (Desks 59–64)",
+  "set": {
+   "description": "Iberia check-in and bag drop in Departure Hall 3 · Departures Level 2 serving gates E1 and E3. Offers Check-in, Baggage Drop and Iberia Plus Desk. Open 05:00–21:00.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "Iberia Plus Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b65",
+  "category": "FINANCIAL",
+  "name": "GWK Travelex — Departure Hall 1",
+  "set": {
+   "amenities": [
+    "Currency Exchange",
+    "Card Payments",
+    "Multi-Currency"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b67",
+  "category": "FINANCIAL",
+  "name": "GWK Travelex — Departure Hall 2",
+  "set": {
+   "amenities": [
+    "Currency Exchange",
+    "Card Payments",
+    "Multi-Currency"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b66",
+  "category": "FINANCIAL",
+  "name": "ABN AMRO ATM — Departure Hall 1",
+  "set": {
+   "description": "Self-service cash machine in Departure Hall 1 · Departures Level 2. Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b69",
+  "category": "FINANCIAL",
+  "name": "ABN AMRO Travel Insurance Desk",
+  "set": {
+   "amenities": [
+    "Card Payments"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b6a",
+  "category": "FINANCIAL",
+  "name": "GWK Travelex — Departure Hall 3",
+  "set": {
+   "amenities": [
+    "Currency Exchange",
+    "Card Payments",
+    "Multi-Currency"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b6b",
+  "category": "FINANCIAL",
+  "name": "Rabobank ATM — Departure Hall 3",
+  "set": {
+   "description": "Self-service cash machine in Departure Hall 3 · Departures Level 2. Accepts major debit and credit cards, available around the clock.",
+   "amenities": [
+    "Card Payments",
+    "Contactless",
+    "24/7 Access"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1580519542036-c47de6196ba5?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b6c",
+  "category": "FINANCIAL",
+  "name": "GWK Travelex — Arrivals Hall 2",
+  "set": {
+   "amenities": [
+    "Currency Exchange",
+    "Card Payments",
+    "Multi-Currency"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1554672723-d42a16e533db?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b52",
+  "category": "COUNTERS",
+  "name": "Transavia Check-in (Desks 70–82, Hall 1)",
+  "set": {
+   "description": "Transavia check-in and bag drop in Departure Hall 1 · Departures Level 2 serving gates B28 and B30. Offers Check-in and Bag Drop. Open 04:00–21:00.",
+   "amenities": [
+    "Check-in",
+    "Bag Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b54",
+  "category": "COUNTERS",
+  "name": "Vueling Check-in (Desks 83–88, Hall 1)",
+  "set": {
+   "description": "Vueling check-in and bag drop in Departure Hall 1 · Departures Level 2 serving gates C10 and C12. Offers Check-in and Bag Drop. Open 05:00–20:00.",
+   "amenities": [
+    "Check-in",
+    "Bag Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b53",
+  "category": "COUNTERS",
+  "name": "easyJet Check-in (Desks 7–14, Hall 1)",
+  "set": {
+   "description": "easyJet check-in and bag drop in Departure Hall 1 · Departures Level 2 serving gates C14 and C16. Offers Check-in, Bag Drop and Speedy Boarding Desk. Open 04:00–20:00.",
+   "amenities": [
+    "Check-in",
+    "Bag Drop",
+    "Speedy Boarding Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b57",
+  "category": "COUNTERS",
+  "name": "Emirates Check-in (Desks 25–35)",
+  "set": {
+   "description": "Emirates check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates F1, F2, F4 and F6. Offers First Class Check-in, Business Class, Baggage Drop and Skywards Desk. Open 05:00–21:00.",
+   "amenities": [
+    "First Class Check-in",
+    "Business Class",
+    "Baggage Drop",
+    "Skywards Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b56",
+  "category": "COUNTERS",
+  "name": "KLM Business Class Check-in (Desks 100–115)",
+  "set": {
+   "description": "KLM Business Class check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates D57 and D59. Offers Business Class Check-in, Priority Baggage and Lounge Access Confirmation. Open 04:00–22:00.",
+   "amenities": [
+    "Business Class Check-in",
+    "Priority Baggage",
+    "Lounge Access Confirmation"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b5a",
+  "category": "COUNTERS",
+  "name": "British Airways Check-in (Desks 56–62)",
+  "set": {
+   "description": "British Airways check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates D64 and D62. Offers Check-in, Baggage Drop and Executive Club Desk. Open 05:00–20:30.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "Executive Club Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b5b",
+  "category": "COUNTERS",
+  "name": "Qatar Airways Check-in (Desks 17–22)",
+  "set": {
+   "description": "Qatar Airways check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates F1 and F2. Offers Business & First Class, Privilege Club Desk and Baggage Drop. Open 05:00–22:00.",
+   "amenities": [
+    "Business & First Class",
+    "Privilege Club Desk",
+    "Baggage Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b5d",
+  "category": "COUNTERS",
+  "name": "Swiss International Check-in (Desks 15–18)",
+  "set": {
+   "description": "Swiss International check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates D11 and D13. Offers Check-in and Baggage Drop. Open 05:30–20:00.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b5c",
+  "category": "COUNTERS",
+  "name": "Air France Check-in (Desks 50–56)",
+  "set": {
+   "description": "Air France check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates E20 and E18. Offers Check-in, Baggage Drop and Flying Blue Desk. Open 05:00–21:00.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "Flying Blue Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b58",
+  "category": "COUNTERS",
+  "name": "Lufthansa Check-in (Desks 8–14)",
+  "set": {
+   "description": "Lufthansa check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates D7 and D9. Offers Check-in, Baggage Drop and Miles & More Desk. Open 05:00–20:00.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "Miles & More Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b59",
+  "category": "COUNTERS",
+  "name": "Turkish Airlines Check-in (Desks 40–48)",
+  "set": {
+   "description": "Turkish Airlines check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates F8 and F3. Offers Check-in, Baggage Drop and Miles&Smiles Desk. Open 04:30–21:30.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "Miles&Smiles Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b55",
+  "category": "COUNTERS",
+  "name": "KLM Check-in (Desks 1–99)",
+  "set": {
+   "description": "KLM check-in and bag drop in Departure Hall 2 · Departures Level 2 serving gates D57, D59, E18 and E20. Offers Check-in, Baggage Drop, Special Assistance and Flying Blue Desk. Open 04:00–22:00.",
+   "amenities": [
+    "Check-in",
+    "Baggage Drop",
+    "Special Assistance",
+    "Flying Blue Desk"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ },
+ {
+  "_id": "6a3f05d3d8e8c4f555bd7b51",
+  "category": "COUNTERS",
+  "name": "Ryanair Check-in (Desks 1–6, Hall 1)",
+  "set": {
+   "description": "Ryanair check-in and bag drop in Departure Hall 1 · Departures Level 2 serving gates B1, B4 and B6. Offers Check-in and Priority Bag Drop. Open 04:30–20:30.",
+   "amenities": [
+    "Check-in",
+    "Priority Bag Drop"
+   ],
+   "images": [
+    "https://images.unsplash.com/photo-1540339832862-474599807836?auto=format&w=800"
+   ]
+  }
+ }
+]

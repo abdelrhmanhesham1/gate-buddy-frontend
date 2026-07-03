@@ -51,7 +51,7 @@ export default function AboutSection() {
         <div className="about-card">
 
           <div className="about-image-box">
-            <img src="../../../public/images/img2.jpeg" alt="airport" />
+            <img src="/images/img2.jpeg" alt="airport" />
           </div>
 
           <div className="about-text">
@@ -110,9 +110,9 @@ At Gate Buddy, we aim to bridge the gap between airports and passengers through 
           </div>
 
           <div className="mission-images">
-            <img src="../../../public/images/mission1.jpeg" alt="" className="img main" />
-            <img src="../../../public/images/111.jpeg" className="img small top" />
-            <img src="../../../public/images/111.jpeg" alt="" className="img small bottom" />
+            <img src="/images/mission1.jpeg" alt="" className="img main" />
+            <img src="/images/111.jpeg" className="img small top" />
+            <img src="/images/111.jpeg" alt="" className="img small bottom" />
           </div>
         </div>
       </section>

@@ -1,30 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../style/PasswordReset.css';
-
-
+import { authAPI } from "../../../utils/Api.js";
 
 // ── API helpers ───────────────────────────────────────────────
-const API = "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1";
-
 async function apiSendOTP(email) {
-  const res = await fetch(`${API}/users/forgotPassword`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "x-client-type": "mobile" },
-    body: JSON.stringify({ email }),
-  });
-  const data = await res.json();
-  return { ok: data.status === "success", msg: data.message };
+  try {
+    const res = await authAPI.forgotPassword(email);
+    return { ok: res.data.status === "success", msg: res.data.message };
+  } catch (e) {
+    return { ok: false, msg: e.response?.data?.message };
+  }
 }
 
 async function apiVerifyOTP(email, code) {
-  const res = await fetch(`${API}/users/verifyResetCode`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, code }),
-  });
-  const data = await res.json();
-  return { valid: data.status === "success", resetToken: data.resetToken, msg: data.message };
+  try {
+    const res = await authAPI.verifyResetCode(email, code);
+    return { valid: res.data.status === "success", resetToken: res.data.resetToken, msg: res.data.message };
+  } catch (e) {
+    return { valid: false, msg: e.response?.data?.message };
+  }
 }
 
 // ── Logo ──────────────────────────────────────────────────────
@@ -178,7 +173,7 @@ function GetCode({ email, onNext, onBack }) {
 }
 
 // ── Step 3 — Reset password ───────────────────────────────────
-function ResetPassword({ onDone }) {
+function ResetPassword({ resetToken, onDone }) {
   const [pass,  setPass]  = useState("");
   const [conf,  setConf]  = useState("");
   const [showP, setShowP] = useState(false);
@@ -193,21 +188,16 @@ function ResetPassword({ onDone }) {
     if (pass !== conf)   return setError("Passwords don't match.");
     setBusy(true);
     try {
-      const res = await fetch(`${API}/users/resetPassword`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: pass, passwordConfirm: conf }),
-        credentials: "include",
-      });
-      const data = await res.json();
+      const res = await authAPI.resetPassword(pass, conf, resetToken);
+      const data = res.data;
       if (data.status === "success") {
-        localStorage.setItem("auth_token", data.token);
+        if (data.token) localStorage.setItem("auth_token", data.token);
         onDone();
       } else {
         setError(data.message || "Reset failed. Try again.");
       }
-    } catch {
-      setError("Cannot reach server.");
+    } catch (e) {
+      setError(e.response?.data?.message || "Cannot reach server.");
     }
     setBusy(false);
   }
@@ -272,6 +262,7 @@ function Done({ onLogin }) {
 export default function PasswordResetFlow() {
   const [step,  setStep]  = useState(1);
   const [email, setEmail] = useState("");
+  const [resetToken, setResetToken] = useState("");
   const navigate = useNavigate();
 
   return (
@@ -282,12 +273,12 @@ export default function PasswordResetFlow() {
       {step === 2 && (
         <GetCode
           email={email}
-          onNext={() => setStep(3)}
+          onNext={(rt) => { setResetToken(rt || ""); setStep(3); }}
           onBack={() => setStep(1)}
         />
       )}
       {step === 3 && (
-        <ResetPassword onDone={() => setStep(4)} />
+        <ResetPassword resetToken={resetToken} onDone={() => setStep(4)} />
       )}
       {step === 4 && (
         <Done onLogin={() => navigate("/login")} />

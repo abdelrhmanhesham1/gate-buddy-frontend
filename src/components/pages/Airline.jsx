@@ -5,6 +5,17 @@ import "../style/Airline.css";
 
 import { FaSearch } from "react-icons/fa";
 
+// Clearbit's logo API was shut down, so derive a working logo from the airline's
+// own domain via Google's favicon service (falls back to the app logo on error).
+function logoFor(website) {
+  try {
+    const host = new URL(website).hostname.replace(/^www\./, "");
+    return `https://www.google.com/s2/favicons?domain=${host}&sz=128`;
+  } catch {
+    return "/images/logo.png";
+  }
+}
+
 export default function Airlines() {
   const [search, setSearch] = useState("");
 
@@ -246,7 +257,11 @@ export default function Airlines() {
         <div className="cards-grid">
           {filteredAirlines.map((item, index) => (
             <div className="air-card" key={index}>
-              <img src={item.logo} alt={item.name} />
+              <img
+                src={logoFor(item.website)}
+                alt={item.name}
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = "/images/logo.png"; }}
+              />
               <h3>{item.name}</h3>
 
               <button

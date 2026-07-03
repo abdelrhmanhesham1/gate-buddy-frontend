@@ -1,7 +1,15 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
-import { TextAlignCenter } from "lucide-react";
+import Swal from "sweetalert2";
+import { flightAPI } from "../../../utils/Api.js";
+import BarcodeScanner from "../shared/BarcodeScanner.jsx";
+
+const STATUS_COLOR = { DELAYED: "#EDB046", CANCELLED: "#e53e3e", BOARDING: "#38a169", ON_TIME: "#17a2b8" };
+const fmtTime = (iso) =>
+  iso ? new Date(iso).toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" }) : "";
+const niceStatus = (s = "") => (s ? s.charAt(0) + s.slice(1).toLowerCase().replace(/_/g, " ") : "");
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const PlaneIcon = () => (
@@ -82,8 +90,67 @@ const RestaurantIcon = () => (
   </svg>
 );
 
+const DEFAULT_UPDATED = [
+  { flight: "Flight: EK905", from: "Cairo", to: "Dubai", before: "Departure 10:30 AM", after: "Departure 11:00 AM", status: "Delayed", badgeColor: "#EDB046" },
+  { flight: "Flight: EK905", from: "Cairo", to: "Dubai", before: "Gate B12", after: "Gate C7", status: "Gate changed", badgeColor: "#17a2b8" },
+  { flight: "Flight: EK905", from: "Cairo", to: "Dubai", before: "Departure 10:30 AM", after: "Departure 11:00 AM", status: "Delayed", badgeColor: "#EDB046" },
+];
+
 export default function AScan() {
   const navigate = useNavigate();
+  const [updated, setUpdated] = useState(DEFAULT_UPDATED);
+  const [track, setTrack] = useState(null);
+  const [scanning, setScanning] = useState(false);
+
+  useEffect(() => {
+    let alive = true;
+    flightAPI.getUpdated().then((res) => {
+      if (!alive) return;
+      const flights = res.data?.data?.flights || [];
+      if (flights.length) {
+        setUpdated(flights.slice(0, 3).map((f) => ({
+          flight: `Flight: ${f.flightNumber}`,
+          from: f.route?.from || f.route?.fromCode || "—",
+          to: f.route?.to || f.route?.toCode || "—",
+          before: `Departure ${fmtTime(f.departure?.scheduledTime)}`,
+          after: `Departure ${fmtTime(f.departure?.estimatedTime)}`,
+          status: niceStatus(f.status),
+          badgeColor: STATUS_COLOR[f.status] || "#EDB046",
+        })));
+      }
+    }).catch(() => {});
+    flightAPI.getMyFlight().then((res) => { if (alive) setTrack(res.data?.data || null); }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
+
+  const tf = track?.flight;
+  const trackAirline = tf?.airline?.name || "Egypt Air";
+  const trackNo = tf?.flightNumber || "MS359";
+  const trackTime = fmtTime(tf?.departure?.scheduledTime) || "11:25";
+  const trackStatus = tf?.status ? niceStatus(tf.status) : "Boarding";
+
+  const handleScanned = async (barcodeData) => {
+    setScanning(false);
+    if (!barcodeData) return;
+    try {
+      await flightAPI.scanBoardingPass(barcodeData.trim());
+      Swal.fire({ icon: "success", title: "Flight tracked!", showConfirmButton: false, timer: 1300 });
+      navigate("/explore");
+    } catch (e) {
+      Swal.fire({ icon: "error", title: "Scan failed", text: e.response?.data?.message || "Invalid boarding pass." });
+    }
+  };
+
+  const handleCancelTrack = async () => {
+    const id = tf?._id || tf?.id;
+    try {
+      if (id) await flightAPI.cancelTrack(id);
+      setTrack(null);
+      Swal.fire({ icon: "success", title: "Tracking cancelled", showConfirmButton: false, timer: 1200 });
+    } catch {
+      navigate("/home");
+    }
+  };
 
   const services = [
     { icon: <CountersIcon />, title: "Counters", sub: "Domestic & International", path: "/counters" },
@@ -97,6 +164,7 @@ export default function AScan() {
   return (
     <div style={styles.page}>
       <Navbar />
+      {scanning && <BarcodeScanner onScan={handleScanned} onClose={() => setScanning(false)} />}
 
       {/* ── Hero ── */}
       <section style={styles.hero}>
@@ -120,12 +188,8 @@ export default function AScan() {
           </h2>
           <p style={styles.sectionSubtitle}>Stay informed about the latest flight and gate changes.</p>
           <div style={styles.flightCardsRow}>
-            {[
-              { flight: "Flight: EK905", from: "Cairo", to: "Dubai", before: "Departure 10:30 AM", after: "Departure 11:00 AM", status: "Delayed", badgeColor: "#EDB046" },
-              { flight: "Flight: EK905", from: "Cairo", to: "Dubai", before: "Gate B12", after: "Gate C7", status: "Gate changed", badgeColor: "#17a2b8" },
-              { flight: "Flight: EK905", from: "Cairo", to: "Dubai", before: "Departure 10:30 AM", after: "Departure 11:00 AM", status: "Delayed", badgeColor: "#EDB046" },
-            ].map((f, i) => (
-<div style={styles.flightCard}>
+            {updated.map((f, i) => (
+<div style={styles.flightCard} key={i}>
   <div style={styles.flightCardRow1} />
 
 <div style={styles.flightCardRow2}>
@@ -198,20 +262,20 @@ export default function AScan() {
         />
       </div>
       <div>
-        <div style={styles.airlineName}>Egypt Air</div>
-        <div style={styles.flightNumSmall}>Flight No: MS359</div>
+        <div style={styles.airlineName}>{trackAirline}</div>
+        <div style={styles.flightNumSmall}>Flight No: {trackNo}</div>
       </div>
     </div>
     <div style={{ textAlign: "right" }}>
-      <div style={styles.trackedTime}>11:25</div>
-      <div style={styles.boardingBadge}>● Boarding</div>
+      <div style={styles.trackedTime}>{trackTime}</div>
+      <div style={styles.boardingBadge}>● {trackStatus}</div>
     </div>
   </div>
 
   {/* الأزرار */}
   <div style={styles.trackedCardActions}>
     <button style={styles.btnExplore} onClick={() => navigate("/explore")}>🌍 Explore Destination</button>
-    <button style={styles.btnCancel} onClick={() => navigate("/home")}>✕ Cancel Tracking</button>
+    <button style={styles.btnCancel} onClick={handleCancelTrack}>✕ Cancel Tracking</button>
   </div>
 </div>
 
@@ -228,7 +292,7 @@ export default function AScan() {
       <p style={styles.qrDesc}>
         Scan your boarding pass QR code to start tracking your flight
       </p>
-      <button style={styles.btnScan}>
+      <button style={styles.btnScan} onClick={() => setScanning(true)}>
         <CameraIcon />
         &nbsp; Scan Your Boarding pass
       </button>

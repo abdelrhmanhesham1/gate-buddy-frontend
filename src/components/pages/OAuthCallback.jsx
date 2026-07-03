@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import axios from "axios";
-
-const BASE = "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1";
+import { authAPI } from "../../../utils/Api.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 export default function OAuthCallback() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { setSession } = useAuth();
   const [status, setStatus] = useState("Completing login...");
 
   useEffect(() => {
@@ -19,17 +19,11 @@ export default function OAuthCallback() {
       return;
     }
 
-    axios
-      .post(`${BASE}/users/github`, { code }, { withCredentials: true })
+    authAPI
+      .githubLogin(code)
       .then((res) => {
         const { token, data } = res.data;
-        localStorage.setItem("auth_token", token);
-        localStorage.setItem("user_profile", JSON.stringify({
-          name: data.user.name,
-          email: data.user.email,
-          photo: data.user.photo || "https://i.pravatar.cc/40",
-          id: data.user._id,
-        }));
+        setSession(token, data.user);
         setStatus("Login successful! Redirecting...");
         navigate("/home");
       })
@@ -37,6 +31,7 @@ export default function OAuthCallback() {
         setStatus("Login failed. Redirecting back...");
         setTimeout(() => navigate("/login"), 1500);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -3,39 +3,34 @@ import '../style/Login.css';
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Swal from 'sweetalert2';
-import axios from 'axios';
 import { GoogleLogin } from "@react-oauth/google";
+import { authAPI } from "../../../utils/Api.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 
-const BASE = "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1";
-const GITHUB_CLIENT_ID = "Ov23li88HESnZEKNc5I5";
-const FACEBOOK_APP_ID = "1186697809728981";
-
-function saveUserAndRedirect(token, user, navigate) {
-  localStorage.setItem("auth_token", token);
-  localStorage.setItem("user_profile", JSON.stringify({
-    name: user.name,
-    email: user.email,
-    photo: user.photo || "https://i.pravatar.cc/40",
-    id: user._id,
-  }));
-  Swal.fire({ icon: "success", title: "Welcome!", showConfirmButton: false, timer: 1200 });
-  navigate("/home");
-}
+const GITHUB_CLIENT_ID = import.meta.env.VITE_GITHUB_CLIENT_ID || "Ov23li88HESnZEKNc5I5";
+const FACEBOOK_APP_ID = import.meta.env.VITE_FACEBOOK_APP_ID || "1186697809728981";
 
 export default function Login() {
   const navigate = useNavigate();
+  const { setSession } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
   const [socialLoading, setSocialLoading] = useState("");
 
+  const saveUserAndRedirect = (token, user) => {
+    setSession(token, user);
+    Swal.fire({ icon: "success", title: "Welcome!", showConfirmButton: false, timer: 1200 });
+    navigate("/home");
+  };
+
   // ── Google ──
   const handleGoogleSuccess = async (credentialResponse) => {
     setSocialLoading("google");
     try {
-      const res = await axios.post(`${BASE}/users/google`, { idToken: credentialResponse.credential }, { withCredentials: true });
-      saveUserAndRedirect(res.data.token, res.data.data.user, navigate);
+      const res = await authAPI.googleLogin(credentialResponse.credential);
+      saveUserAndRedirect(res.data.token, res.data.data.user);
     } catch {
       setErr("Google login failed. Please try again.");
     } finally { setSocialLoading(""); }
@@ -67,8 +62,8 @@ export default function Login() {
       window.FB.login(async (response) => {
         if (response.authResponse?.accessToken) {
           try {
-            const res = await axios.post(`${BASE}/users/facebook`, { accessToken: response.authResponse.accessToken }, { withCredentials: true });
-            saveUserAndRedirect(res.data.token, res.data.data.user, navigate);
+            const res = await authAPI.facebookLogin(response.authResponse.accessToken);
+            saveUserAndRedirect(res.data.token, res.data.data.user);
           } catch {
             setErr("Facebook login failed. Please try again.");
           }
@@ -85,19 +80,9 @@ export default function Login() {
     setErr("");
     setLoading(true);
     try {
-      const res = await axios.post(
-        "https://gate-buddy-backend-production-f6df.up.railway.app/api/v1/users/login",
-        { email, password },
-        { withCredentials: true }
-      );
+      const res = await authAPI.login(email, password);
       const { token, data } = res.data;
-      localStorage.setItem("auth_token", token);
-      localStorage.setItem("user_profile", JSON.stringify({
-        name: data.user.name,
-        email: data.user.email,
-        photo: data.user.photo || "https://i.pravatar.cc/40",
-        id: data.user._id,
-      }));
+      setSession(token, data.user);
       Swal.fire({ icon: "success", title: "Welcome back!", showConfirmButton: false, timer: 1200 });
       navigate("/home");
     } catch (error) {

@@ -1,21 +1,44 @@
 import '../style/Contact.css';
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";;
+import emailjs from "@emailjs/browser";
+
+const EMAILJS_SERVICE = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [sending, setSending] = useState(false);
+  const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Message sent successfully ✅");
+    setSending(true);
+    try {
+      if (EMAILJS_SERVICE && EMAILJS_TEMPLATE && EMAILJS_PUBLIC) {
+        await emailjs.send(
+          EMAILJS_SERVICE,
+          EMAILJS_TEMPLATE,
+          { from_name: form.name, from_email: form.email, subject: form.subject, message: form.message },
+          { publicKey: EMAILJS_PUBLIC }
+        );
+      }
+      alert("Message sent successfully ✅");
+      setForm({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      alert("Sorry, your message could not be sent. Please try again or email gatebuddy11@gmail.com");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
     <div className="login-page">
 
-     
+
       <div className="hero-text">
         <div className="main-logo-area">
-          <img src="/images/logo.png" alt="Logo" className="hero-logo" /> 
+          <img src="/images/logo.png" alt="Logo" className="hero-logo" />
           <h1>Gate Buddy</h1>
         </div>
         <p>your smart airport companion</p>
@@ -39,26 +62,26 @@ export default function Contact() {
 
           <div className="input-box">
             <span>👤</span>
-            <input type="text" placeholder="Full Name" required />
+            <input type="text" placeholder="Full Name" value={form.name} onChange={set("name")} required />
           </div>
 
           <div className="input-box">
             <span>✉</span>
-            <input type="email" placeholder="Email Address" required />
+            <input type="email" placeholder="Email Address" value={form.email} onChange={set("email")} required />
           </div>
 
           <div className="input-box">
             <span>📄</span>
-            <input type="text" placeholder="Subject" required />
+            <input type="text" placeholder="Subject" value={form.subject} onChange={set("subject")} required />
           </div>
 
           <div className="input-box textarea">
             <span>💬</span>
-            <textarea placeholder="Message" required></textarea>
+            <textarea placeholder="Message" value={form.message} onChange={set("message")} required></textarea>
           </div>
 
-          <button className="send-btn">
-            Send Message ➜
+          <button className="send-btn" disabled={sending}>
+            {sending ? "Sending..." : "Send Message ➜"}
           </button>
 
         </form>

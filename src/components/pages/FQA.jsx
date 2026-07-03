@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/main1.css";
+import { faqAPI } from "../../../utils/Api.js";
 
 // ── Plane Icon ────────────────────────────────────────────────────────────────
 const PlaneIcon = ({ size = 24, color = "currentColor" }) => (
@@ -9,8 +10,8 @@ const PlaneIcon = ({ size = 24, color = "currentColor" }) => (
   </svg>
 );
 
-// ── FAQ Data ──────────────────────────────────────────────────────────────────
-const faqData = [
+// ── FAQ Data (fallback when the API is unavailable) ───────────────────────────
+const DEFAULT_FAQS = [
   {
     question: "What is Gate Buddy?",
     answer: "Gate Buddy is your ultimate airport assistant, helping you track flights, navigate terminals, and access airport services easily.",
@@ -60,6 +61,22 @@ function FAQNavbar() {
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState(0);
   const [form, setForm] = useState({ name: "", email: "", question: "" });
+  const [faqData, setFaqData] = useState(DEFAULT_FAQS);
+
+  useEffect(() => {
+    let alive = true;
+    faqAPI
+      .getAll()
+      .then((res) => {
+        // GET /faqs nests the array under data.data
+        const list = res.data?.data?.data || res.data?.data?.faqs || [];
+        if (alive && list.length) {
+          setFaqData(list.map((f) => ({ question: f.question, answer: f.answer })));
+        }
+      })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
 
   const toggle = (i) => setOpenIndex(openIndex === i ? null : i);
 

@@ -21,6 +21,7 @@ import Profile from "./components/pages/Profile.jsx";
 import EditProfile from "./components/pages/EditProfile.jsx";
 import PasswordReset from"./components/pages/PasswordReset.jsx";
 import OAuthCallback from "./components/pages/OAuthCallback.jsx";
+import ProtectedRoute from "./components/routing/ProtectedRoute.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -35,28 +36,31 @@ function App() {
     <>
       <ScrollToTop />
       <Routes>
+        {/* Public routes */}
         <Route path="/" element={<Main1 />} />
         <Route path="/main1" element={<Main1 />} />
-        <Route path="/home" element={<Home />} />
          <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/faq" element={<FAQ />} />
          <Route path="/about" element={<Aboutus />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/scan" element={<AScan />} />
         <Route path="/explore" element={<Explore />} />
-        <Route path="/counters" element={<CounterS />} />
-        <Route path="/vip" element={<VipS />} />
-        <Route path="/accessibility" element={<AccessabillityS />} />
-        <Route path="/chatbot" element={<Chatbot />} />
-        <Route path="/financial" element={<FinancialS />} />
-         <Route path="/Airline" element={<Airline />} />
+        <Route path="/Airline" element={<Airline />} />
         <Route path="/Map" element={<Map />} />
         <Route path="/Hotels" element={<Hotels />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/PasswordReset" element={<PasswordReset />}/>
         <Route path="/oauth/github" element={<OAuthCallback />}/>
+
+        {/* Protected routes */}
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        <Route path="/scan" element={<ProtectedRoute><AScan /></ProtectedRoute>} />
+        <Route path="/counters" element={<ProtectedRoute><CounterS /></ProtectedRoute>} />
+        <Route path="/vip" element={<ProtectedRoute><VipS /></ProtectedRoute>} />
+        <Route path="/accessibility" element={<ProtectedRoute><AccessabillityS /></ProtectedRoute>} />
+        <Route path="/chatbot" element={<ProtectedRoute><Chatbot /></ProtectedRoute>} />
+        <Route path="/financial" element={<ProtectedRoute><FinancialS /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
 
       </Routes>
     </>

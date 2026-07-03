@@ -77,19 +77,22 @@ function formatTime(iso) {
   return new Date(iso).toLocaleTimeString("en-EG", { hour: "2-digit", minute: "2-digit" });
 }
 
+// Maps the live flight shape: airline is an object, route.from is an IATA code,
+// gate lives under departure.gate, and status is an enum (ON_TIME/DELAYED/…).
 function mapFlight(f) {
-  const isGateChange = f.status === "GATE_CHANGE";
+  const status = f.status || "";
+  const nice = status ? status.charAt(0) + status.slice(1).toLowerCase().replace(/_/g, " ") : "—";
   return {
-    id: f._id,
+    id: f._id || f.id,
     flight: `Flight: ${f.flightNumber}`,
-    status: isGateChange ? "Gate changed" : f.status?.charAt(0) + f.status?.slice(1).toLowerCase(),
-    statusColor: STATUS_COLOR[f.status] || "#EDB046",
-    from: f.route?.from || "—",
-    to: f.route?.to || "—",
-    beforeLabel: isGateChange ? "Gate" : "Departure",
-    beforeVal: isGateChange ? (f.previousGate || f.gate) : formatTime(f.departure?.scheduledTime),
-    afterLabel: isGateChange ? "Gate" : "Departure",
-    afterVal: isGateChange ? f.gate : formatTime(f.departure?.estimatedTime),
+    status: nice,
+    statusColor: STATUS_COLOR[status] || "#EDB046",
+    from: f.route?.from || f.route?.fromCode || "—",
+    to: f.route?.to || f.route?.toCode || "—",
+    beforeLabel: "Departure",
+    beforeVal: formatTime(f.departure?.scheduledTime),
+    afterLabel: "Departure",
+    afterVal: formatTime(f.departure?.estimatedTime),
   };
 }
 
@@ -329,23 +332,16 @@ function AirportInfoSection() {
 
 // ── Main Home Page ────────────────────────────────────────────────────────────
 export default function Home() {
-  const navigate = useNavigate();
   const [flightUpdates, setFlightUpdates] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("auth_token");
-    if (!token) { navigate("/login"); return; }
-
     homeAPI.getDashboard()
       .then((res) => {
         const raw = res.data?.data?.updatedFlights || [];
         setFlightUpdates(raw.slice(0, 3).map(mapFlight));
       })
       .catch(() => {});
-  }, [navigate]);
-
-  const token = localStorage.getItem("auth_token");
-  if (!token) return null;
+  }, []);
 
   return (
     <div className="hm-page">

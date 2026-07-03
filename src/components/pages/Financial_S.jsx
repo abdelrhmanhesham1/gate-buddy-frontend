@@ -1,35 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
+import { servicesAPI } from "../../../utils/Api.js";
 
-// ── Data ──────────────────────────────────────────────────────────────────────
-const ATMS = [
-  { id: "A01", name: "National Bank of Egypt ATM", terminal: "Terminal 1", location: "Gate A – Departure Hall", status: "Busy",      open: false, fee: "Free",   accepts: ["Visa", "MasterCard", "Meeza"] },
-  { id: "A02", name: "CIB ATM",                    terminal: "Terminal 2", location: "Arrival Hall",           status: "Available", open: true,  fee: "Free",   accepts: ["Visa", "MasterCard", "AmEx"]  },
-  { id: "A03", name: "Banque Misr ATM",             terminal: "Terminal 1", location: "Departure Hall",         status: "Available", open: true,  fee: "Free",   accepts: ["Visa", "MasterCard", "Meeza"] },
-  { id: "A04", name: "QNB ATM",                     terminal: "Terminal 2", location: "Gate B",                status: "Busy",      open: false, fee: "15 EGP", accepts: ["Visa", "MasterCard"]          },
-  { id: "A05", name: "HSBC ATM",                    terminal: "Terminal 3", location: "Gate C",                status: "Available", open: true,  fee: "Free",   accepts: ["Visa", "MasterCard", "AmEx"]  },
-  { id: "A06", name: "Arab African Bank ATM",       terminal: "Terminal 1", location: "Gate D",                status: "Available", open: true,  fee: "Free",   accepts: ["Visa", "MasterCard"]          },
-];
+// ── Live FINANCIAL services → the three card shapes this page renders ──────────
+// Classify by the service's subCategory (ATMs / Currency Exchange / Banks / …),
+// falling back to a name heuristic when subCategory is absent. The service schema
+// has no fee/rate/commission columns (see PLAN.md §10), so those slots use the
+// record's real amenities / opening hours instead.
+const isATM = (n = "") => /atm|cash/i.test(n);
+const isExchange = (n = "") => /travelex|gwk|exchange|forex|bureau|currency/i.test(n);
+const isOpen = (s) => s === "Open" || s === "Busy";
 
-const BANKS = [
-  { id: "B01", name: "National Bank of Egypt", terminal: "Terminal 1", location: "Ground Floor",     status: "Open",   open: true,  hours: "08:00 – 20:00", services: ["Currency Exchange", "Wire Transfer", "Account Services"] },
-  { id: "B02", name: "Banque Misr",            terminal: "Terminal 2", location: "Level 1",          status: "Closed", open: false, hours: "09:00 – 17:00", services: ["Currency Exchange", "Account Services"]                   },
-  { id: "B03", name: "CIB Bank",               terminal: "Terminal 1", location: "Arrival Hall",     status: "Open",   open: true,  hours: "07:00 – 22:00", services: ["Currency Exchange", "Wire Transfer", "Loans"]            },
-  { id: "B04", name: "QNB Egypt",              terminal: "Terminal 3", location: "Main Hall",         status: "Open",   open: true,  hours: "08:00 – 20:00", services: ["Currency Exchange", "Account Services"]                   },
-  { id: "B05", name: "HSBC Egypt",             terminal: "Terminal 2", location: "Departures",        status: "Closed", open: false, hours: "09:00 – 18:00", services: ["Currency Exchange", "Wire Transfer", "Premium Banking"]  },
-  { id: "B06", name: "Arab African Bank",      terminal: "Terminal 1", location: "Gate B – Level 2",  status: "Open",   open: true,  hours: "08:00 – 21:00", services: ["Currency Exchange", "Account Services"]                   },
-];
+function classify(s) {
+  const sub = (s.subCategory || "").toLowerCase();
+  if (sub) {
+    if (sub.includes("atm") || sub.includes("cash")) return "atms";
+    if (sub.includes("exchange") || sub.includes("currency") || sub.includes("forex")) return "currency";
+    return "banks"; // Banks, Insurance, anything else
+  }
+  if (isATM(s.name)) return "atms";
+  if (isExchange(s.name)) return "currency";
+  return "banks";
+}
 
-const CURRENCY = [
-  { id: "C01", name: "Thomas Cook Exchange",    terminal: "Terminal 1", location: "Arrivals",      status: "Open",   open: true,  rate: "USD 1 = 48.5 EGP", commission: "No commission" },
-  { id: "C02", name: "Travelex",               terminal: "Terminal 2", location: "Departures",    status: "Closed", open: false, rate: "USD 1 = 48.2 EGP", commission: "2% commission"  },
-  { id: "C03", name: "Cairo Airport Exchange", terminal: "Terminal 3", location: "Gate A",         status: "Open",   open: true,  rate: "USD 1 = 48.8 EGP", commission: "No commission" },
-  { id: "C04", name: "Forex Exchange",         terminal: "Terminal 1", location: "Gate C",         status: "Open",   open: true,  rate: "USD 1 = 48.6 EGP", commission: "1% commission"  },
-  { id: "C05", name: "Currency Express",       terminal: "Terminal 2", location: "Level 2",        status: "Closed", open: false, rate: "USD 1 = 48.3 EGP", commission: "No commission" },
-  { id: "C06", name: "International Exchange", terminal: "Terminal 3", location: "Arrival Hall",   status: "Open",   open: true,  rate: "USD 1 = 48.7 EGP", commission: "No commission" },
-];
+function mapFinancial(services) {
+  const atms = [], banks = [], currency = [];
+  (services || []).forEach((s) => {
+    const id = (s._id || "").slice(-4).toUpperCase();
+    const base = { id, name: s.name, terminal: s.terminal || "—", location: s.zone || s.terminal || "—", open: isOpen(s.status) };
+    const bucket = classify(s);
+    if (bucket === "atms") {
+      atms.push({ ...base, status: s.status === "Open" ? "Available" : "Busy", fee: "—", accepts: s.amenities || [] });
+    } else if (bucket === "currency") {
+      currency.push({ ...base, status: s.status, rate: "Live rates at desk", commission: (s.amenities || []).join(" · ") || "—" });
+    } else {
+      banks.push({ ...base, status: s.status, hours: s.operatingHours || "—", services: (s.services && s.services.length ? s.services : s.amenities) || [] });
+    }
+  });
+  return { atms, banks, currency };
+}
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const PinIcon = () => (
@@ -166,12 +177,22 @@ export default function FinancialS() {
   const [activeTab, setActiveTab] = useState("atms");
   const [search, setSearch]       = useState("");
   const [filterOpen, setFilterOpen] = useState("all");
+  const [data, setData] = useState({ atms: [], banks: [], currency: [] });
 
-  const dataMap = { atms: ATMS, banks: BANKS, currency: CURRENCY };
+  useEffect(() => {
+    let alive = true;
+    servicesAPI
+      .getAll("FINANCIAL")
+      .then((res) => { if (alive) setData(mapFinancial(res.data?.data?.services)); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
+
+  const dataMap = data;
   const tabs = [
-    { key: "atms",     label: "ATMs",              count: ATMS.length     },
-    { key: "banks",    label: "Banks",             count: BANKS.length    },
-    { key: "currency", label: "Currency Exchange", count: CURRENCY.length },
+    { key: "atms",     label: "ATMs",              count: data.atms.length     },
+    { key: "banks",    label: "Banks",             count: data.banks.length    },
+    { key: "currency", label: "Currency Exchange", count: data.currency.length },
   ];
 
   const current = dataMap[activeTab].filter((item) => {
