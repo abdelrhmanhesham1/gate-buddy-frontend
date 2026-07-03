@@ -1,6 +1,6 @@
 import '../style/Aboutus.css';
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaDollarSign, FaChartLine, FaMapMarkedAlt, FaWheelchair, FaCrown, FaShoppingBag } from "react-icons/fa";
 import { openApk } from "../../config.js";
 
@@ -44,6 +44,7 @@ function SimpleNavbar() {
 }
 
 export default function AboutSection() {
+  const navigate = useNavigate();
   return (
     <>
       <SimpleNavbar />
@@ -74,7 +75,7 @@ export default function AboutSection() {
             </p>
 
             <div className="buttons">
-              <button className="btn primary">
+              <button className="btn primary" onClick={() => navigate("/home")}>
                 Explore Services
               </button>
 

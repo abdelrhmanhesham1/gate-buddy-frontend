@@ -1,12 +1,16 @@
 import '../style/Contact.css';
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
+
+const SUPPORT_EMAIL = "gatebuddy11@gmail.com";
 
 const EMAILJS_SERVICE = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sending, setSending] = useState(false);
   const set = (k) => (e) => setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -53,9 +57,9 @@ export default function Contact() {
         </p>
 
         <div className="contact-options">
-          <button type="button" className="active">💬 Live chat</button>
-          <button type="button">✉ Email Us</button>
-          <button type="button">📞 Call Us</button>
+          <button type="button" className="active" onClick={() => navigate("/chatbot")}>💬 Live chat</button>
+          <button type="button" onClick={() => { window.location.href = `mailto:${SUPPORT_EMAIL}`; }}>✉ Email Us</button>
+          <button type="button" onClick={() => { window.location.href = "tel:+20226555000"; }}>📞 Call Us</button>
         </div>
 
         <form onSubmit={handleSubmit}>
