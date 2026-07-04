@@ -7,6 +7,7 @@ import { flightAPI } from "../../../utils/Api.js";
 import { useAuthGuard } from "../shared/useAuthGuard.js";
 import { openApk } from "../../config.js";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useLang } from "../../context/LanguageContext.jsx";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 const PlaneIcon = () => (
@@ -119,12 +120,13 @@ function mapFlight(f) {
 // ── Sub-components ────────────────────────────────────────────────────────────
 
 function FlightUpdatesSection({ flights, showAll, onToggle }) {
+  const { t } = useLang();
   const shown = showAll ? flights : flights.slice(0, 3);
   return (
     <section className="hm-flight-updates">
       <div className="hm-container">
         <h2 className="hm-section-title-plain">
-          Stay informed about the latest flight and gate changes
+          {t("home.flightUpdatesTitle")}
         </h2>
         <div className="hm-cards-row">
           {shown.map((f) => (
@@ -166,7 +168,7 @@ function FlightUpdatesSection({ flights, showAll, onToggle }) {
                 cursor: "pointer", fontFamily: "inherit",
               }}
             >
-              {showAll ? "Show less" : `See more (${flights.length})`}
+              {showAll ? t("home.showLess") : `${t("home.seeMore")} (${flights.length})`}
             </button>
           </div>
         )}
@@ -177,6 +179,7 @@ function FlightUpdatesSection({ flights, showAll, onToggle }) {
 
 function TrackedFlightSection() {
   const navigate = useNavigate();
+  const { t } = useLang();
   return (
     <section className="hm-tracked">
       <div className="hm-container">
@@ -184,19 +187,19 @@ function TrackedFlightSection() {
           <span className="hm-icon-circle">
             <PlaneIcon />
           </span>
-          Your Tracked Flight
+          {t("home.trackedFlight")}
         </h2>
         <div className="hm-tracked-grid">
           <div className="hm-tracked-card">
             <QRIcon />
             <p className="hm-qr-desc">
-              Scan your boarding pass QR code to start tracking your flight
+              {t("home.scanDesc")}
             </p>
             <button className="hm-btn-scan" onClick={() => navigate("/scan")}>
               <CameraIcon />
-              Scan Your Boarding pass
+              {t("home.scanBtn")}
             </button>
-            <button className="hm-btn-download-app" onClick={openApk}>Download App to track</button>
+            <button className="hm-btn-download-app" onClick={openApk}>{t("home.downloadApp")}</button>
           </div>
           <div className="hm-tracked-img-wrap">
             <img src="/images/scan.jpeg" alt="Travel" className="hm-tracked-img" />
@@ -210,26 +213,27 @@ function TrackedFlightSection() {
 function AirportServicesSection() {
   const navigate = useNavigate();
   const { requireAuth } = useAuthGuard();
+  const { t } = useLang();
   const services = [
     {
       img: "/images/counters.jpeg",
       icon: <CountersIcon />,
-      title: "Counters",
-      sub: "Domestic & International",
+      title: t("home.counters"),
+      sub: t("home.countersSub"),
       path: "/counters",
     },
     {
       img: "/images/img9.jpeg",
       icon: <FinancialIcon />,
-      title: "Financial Services",
-      sub: "ATM & Currency Exchange",
+      title: t("home.financial"),
+      sub: t("home.financialSub"),
       path: "/financial",
     },
     {
       img: "/images/img66.jpg",
       icon: <ShopsIcon />,
-      title: "Shops & Dining",
-      sub: "Dining &shops Options",
+      title: t("home.shops"),
+      sub: t("home.shopsSub"),
       path: "/shops",
     },
   ];
@@ -241,7 +245,7 @@ function AirportServicesSection() {
           <span className="hm-icon-circle">
             <PlaneIcon />
           </span>
-          Airport Services
+          {t("home.airportServices")}
         </h2>
       </div>
 
@@ -256,10 +260,10 @@ function AirportServicesSection() {
             <span>👑</span>
             <span className="hm-vip-sep">| VIP</span>
           </div>
-          <p>VIP Experience world where everything is made simple, comfortable, just for you</p>
+          <p>{t("home.vipDesc")}</p>
           <button className="hm-btn-vip" onClick={() => requireAuth(() => navigate("/vip"), "VIP Experience")}>
             <span>🛡️</span>
-            VIP Experience
+            {t("home.vipBtn")}
           </button>
         </div>
       </div>
@@ -281,7 +285,7 @@ function AirportServicesSection() {
               <h3 className="hm-service-title">{s.title}</h3>
               <p className="hm-service-sub">{s.sub}</p>
               <div className="hm-service-discover">
-                Discover The Service
+                {t("home.discover")}
                 <span className="hm-discover-arrow">▶</span>
               </div>
             </div>
@@ -294,14 +298,11 @@ function AirportServicesSection() {
         <img src="/images/img11.jpeg" alt="Accessibility" className="hm-access-bg" />
         <div className="hm-access-overlay" />
         <div className="hm-access-content">
-          <h2>Accessibility &amp; Assistance ♿</h2>
-          <p>
-            Enjoy a smoother, more comfortable airport journey with our special assistance
-            services shown on the map.
-          </p>
+          <h2>{t("home.accessTitle")} ♿</h2>
+          <p>{t("home.accessDesc")}</p>
           <button className="hm-btn-access" onClick={() => requireAuth(() => navigate("/accessibility"), "Accessibility & Assistance")}>
             <WheelchairIcon />
-            Accessibility
+            {t("home.accessBtn")}
           </button>
         </div>
       </div>
@@ -310,11 +311,12 @@ function AirportServicesSection() {
 }
 
 function AirportInfoSection() {
+  const { t } = useLang();
   const infoItems = [
-    { icon: "🕐", label: "operation hour", val: "24/24" },
-    { icon: "📶", label: "free WiFi", val: "Available" },
-    { icon: "📞", label: "contact center", val: "send email" },
-    { icon: "🅿️", label: "parking Space", val: "+2500" },
+    { icon: "🕐", label: t("home.opHours"), val: "24/24" },
+    { icon: "📶", label: t("home.wifi"), val: t("home.available") },
+    { icon: "📞", label: t("home.contactCenter"), val: t("home.sendEmail") },
+    { icon: "🅿️", label: t("home.parking"), val: "+2500" },
   ];
 
   return (
@@ -324,19 +326,19 @@ function AirportInfoSection() {
           {/* Weather */}
           <div className="hm-weather-card">
             <h3 className="hm-weather-title">
-              <span>🌤️</span> weather condition
+              <span>🌤️</span> {t("home.weather")}
             </h3>
             <div className="hm-weather-body">
               <div className="hm-weather-main">
                 <span className="hm-sun">☀️</span>
                 <div>
-                  <div className="hm-temp">current</div>
+                  <div className="hm-temp">{t("home.current")}</div>
                   <div className="hm-temp-val">28 c</div>
-                  <div className="hm-temp-desc">sunny</div>
+                  <div className="hm-temp-desc">{t("home.sunny")}</div>
                 </div>
                 <div className="hm-weather-details">
-                  <span>Humidity: 45%</span>
-                  <span>visibility: 10 km</span>
+                  <span>{t("home.humidity")}: 45%</span>
+                  <span>{t("home.visibility")}: 10 km</span>
                 </div>
               </div>
             </div>
@@ -346,7 +348,7 @@ function AirportInfoSection() {
           <div className="hm-airport-info-card">
             <h3 className="hm-info-card-title">
               <InfoIcon />
-              Airport Information
+              {t("home.airportInfo")}
             </h3>
             <div className="hm-info-list">
               {infoItems.map((item, i) => (
@@ -369,6 +371,7 @@ function AirportInfoSection() {
 // ── Main Home Page ────────────────────────────────────────────────────────────
 export default function Home() {
   const { user } = useAuth();
+  const { t } = useLang();
   const firstName = user?.name ? user.name.split(" ")[0] : "";
   const [flightUpdates, setFlightUpdates] = useState([]);
   const [showAll, setShowAll] = useState(false);
@@ -391,11 +394,8 @@ export default function Home() {
         <img src="/images/home.jpeg" alt="hero" className="hm-hero-bg" />
         <div className="hm-hero-overlay" />
         <div className="hm-hero-content">
-          <h1>{firstName ? `Welcome back, ${firstName} 👋` : "Welcome to Gate Buddy"}</h1>
-          <p>
-            Your ultimate flight tracking and airport services companion. Stay updated with
-            real-time flight information and explore airport amenities.
-          </p>
+          <h1>{firstName ? t("home.welcome", { name: firstName }) : t("home.welcomeGeneric")}</h1>
+          <p>{t("home.heroSubtitle")}</p>
         </div>
       </section>
 

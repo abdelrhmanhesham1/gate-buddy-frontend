@@ -3,19 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useLang } from "../../context/LanguageContext.jsx";
 import { userAPI } from "../../../utils/Api.js";
 import { DEFAULT_AVATAR } from "../../config.js";
-
-const LANGUAGES = [
-  { code: "en", label: "English" },
-  { code: "ru", label: "Russian" },
-  { code: "ar", label: "Arabic" },
-  { code: "es", label: "Spanish" },
-];
+import { LANGUAGES } from "../../i18n/translations.js";
 
 export default function Profile() {
   const navigate = useNavigate();
   const { user: authUser, refreshUser, logout, clearSession } = useAuth();
+  const { lang, setLang, t } = useLang();
   const [view, setView] = useState("profile"); // "profile" | "settings" | "language"
 
   const [user, setUser] = useState(
@@ -34,11 +30,10 @@ export default function Profile() {
   const [passwordError, setPasswordError] = useState("");
   const [passwordSuccess, setPasswordSuccess] = useState("");
 
-  // Language state
-  const [selectedLang, setSelectedLang] = useState(
-    authUser?.preferences?.language || localStorage.getItem("app_language") || "en"
-  );
-  const [tempLang, setTempLang] = useState(selectedLang);
+  // Language: current comes from the global language context; tempLang is the
+  // pending selection until "Save Changes" is pressed.
+  const selectedLang = lang;
+  const [tempLang, setTempLang] = useState(lang);
 
   // Keep the local view in sync with the server-hydrated user, and refetch on mount.
   useEffect(() => { refreshUser(); }, [refreshUser]);
@@ -46,8 +41,13 @@ export default function Profile() {
     if (authUser) {
       setUser(authUser);
       if (authUser.preferences?.darkMode !== undefined) setDarkMode(!!authUser.preferences.darkMode);
-      if (authUser.preferences?.language) { setSelectedLang(authUser.preferences.language); setTempLang(authUser.preferences.language); }
+      // Apply the server-saved language without re-posting it.
+      if (authUser.preferences?.language && authUser.preferences.language !== lang) {
+        setLang(authUser.preferences.language, { sync: false });
+        setTempLang(authUser.preferences.language);
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser]);
 
   const handleLogout = async () => {
@@ -91,9 +91,7 @@ export default function Profile() {
   };
 
   const handleSaveLanguage = () => {
-    setSelectedLang(tempLang);
-    localStorage.setItem("app_language", tempLang);
-    userAPI.updatePreferences({ language: tempLang }).catch(() => {});
+    setLang(tempLang); // updates the whole app (localStorage + preferences + direction)
     setView("settings");
   };
 
@@ -132,17 +130,17 @@ export default function Profile() {
                 border: "1.5px solid rgba(255,255,255,0.5)", borderRadius: 8,
                 padding: "7px 22px", color: "white", textDecoration: "none",
                 fontSize: "0.82rem", fontWeight: 600, marginBottom: 20
-              }}>✏️ Edit Profile</Link>
+              }}>✏️ {t("profile.editProfile")}</Link>
 
               <div style={{ width: "100%", borderTop: "1px solid rgba(255,255,255,0.15)", marginBottom: 4 }} />
 
-              <SidebarBtn icon={<PlaneIcon />} label="Tracked Flight" active={false} onClick={() => navigate("/scan")} />
-              <SidebarBtn icon={<ParkIcon />} label="Saved parking" active={false} onClick={() => navigate("/parking")} />
+              <SidebarBtn icon={<PlaneIcon />} label={t("profile.trackedFlight")} active={false} onClick={() => navigate("/scan")} />
+              <SidebarBtn icon={<ParkIcon />} label={t("profile.savedParking")} active={false} onClick={() => navigate("/parking")} />
 
               <div style={{ width: "100%", borderTop: "1px solid rgba(255,255,255,0.15)", margin: "6px 0" }} />
 
-              <SidebarBtn icon={<SettingsIcon />} label="Settings" active={view === "settings"} onClick={() => setView("settings")} />
-              <SidebarBtn icon={<LangIcon />} label="Language" active={view === "language"} onClick={() => { setTempLang(selectedLang); setView("language"); }} />
+              <SidebarBtn icon={<SettingsIcon />} label={t("profile.settings")} active={view === "settings"} onClick={() => setView("settings")} />
+              <SidebarBtn icon={<LangIcon />} label={t("profile.language")} active={view === "language"} onClick={() => { setTempLang(selectedLang); setView("language"); }} />
 
               <div style={{ width: "100%", borderTop: "1px solid rgba(255,255,255,0.15)", margin: "6px 0" }} />
 
@@ -151,7 +149,7 @@ export default function Profile() {
                 padding: "10px 28px", color: "#ff5c5c", background: "none",
                 border: "none", cursor: "pointer", fontSize: "0.85rem", fontWeight: 600
               }}>
-                <LogoutIcon /> Log Out
+                <LogoutIcon /> {t("profile.logout")}
               </button>
             </div>
 
@@ -162,7 +160,7 @@ export default function Profile() {
               {view === "profile" && (
                 <>
                   <h2 style={{ color: "#002D6B", fontWeight: 700, fontSize: "1.35rem", marginBottom: 28, display: "flex", alignItems: "center", gap: 8 }}>
-                    <PersonIcon /> Profile
+                    <PersonIcon /> {t("profile.profile")}
                   </h2>
 
                   <div style={{ border: "1.5px solid #EDB046", borderRadius: 14, padding: "28px 28px 24px 28px", marginBottom: 28 }}>
@@ -171,10 +169,10 @@ export default function Profile() {
                       <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 10, paddingTop: 16 }}>
                         <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
                           <button style={{ background: "white", color: "#111", border: "2px solid #333", borderRadius: 8, padding: "10px 22px", cursor: "pointer", fontSize: "0.88rem", fontWeight: 700 }}>
-                            Change Photo
+                            {t("profile.changePhoto")}
                           </button>
                           <Link to="/edit-profile" style={{ background: "white", color: "#EDB046", border: "2px solid #EDB046", borderRadius: 8, padding: "10px 22px", fontSize: "0.88rem", fontWeight: 700, textDecoration: "none", display: "flex", alignItems: "center", gap: 6 }}>
-                            ✏️ Edit Profile
+                            ✏️ {t("profile.editProfile")}
                           </Link>
                         </div>
                         <div style={{ fontSize: "0.78rem", color: "#aaa", marginTop: 2 }}>JPG or PNG, max 2MB</div>
@@ -182,14 +180,14 @@ export default function Profile() {
                     </div>
 
                     <div style={{ marginBottom: 18, display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <label style={{ display: "block", fontSize: "0.82rem", color: "#888", marginBottom: 7, fontWeight: 500, width: 360 }}>Full Name</label>
+                      <label style={{ display: "block", fontSize: "0.82rem", color: "#888", marginBottom: 7, fontWeight: 500, width: 360 }}>{t("profile.fullName")}</label>
                       <div style={{ border: "1.5px solid #002D6B", borderRadius: 8, padding: "12px 16px", fontSize: "0.92rem", color: "#1a1a1a", width: 360 }}>
                         {user.name}
                       </div>
                     </div>
 
                     <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                      <label style={{ display: "block", fontSize: "0.82rem", color: "#888", marginBottom: 7, fontWeight: 500, width: 360 }}>Email</label>
+                      <label style={{ display: "block", fontSize: "0.82rem", color: "#888", marginBottom: 7, fontWeight: 500, width: 360 }}>{t("profile.email")}</label>
                       <div style={{ border: "1.5px solid #002D6B", borderRadius: 8, padding: "12px 16px", fontSize: "0.92rem", color: "#1a1a1a", width: 360 }}>
                         {user.email}
                       </div>
@@ -202,18 +200,18 @@ export default function Profile() {
               {view === "settings" && (
                 <>
                   <h2 style={{ color: "#002D6B", fontWeight: 700, fontSize: "1.35rem", marginBottom: 28, display: "flex", alignItems: "center", gap: 8 }}>
-                    <SettingsIcon color="#EDB046" size={22} /> Settings
+                    <SettingsIcon color="#EDB046" size={22} /> {t("profile.settings")}
                   </h2>
 
                   {/* General */}
                   <div style={{ border: "1.5px solid #EDB046", borderRadius: 14, padding: "24px 28px", marginBottom: 24 }}>
-                    <div style={{ fontWeight: 700, fontSize: "1rem", color: "#1a1a1a", marginBottom: 18 }}>General</div>
+                    <div style={{ fontWeight: 700, fontSize: "1rem", color: "#1a1a1a", marginBottom: 18 }}>{t("profile.general")}</div>
 
                     {/* Dark Mode */}
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                         <span>🌙</span>
-                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>Dark mode</span>
+                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>{t("profile.darkMode")}</span>
                       </div>
                       <div onClick={handleToggleDarkMode} style={{ width: 46, height: 24, borderRadius: 12, cursor: "pointer", background: darkMode ? "#EDB046" : "#ccc", position: "relative", transition: "background 0.2s" }}>
                         <div style={{ width: 18, height: 18, borderRadius: "50%", background: "white", position: "absolute", top: 3, left: darkMode ? 24 : 4, transition: "left 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
@@ -224,7 +222,7 @@ export default function Profile() {
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                         <span>🌐</span>
-                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>Language</span>
+                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>{t("profile.language")}</span>
                       </div>
                       <button onClick={openLanguage} style={{ display: "flex", alignItems: "center", gap: 4, color: "#002D6B", fontSize: "0.85rem", fontWeight: 600, background: "#f0f4ff", padding: "5px 14px", borderRadius: 8, border: "1px solid #dce4f5", cursor: "pointer" }}>
                         {LANGUAGES.find(l => l.code === selectedLang)?.label} ›
@@ -235,35 +233,35 @@ export default function Profile() {
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                         <span>🔒</span>
-                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>Help & Support</span>
+                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>{t("profile.help")}</span>
                       </div>
                       <a href="mailto:support@gatebuddy.com" style={{ display: "flex", alignItems: "center", gap: 4, color: "#002D6B", fontSize: "0.85rem", fontWeight: 600, background: "#f0f4ff", padding: "5px 14px", borderRadius: 8, border: "1px solid #dce4f5", textDecoration: "none" }}>
-                        Contact ›
+                        {t("profile.contactAction")} ›
                       </a>
                     </div>
                   </div>
 
                   {/* Account & Security */}
                   <div style={{ border: "1.5px solid #EDB046", borderRadius: 14, padding: "24px 28px", marginBottom: 24 }}>
-                    <div style={{ fontWeight: 700, fontSize: "1rem", color: "#1a1a1a", marginBottom: 18 }}>Account & Security</div>
+                    <div style={{ fontWeight: 700, fontSize: "1rem", color: "#1a1a1a", marginBottom: 18 }}>{t("profile.accountSecurity")}</div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                         <span>🔒</span>
-                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>Change Password</span>
+                        <span style={{ fontSize: "0.9rem", color: "#333", fontWeight: 500 }}>{t("profile.changePassword")}</span>
                       </div>
                       <button onClick={() => setShowPasswordModal(true)} style={{ background: "white", color: "#002D6B", border: "2px solid #002D6B", borderRadius: 8, padding: "6px 20px", cursor: "pointer", fontSize: "0.85rem", fontWeight: 700 }}>
-                        Update
+                        {t("profile.update")}
                       </button>
                     </div>
                   </div>
 
                   {/* Danger Zone */}
                   <div style={{ border: "1.5px solid #ff4444", borderRadius: 14, padding: "20px 28px", background: "#fff8f8" }}>
-                    <div style={{ color: "#ff4444", fontWeight: 700, fontSize: "0.95rem", marginBottom: 6 }}>⚠ Danger zone</div>
+                    <div style={{ color: "#ff4444", fontWeight: 700, fontSize: "0.95rem", marginBottom: 6 }}>⚠ {t("profile.dangerZone")}</div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                      <p style={{ fontSize: "0.82rem", color: "#555", margin: 0 }}>Deleting your account is permanent and cannot be undone.</p>
+                      <p style={{ fontSize: "0.82rem", color: "#555", margin: 0 }}>{t("profile.deleteWarning")}</p>
                       <button onClick={() => setShowDeleteConfirm(true)} style={{ background: "white", color: "#ff4444", border: "2px solid #ff4444", borderRadius: 8, padding: "7px 16px", cursor: "pointer", fontSize: "0.85rem", fontWeight: 700, whiteSpace: "nowrap", marginLeft: 16 }}>
-                        Delete Account 🗑
+                        {t("profile.deleteAccount")} 🗑
                       </button>
                     </div>
                   </div>
@@ -274,23 +272,23 @@ export default function Profile() {
               {view === "language" && (
                 <>
                   <h2 style={{ color: "#002D6B", fontWeight: 700, fontSize: "1.35rem", marginBottom: 8, display: "flex", alignItems: "center", gap: 8 }}>
-                    🌐 Language
+                    🌐 {t("profile.language")}
                   </h2>
-                  <p style={{ color: "#888", fontSize: "0.85rem", marginBottom: 28 }}>Select your preferred language</p>
+                  <p style={{ color: "#888", fontSize: "0.85rem", marginBottom: 28 }}>{t("profile.selectLanguage")}</p>
 
                   <div style={{ border: "1.5px solid #EDB046", borderRadius: 14, overflow: "hidden", marginBottom: 32 }}>
-                    {LANGUAGES.map((lang, i) => (
-                      <div key={lang.code} onClick={() => setTempLang(lang.code)} style={{
+                    {LANGUAGES.map((l, i) => (
+                      <div key={l.code} onClick={() => setTempLang(l.code)} style={{
                         display: "flex", justifyContent: "space-between", alignItems: "center",
                         padding: "15px 24px", cursor: "pointer",
-                        background: tempLang === lang.code ? "#002D6B" : "white",
-                        color: tempLang === lang.code ? "white" : "#1a1a1a",
+                        background: tempLang === l.code ? "#002D6B" : "white",
+                        color: tempLang === l.code ? "white" : "#1a1a1a",
                         borderBottom: i < LANGUAGES.length - 1 ? "1px solid #f0f0f0" : "none",
-                        fontWeight: tempLang === lang.code ? 700 : 500,
+                        fontWeight: tempLang === l.code ? 700 : 500,
                         fontSize: "0.92rem", transition: "background 0.15s"
                       }}>
-                        {lang.label}
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill={tempLang === lang.code ? "white" : "#ccc"}>
+                        {l.label}
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill={tempLang === l.code ? "white" : "#ccc"}>
                           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                         </svg>
                       </div>
@@ -299,10 +297,10 @@ export default function Profile() {
 
                   <div style={{ display: "flex", gap: 12, justifyContent: "flex-end" }}>
                     <button onClick={() => setView("settings")} style={{ background: "white", color: "#333", border: "2px solid #ccc", borderRadius: 8, padding: "10px 28px", cursor: "pointer", fontSize: "0.9rem", fontWeight: 600 }}>
-                      Cancel
+                      {t("profile.cancel")}
                     </button>
                     <button onClick={handleSaveLanguage} style={{ background: "#002D6B", color: "white", border: "none", borderRadius: 8, padding: "10px 28px", cursor: "pointer", fontSize: "0.9rem", fontWeight: 700 }}>
-                      Save Changes
+                      {t("profile.save")}
                     </button>
                   </div>
                 </>

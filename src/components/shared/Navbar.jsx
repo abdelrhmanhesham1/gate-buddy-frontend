@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Bell, Menu, X, ChevronDown } from "lucide-react";
 import { useAuth } from "../../context/AuthContext.jsx";
+import { useLang } from "../../context/LanguageContext.jsx";
 import { notificationsAPI, servicesAPI } from "../../../utils/Api.js";
 import { DEFAULT_AVATAR } from "../../config.js";
 
@@ -57,6 +58,7 @@ export default function Navbar() {
   const [notifOpen, setNotifOpen] = useState(false);
   const [notifs, setNotifs] = useState([]);
   const { user, isAuthenticated } = useAuth();
+  const { t } = useLang();
   const navigate = useNavigate();
   const userPhoto = user?.photo || DEFAULT_AVATAR;
   const prevCountRef = useRef(null);
@@ -324,7 +326,7 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <ul className="nb-links">
-          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/home">{t("nav.home")}</Link></li>
 
           {/* Booking */}
           <li className="nb-dropdown-wrap">
@@ -335,20 +337,20 @@ export default function Navbar() {
                 setAboutOpen(false);
               }}
             >
-              Booking <ChevronDown size={16} />
+              {t("nav.booking")} <ChevronDown size={16} />
             </button>
             {bookingOpen && (
               <div className="nb-dropdown-menu">
-                <Link to="/Airline" onClick={() => setBookingOpen(false)}>Airline</Link>
-                <Link to="/Hotels" onClick={() => setBookingOpen(false)}>Hotels</Link>
+                <Link to="/Airline" onClick={() => setBookingOpen(false)}>{t("nav.airline")}</Link>
+                <Link to="/Hotels" onClick={() => setBookingOpen(false)}>{t("nav.hotels")}</Link>
               </div>
             )}
           </li>
 
-          <li><Link to="/map">Map</Link></li>
-          <li><Link to="/chatbot">Chatbot</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-           <li><Link to="/about">About us </Link></li>
+          <li><Link to="/map">{t("nav.map")}</Link></li>
+          <li><Link to="/chatbot">{t("nav.chatbot")}</Link></li>
+          <li><Link to="/contact">{t("nav.contact")}</Link></li>
+           <li><Link to="/about">{t("nav.about")}</Link></li>
         </ul>
 
         {/* Icons */}
@@ -362,16 +364,16 @@ export default function Navbar() {
                   <input
                     autoFocus
                     className="nb-search-input"
-                    placeholder="Search services…"
+                    placeholder={t("nav.searchPlaceholder")}
                     value={searchQ}
                     onChange={(e) => setSearchQ(e.target.value)}
                   />
                 </form>
                 <div className="nb-results">
                   {searching ? (
-                    <div className="nb-empty">Searching…</div>
+                    <div className="nb-empty">{t("nav.searching")}</div>
                   ) : searchResults.length === 0 ? (
-                    <div className="nb-empty">{searchQ ? "No results — press Enter" : "Type and press Enter"}</div>
+                    <div className="nb-empty">{searchQ ? t("nav.noResults") : t("nav.typeToSearch")}</div>
                   ) : (
                     searchResults.slice(0, 8).map((s) => (
                       <div key={s._id} className="nb-result" onClick={() => goResult(s)}>
@@ -396,12 +398,12 @@ export default function Navbar() {
             {notifOpen && (
               <div className="nb-panel">
                 <div className="nb-panel-head">
-                  <span>Notifications</span>
-                  {notifs.length > 0 && <button className="nb-markall" onClick={markAll}>Mark all read</button>}
+                  <span>{t("nav.notifications")}</span>
+                  {notifs.length > 0 && <button className="nb-markall" onClick={markAll}>{t("nav.markAllRead")}</button>}
                 </div>
                 <div className="nb-results">
                   {notifs.length === 0 ? (
-                    <div className="nb-empty">No notifications</div>
+                    <div className="nb-empty">{t("nav.noNotifications")}</div>
                   ) : (
                     notifs.map((n) => (
                       <div key={n._id} className={`nb-notif ${n.read ? "" : "unread"}`}>
@@ -437,13 +439,13 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="nb-mobile-menu">
-          <Link to="/home" onClick={() => setIsOpen(false)}>Home</Link>
-          <Link to="/map" onClick={() => setIsOpen(false)}>Map</Link>
-          <Link to="/chatbot" onClick={() => setIsOpen(false)}>Chatbot</Link>
-          <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
-          <Link to="/Booking" onClick={() => setIsOpen(false)}>Booking</Link>
+          <Link to="/home" onClick={() => setIsOpen(false)}>{t("nav.home")}</Link>
+          <Link to="/map" onClick={() => setIsOpen(false)}>{t("nav.map")}</Link>
+          <Link to="/chatbot" onClick={() => setIsOpen(false)}>{t("nav.chatbot")}</Link>
+          <Link to="/about" onClick={() => setIsOpen(false)}>{t("nav.about")}</Link>
+          <Link to="/Airline" onClick={() => setIsOpen(false)}>{t("nav.booking")}</Link>
 
-          <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
+          <Link to="/contact" onClick={() => setIsOpen(false)}>{t("nav.contact")}</Link>
         </div>
       )}
     </>

@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import App from './App.jsx';
 import { AuthProvider } from "./context/AuthContext.jsx";
+import { LanguageProvider } from "./context/LanguageContext.jsx";
 import '../node_modules/@popperjs/core/dist/umd/popper.min.js';
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
@@ -17,9 +18,11 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
       <BrowserRouter>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </LanguageProvider>
       </BrowserRouter>
     </GoogleOAuthProvider>
   </StrictMode>
