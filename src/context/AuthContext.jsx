@@ -14,6 +14,11 @@ const readCachedUser = () => {
   }
 };
 
+// Only a real URL or data URI is a usable photo; a bare filename like
+// "default.jpg" (legacy default) falls back to the app's default avatar.
+const usablePhoto = (p) =>
+  typeof p === "string" && (/^https?:\/\//.test(p) || p.startsWith("data:")) ? p : DEFAULT_AVATAR;
+
 const cacheUser = (u) => {
   if (!u) {
     localStorage.removeItem("user_profile");
@@ -24,7 +29,7 @@ const cacheUser = (u) => {
     JSON.stringify({
       name: u.name,
       email: u.email,
-      photo: u.photo || DEFAULT_AVATAR,
+      photo: usablePhoto(u.photo),
       id: u._id || u.id,
       role: u.role,
       preferences: u.preferences,
