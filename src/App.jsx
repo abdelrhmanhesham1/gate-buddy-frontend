@@ -22,7 +22,9 @@ import EditProfile from "./components/pages/EditProfile.jsx";
 import PasswordReset from"./components/pages/PasswordReset.jsx";
 import OAuthCallback from "./components/pages/OAuthCallback.jsx";
 import Parking from "./components/pages/Parking.jsx";
+import ShopsDining from "./components/pages/ShopsDining.jsx";
 import ProtectedRoute from "./components/routing/ProtectedRoute.jsx";
+import ScrollToTopButton from "./components/shared/ScrollToTopButton.jsx";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -63,8 +65,10 @@ function App() {
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path="/edit-profile" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
         <Route path="/parking" element={<ProtectedRoute><Parking /></ProtectedRoute>} />
+        <Route path="/shops" element={<ProtectedRoute><ShopsDining /></ProtectedRoute>} />
 
       </Routes>
+      <ScrollToTopButton />
     </>
   );
 }

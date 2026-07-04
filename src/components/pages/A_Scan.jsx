@@ -165,10 +165,10 @@ export default function AScan() {
   const services = [
     { icon: <CountersIcon />, title: "Counters", sub: "Domestic & International", path: "/counters" },
     { icon: <VIPIcon />, title: "VIP Experience", sub: "Premium Lounges", path: "/vip" },
-    { icon: <FinancialIcon />, title: "Financial Services", sub: "ATM & Currency Exchange" },
+    { icon: <FinancialIcon />, title: "Financial Services", sub: "ATM & Currency Exchange", path: "/financial" },
     { icon: <AccessibilityIcon />, title: "Accessibility", sub: "Special Assistance", path: "/accessibility" },
-    { icon: <ShopsIcon />, title: "Shops", sub: "Duty-Free & Retail" },
-    { icon: <RestaurantIcon />, title: "Restaurant", sub: "Dining Options" },
+    { icon: <ShopsIcon />, title: "Shops", sub: "Duty-Free & Retail", path: "/shops" },
+    { icon: <RestaurantIcon />, title: "Restaurant", sub: "Dining Options", path: "/shops" },
   ];
 
   return (
@@ -255,18 +255,17 @@ export default function AScan() {
             Your Tracked Flight
           </h2>
           <div style={styles.trackedGrid}>
-{/* Egypt Air Flight Card */}
+{/* Tracked Flight Card — only when there is an active tracked flight */}
+{tf ? (
 <div style={styles.trackedCard}>
-  {/* الجزء الأزرق الفاضي فوق */}
   <div style={styles.trackedCardBlueTop} />
-  
-  {/* الجزء الأبيض: لوجو + بيانات + وقت */}
+
   <div style={styles.trackedCardHeader}>
     <div style={styles.airlineRow}>
       <div style={styles.airlineLogo}>
         <img
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Egyptair_logo_%282010%29.svg/320px-Egyptair_logo_%282010%29.svg.png"
-          alt="Egypt Air"
+          src={tf?.airline?.logo || "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Egyptair_logo_%282010%29.svg/320px-Egyptair_logo_%282010%29.svg.png"}
+          alt={trackAirline}
           style={styles.airlineLogoImg}
           onError={(e) => { e.target.style.display="none"; }}
         />
@@ -282,12 +281,21 @@ export default function AScan() {
     </div>
   </div>
 
-  {/* الأزرار */}
   <div style={styles.trackedCardActions}>
     <button style={styles.btnExplore} onClick={() => navigate("/explore")}>🌍 Explore Destination</button>
     <button style={styles.btnCancel} onClick={handleCancelTrack}>✕ Cancel Tracking</button>
   </div>
 </div>
+) : (
+<div style={styles.trackedCard}>
+  <div style={styles.trackedCardBlueTop} />
+  <div style={{ flex: 1, padding: "34px 20px", textAlign: "center", display: "flex", flexDirection: "column", justifyContent: "center", gap: 8, borderLeft: "1.5px solid #EDB046", borderRight: "1.5px solid #EDB046", borderBottom: "1.5px solid #EDB046", borderBottomLeftRadius: 12, borderBottomRightRadius: 12 }}>
+    <div style={{ fontSize: "2rem" }}>✈️</div>
+    <div style={{ fontWeight: 700, color: "#002D6B" }}>No tracked flight</div>
+    <div style={{ fontSize: "0.85rem", color: "#718096" }}>Scan your boarding pass to start tracking.</div>
+  </div>
+</div>
+)}
 
   {/* Quick Track / QR Card */}   {/* ← حطي الكود هنا */}
   <div style={styles.quickTrackCard}>

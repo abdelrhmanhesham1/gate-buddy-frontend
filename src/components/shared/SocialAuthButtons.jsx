@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -17,11 +17,38 @@ export default function SocialAuthButtons({ onError }) {
   const navigate = useNavigate();
   const { setSession } = useAuth();
   const [socialLoading, setSocialLoading] = useState("");
+  const fbReady = useRef(false);
   const setErr = (m) => onError && onError(m);
 
+  // Preload the Facebook SDK on mount so FB.login() can run inside the click
+  // gesture (calling it after an async script load gets popup-blocked → hangs).
+  useEffect(() => {
+    if (window.FB) { fbReady.current = true; return; }
+    window.fbAsyncInit = () => {
+      window.FB.init({ appId: FACEBOOK_APP_ID, cookie: true, xfbml: false, version: "v19.0" });
+      fbReady.current = true;
+    };
+    if (!document.getElementById("facebook-jssdk")) {
+      const s = document.createElement("script");
+      s.id = "facebook-jssdk";
+      s.src = "https://connect.facebook.net/en_US/sdk.js";
+      s.async = true;
+      s.defer = true;
+      document.body.appendChild(s);
+    }
+  }, []);
+
   const done = (res) => {
-    setSession(res.data.token, res.data.data.user);
-    Swal.fire({ icon: "success", title: "Welcome!", showConfirmButton: false, timer: 1200 });
+    const user = res.data.data.user;
+    setSession(res.data.token, user);
+    const first = user?.name ? `, ${user.name.split(" ")[0]}` : "";
+    Swal.fire({
+      icon: "success",
+      title: `Welcome${first}! ✈️`,
+      text: "You're signed in — enjoy Gate Buddy.",
+      showConfirmButton: false,
+      timer: 1600,
+    });
     navigate("/home");
   };
 
@@ -40,29 +67,24 @@ export default function SocialAuthButtons({ onError }) {
   };
 
   const handleFacebook = () => {
-    setSocialLoading("facebook");
-    const trigger = () =>
-      window.FB.login(async (response) => {
-        if (response.authResponse?.accessToken) {
-          try { done(await authAPI.facebookLogin(response.authResponse.accessToken)); }
-          catch (e) { setErr(e.response?.data?.message || "Facebook login failed. Please try again."); }
-        } else {
-          setErr("Facebook login was cancelled.");
-        }
-        setSocialLoading("");
-      }, { scope: "public_profile,email" });
-
-    if (!window.FB) {
-      window.fbAsyncInit = () => {
-        window.FB.init({ appId: FACEBOOK_APP_ID, cookie: true, xfbml: true, version: "v19.0" });
-        trigger();
-      };
-      const s = document.createElement("script");
-      s.src = "https://connect.facebook.net/en_US/sdk.js";
-      document.body.appendChild(s);
-    } else {
-      trigger();
+    if (!window.FB || !fbReady.current) {
+      setErr("Facebook isn't ready yet — please try again in a moment.");
+      return;
     }
+    setSocialLoading("facebook");
+    // Called synchronously in the click handler (required to avoid popup block).
+    window.FB.login((response) => {
+      if (response.authResponse?.accessToken) {
+        authAPI
+          .facebookLogin(response.authResponse.accessToken)
+          .then(done)
+          .catch((e) => setErr(e.response?.data?.message || "Facebook login failed. Please try again."))
+          .finally(() => setSocialLoading(""));
+      } else {
+        setErr("Facebook login was cancelled or not authorized.");
+        setSocialLoading("");
+      }
+    }, { scope: "public_profile,email" });
   };
 
   return (

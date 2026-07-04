@@ -63,6 +63,7 @@ const SearchIcon = () => (
 
 // ── Card Components ───────────────────────────────────────────────────────────
 function ATMCard({ item }) {
+  const navigate = useNavigate();
   const isAvail = item.status === "Available";
   return (
     <div className="fs-card">
@@ -92,7 +93,7 @@ function ATMCard({ item }) {
         {item.accepts.map((a) => <span key={a} className="fs-tag">{a}</span>)}
       </div>
       <div className="fs-card-footer">
-        <button className="fs-map-btn"><PinIcon /> Show on Map</button>
+        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> Show on Map</button>
         <span className="fs-open-status" style={{ color: item.open ? "#16a34a" : "#dc2626" }}>
           {item.open ? "Open" : "Closed"}
         </span>
@@ -102,6 +103,7 @@ function ATMCard({ item }) {
 }
 
 function BankCard({ item }) {
+  const navigate = useNavigate();
   return (
     <div className="fs-card">
       <div className="fs-card-bar" />
@@ -127,7 +129,7 @@ function BankCard({ item }) {
         {item.services.map((s) => <span key={s} className="fs-tag">{s}</span>)}
       </div>
       <div className="fs-card-footer">
-        <button className="fs-map-btn"><PinIcon /> Show on Map</button>
+        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> Show on Map</button>
         <span className="fs-open-status" style={{ color: item.open ? "#16a34a" : "#dc2626" }}>
           {item.open ? "Open" : "Closed"}
         </span>
@@ -137,6 +139,7 @@ function BankCard({ item }) {
 }
 
 function CurrencyCard({ item }) {
+  const navigate = useNavigate();
   return (
     <div className="fs-card">
       <div className="fs-card-bar" />
@@ -162,7 +165,7 @@ function CurrencyCard({ item }) {
         <div className="fs-info-row"><span className="fs-info-emoji">📋</span><span>{item.commission}</span></div>
       </div>
       <div className="fs-card-footer">
-        <button className="fs-map-btn"><PinIcon /> Show on Map</button>
+        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> Show on Map</button>
         <span className="fs-open-status" style={{ color: item.open ? "#16a34a" : "#dc2626" }}>
           {item.open ? "Open" : "Closed"}
         </span>

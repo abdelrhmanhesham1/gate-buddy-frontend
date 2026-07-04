@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import { authAPI, userAPI } from "../../utils/Api.js";
+import { DEFAULT_AVATAR } from "../config.js";
 
 const AuthContext = createContext(null);
 
@@ -23,7 +24,7 @@ const cacheUser = (u) => {
     JSON.stringify({
       name: u.name,
       email: u.email,
-      photo: u.photo || "https://i.pravatar.cc/40",
+      photo: u.photo || DEFAULT_AVATAR,
       id: u._id || u.id,
       role: u.role,
       preferences: u.preferences,

@@ -383,6 +383,7 @@ function Services() {
       imgClass: "svc-img-dining",
       title: "🏛️ Shops & Dining",
       desc: "Discover all airport shops, cafes, and restaurants in one place. Navigate, explore, and enjoy your favorite spots effortlessly.",
+      path: "/shops",
     },
   ];
 

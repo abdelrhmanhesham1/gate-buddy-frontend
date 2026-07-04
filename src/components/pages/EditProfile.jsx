@@ -5,6 +5,7 @@ import Footer from "../shared/Footer";
 import Swal from "sweetalert2";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { userAPI } from "../../../utils/Api.js";
+import { DEFAULT_AVATAR } from "../../config.js";
 
 export default function EditProfile() {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export default function EditProfile() {
     authUser || {
       name: "Mostafa Emad",
       email: "mostafaemad@gmail.com",
-      photo: "https://i.pravatar.cc/150?img=11",
+      photo: DEFAULT_AVATAR,
     }
   );
   const [formData, setFormData] = useState({ name: "", email: "" });

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Search, Bell, Menu, X, ChevronDown } from "lucide-react";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { notificationsAPI, servicesAPI } from "../../../utils/Api.js";
+import { DEFAULT_AVATAR } from "../../config.js";
 
 const CATEGORY_ROUTE = {
   COUNTERS: "/counters",
@@ -57,7 +58,7 @@ export default function Navbar() {
   const [notifs, setNotifs] = useState([]);
   const { user, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const userPhoto = user?.photo || "https://i.pravatar.cc/40";
+  const userPhoto = user?.photo || DEFAULT_AVATAR;
   const prevCountRef = useRef(null);
 
   // Poll for notifications; on a new one (flight reminder / update) chime + notify.
@@ -334,7 +335,7 @@ export default function Navbar() {
                 setAboutOpen(false);
               }}
             >
-              BooKing <ChevronDown size={16} />
+              Booking <ChevronDown size={16} />
             </button>
             {bookingOpen && (
               <div className="nb-dropdown-menu">

@@ -5,12 +5,13 @@ import "../style/Airline.css";
 
 import { FaSearch } from "react-icons/fa";
 
-// Clearbit's logo API was shut down, so derive a working logo from the airline's
-// own domain via Google's favicon service (falls back to the app logo on error).
-function logoFor(website) {
+// Prefer a high-quality Wikimedia logo when we have one; otherwise fall back to
+// a larger favicon (Clearbit's logo API was shut down). Falls back to the app logo.
+function logoFor(item) {
+  if (item.logo && item.logo.includes("wikimedia.org")) return item.logo;
   try {
-    const host = new URL(website).hostname.replace(/^www\./, "");
-    return `https://www.google.com/s2/favicons?domain=${host}&sz=128`;
+    const host = new URL(item.website).hostname.replace(/^www\./, "");
+    return `https://www.google.com/s2/favicons?domain=${host}&sz=256`;
   } catch {
     return "/images/logo.png";
   }
@@ -22,7 +23,7 @@ export default function Airlines() {
   const airlines = [
     {
       name: "EgyptAir",
-      logo: "https://logo.clearbit.com/egyptair.com",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Egyptair_logo_%282010%29.svg/320px-Egyptair_logo_%282010%29.svg.png",
       website: "https://www.egyptair.com",
     },
     {
@@ -215,7 +216,11 @@ export default function Airlines() {
 ];
   
 
-  const filteredAirlines = airlines.filter((item) =>
+  // Remove duplicate airlines (the list has repeats), then filter by search.
+  const uniqueAirlines = airlines.filter(
+    (a, i, arr) => arr.findIndex((x) => x.name.toLowerCase() === a.name.toLowerCase()) === i
+  );
+  const filteredAirlines = uniqueAirlines.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -258,7 +263,7 @@ export default function Airlines() {
           {filteredAirlines.map((item, index) => (
             <div className="air-card" key={index}>
               <img
-                src={logoFor(item.website)}
+                src={logoFor(item)}
                 alt={item.name}
                 onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = "/images/logo.png"; }}
               />

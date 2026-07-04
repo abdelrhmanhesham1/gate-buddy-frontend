@@ -6,6 +6,7 @@ import "../style/Home.css";
 import { flightAPI } from "../../../utils/Api.js";
 import { useAuthGuard } from "../shared/useAuthGuard.js";
 import { openApk } from "../../config.js";
+import { useAuth } from "../../context/AuthContext.jsx";
 
 // ── Icons ────────────────────────────────────────────────────────────────────
 const PlaneIcon = () => (
@@ -229,6 +230,7 @@ function AirportServicesSection() {
       icon: <ShopsIcon />,
       title: "Shops & Dining",
       sub: "Dining &shops Options",
+      path: "/shops",
     },
   ];
 
@@ -366,6 +368,8 @@ function AirportInfoSection() {
 
 // ── Main Home Page ────────────────────────────────────────────────────────────
 export default function Home() {
+  const { user } = useAuth();
+  const firstName = user?.name ? user.name.split(" ")[0] : "";
   const [flightUpdates, setFlightUpdates] = useState([]);
   const [showAll, setShowAll] = useState(false);
 
@@ -387,7 +391,7 @@ export default function Home() {
         <img src="/images/home.jpeg" alt="hero" className="hm-hero-bg" />
         <div className="hm-hero-overlay" />
         <div className="hm-hero-content">
-          <h1>Welcome to Gate Buddy</h1>
+          <h1>{firstName ? `Welcome back, ${firstName} 👋` : "Welcome to Gate Buddy"}</h1>
           <p>
             Your ultimate flight tracking and airport services companion. Stay updated with
             real-time flight information and explore airport amenities.

@@ -36,7 +36,14 @@ export default function Signup() {
       );
       const { token, data } = res.data;
       setSession(token, data.user);
-      Swal.fire({ icon: "success", title: "Account created!", showConfirmButton: false, timer: 1200 });
+      const first = data.user?.name ? `, ${data.user.name.split(" ")[0]}` : "";
+      Swal.fire({
+        icon: "success",
+        title: `Welcome aboard${first}! 🎉`,
+        text: "Your account is ready — let's explore the airport.",
+        showConfirmButton: false,
+        timer: 1600,
+      });
       navigate("/home");
     } catch (error) {
       setErr(error.response?.data?.message || "Signup failed. Please try again.");

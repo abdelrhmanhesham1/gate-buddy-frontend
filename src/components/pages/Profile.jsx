@@ -4,6 +4,7 @@ import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { userAPI } from "../../../utils/Api.js";
+import { DEFAULT_AVATAR } from "../../config.js";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -21,7 +22,7 @@ export default function Profile() {
     authUser || {
       name: "Mostafa Emad",
       email: "mostafaemad@gmail.com",
-      photo: "https://i.pravatar.cc/150?img=11",
+      photo: DEFAULT_AVATAR,
     }
   );
 

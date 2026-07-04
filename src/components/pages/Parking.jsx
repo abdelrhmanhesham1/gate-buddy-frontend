@@ -68,11 +68,16 @@ export default function Parking() {
       <Navbar />
 
       <section style={S.hero}>
+        <img src="/images/airport-bg.jpg" alt="" style={S.heroBg} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+        <div style={S.heroOverlay} />
         <button style={S.back} onClick={() => navigate("/profile")}>←</button>
         <div style={S.heroInner}>
-          <span style={S.eyebrow}>MY GARAGE</span>
+          <span style={S.eyebrow}>🚗 MY GARAGE</span>
           <h1 style={S.title}>Saved Parking</h1>
-          <p style={S.sub}>Save where you parked so you can find your car when you land.</p>
+          <p style={S.sub}>Save where you parked so you can find your car the moment you land.</p>
+          <div style={S.heroStats}>
+            <div style={S.stat}><span style={S.statNum}>{spots.length}</span><span style={S.statLabel}>saved {spots.length === 1 ? "spot" : "spots"}</span></div>
+          </div>
         </div>
       </section>
 
@@ -143,12 +148,18 @@ function Field({ label, value, onChange, placeholder }) {
 
 const S = {
   page: { background: "#fff", minHeight: "100vh", fontFamily: "'Segoe UI', system-ui, sans-serif", display: "flex", flexDirection: "column" },
-  hero: { position: "relative", background: `linear-gradient(135deg, ${PRIMARY} 0%, #001a42 100%)`, padding: "48px 24px 56px" },
-  back: { position: "absolute", top: 18, left: 20, width: 38, height: 38, borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.15)", color: "#fff", fontSize: "1.1rem", cursor: "pointer" },
-  heroInner: { maxWidth: 1100, margin: "0 auto" },
+  hero: { position: "relative", overflow: "hidden", background: `linear-gradient(135deg, ${PRIMARY} 0%, #001a42 100%)`, padding: "48px 24px 56px" },
+  heroBg: { position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", opacity: 0.25 },
+  heroOverlay: { position: "absolute", inset: 0, background: `linear-gradient(135deg, rgba(0,45,107,0.92) 0%, rgba(0,26,66,0.85) 100%)` },
+  back: { position: "absolute", top: 18, left: 20, zIndex: 2, width: 38, height: 38, borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.15)", color: "#fff", fontSize: "1.1rem", cursor: "pointer" },
+  heroInner: { position: "relative", zIndex: 2, maxWidth: 1100, margin: "0 auto" },
   eyebrow: { color: SECONDARY, fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.2em" },
   title: { color: "#fff", fontSize: "2rem", fontWeight: 800, margin: "8px 0 6px" },
   sub: { color: "rgba(255,255,255,0.8)", fontSize: "0.92rem", margin: 0 },
+  heroStats: { display: "flex", gap: 20, marginTop: 18 },
+  stat: { display: "flex", flexDirection: "column" },
+  statNum: { color: SECONDARY, fontSize: "1.5rem", fontWeight: 800, lineHeight: 1 },
+  statLabel: { color: "rgba(255,255,255,0.7)", fontSize: "0.75rem", marginTop: 3 },
   main: { flex: 1, maxWidth: 1100, width: "100%", margin: "0 auto", padding: "0 24px 60px" },
   card: { background: "#fff", border: `1.5px solid ${SECONDARY}`, borderRadius: 16, padding: "24px", margin: "-28px 0 32px", boxShadow: "0 6px 24px rgba(0,45,107,0.08)" },
   cardTitle: { color: PRIMARY, fontWeight: 800, fontSize: "1.05rem", margin: "0 0 18px" },

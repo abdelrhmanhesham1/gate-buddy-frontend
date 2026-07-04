@@ -268,6 +268,7 @@ export default function AccessabillityS() {
                   <p style={S.cardDesc}>{svc.desc}</p>
                   <button
                     style={S.cardBtn}
+                    onClick={() => navigate("/map")}
                     onMouseEnter={(e) => (e.currentTarget.style.background = "#EDB046")}
                     onMouseLeave={(e) => (e.currentTarget.style.background = "#002D6B")}
                   >
