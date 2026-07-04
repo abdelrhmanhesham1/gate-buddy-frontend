@@ -5,36 +5,61 @@ import { DEFAULT_AVATAR } from "../config.js";
 
 const AuthContext = createContext(null);
 
+const isUrl = (p) => typeof p === "string" && /^https?:\/\//.test(p);
+
+// Only a real URL or data URI is a usable photo; a bare filename like
+// "default.jpg" (legacy default) falls back to the app's default avatar.
+const usablePhoto = (p) =>
+  typeof p === "string" && (isUrl(p) || p.startsWith("data:")) ? p : DEFAULT_AVATAR;
+
+// Full user object for React state — keeps the photo (even a large base64 data
+// URI) in memory so it displays.
+const normalizeUser = (u) =>
+  u
+    ? {
+        name: u.name,
+        email: u.email,
+        photo: usablePhoto(u.photo),
+        id: u._id || u.id,
+        role: u.role,
+        preferences: u.preferences,
+      }
+    : null;
+
 const readCachedUser = () => {
   try {
     const raw = localStorage.getItem("user_profile");
-    return raw ? JSON.parse(raw) : null;
+    if (!raw) return null;
+    const u = JSON.parse(raw);
+    return { ...u, photo: usablePhoto(u.photo) };
   } catch {
     return null;
   }
 };
 
-// Only a real URL or data URI is a usable photo; a bare filename like
-// "default.jpg" (legacy default) falls back to the app's default avatar.
-const usablePhoto = (p) =>
-  typeof p === "string" && (/^https?:\/\//.test(p) || p.startsWith("data:")) ? p : DEFAULT_AVATAR;
-
-const cacheUser = (u) => {
+// Lightweight localStorage cache — NEVER store a large base64 data-URI photo
+// (localStorage quota is small; a real JPEG overflows it and throws). The full
+// photo stays in memory and is re-fetched via GET /users/me on reload.
+const cacheUserLight = (u) => {
   if (!u) {
     localStorage.removeItem("user_profile");
     return;
   }
-  localStorage.setItem(
-    "user_profile",
-    JSON.stringify({
-      name: u.name,
-      email: u.email,
-      photo: usablePhoto(u.photo),
-      id: u._id || u.id,
-      role: u.role,
-      preferences: u.preferences,
-    })
-  );
+  try {
+    localStorage.setItem(
+      "user_profile",
+      JSON.stringify({
+        name: u.name,
+        email: u.email,
+        photo: isUrl(u.photo) ? u.photo : null,
+        id: u._id || u.id,
+        role: u.role,
+        preferences: u.preferences,
+      })
+    );
+  } catch {
+    /* quota exceeded — ignore; the photo lives in memory / is re-fetched */
+  }
 };
 
 export function AuthProvider({ children }) {
@@ -48,8 +73,8 @@ export function AuthProvider({ children }) {
       setToken(newToken);
     }
     if (newUser) {
-      cacheUser(newUser);
-      setUser(readCachedUser());
+      cacheUserLight(newUser);
+      setUser(normalizeUser(newUser));
     }
   }, []);
 
@@ -65,8 +90,8 @@ export function AuthProvider({ children }) {
       const res = await userAPI.getMe();
       const u = res.data?.data?.user;
       if (u) {
-        cacheUser(u);
-        setUser(readCachedUser());
+        cacheUserLight(u);
+        setUser(normalizeUser(u));
         return u;
       }
     } catch {
