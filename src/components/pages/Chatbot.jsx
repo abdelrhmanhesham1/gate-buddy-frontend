@@ -86,6 +86,9 @@ export default function Chatbot() {
       role: m.role === "bot" ? "assistant" : "user",
       text: m.text,
     }));
+    // The chat API requires history to start with a user turn — drop the leading
+    // bot greeting (Gemini rejects a history that starts with a model turn).
+    while (history.length && history[0].role !== "user") history.shift();
 
     try {
       const res = await chatAPI.sendMessage(trimmed, history);
