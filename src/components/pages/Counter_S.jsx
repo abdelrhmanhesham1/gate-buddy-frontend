@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar";
 import Footer from "../shared/Footer";
 import { servicesAPI } from "../../../utils/Api.js";
+import { useLang } from "../../context/LanguageContext.jsx";
 
 // Regional/European carriers → "Domestic" tab; everything else → "International".
 // (The service model has no domestic/intl flag, so we split by carrier region.)
@@ -141,6 +142,7 @@ function AirlineLogo({ airline, logo }) {
 
 function CounterCard({ counter }) {
   const navigate = useNavigate();
+  const { t } = useLang();
   const isOpen = counter.status === "Open";
 
   return (
@@ -178,7 +180,7 @@ function CounterCard({ counter }) {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="#EDB046" xmlns="http://www.w3.org/2000/svg">
             <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/>
           </svg>
-          Show on Map
+          {t("common.showOnMap")}
         </button>
         <a
           href={counter.bookingUrl}
@@ -189,7 +191,7 @@ function CounterCard({ counter }) {
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#002D6B" xmlns="http://www.w3.org/2000/svg">
             <path d="M20 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/>
           </svg>
-          Book Now
+          {t("common.bookNow")}
         </a>
       </div>
     </div>
@@ -197,6 +199,7 @@ function CounterCard({ counter }) {
 }
 
 export default function CounterS() {
+  const { t } = useLang();
   const [activeTab, setActiveTab] = useState("domestic");
   const [search, setSearch] = useState("");
   const [domestic, setDomestic] = useState([]);
@@ -304,8 +307,8 @@ export default function CounterS() {
             </svg>
           </button>
           <div className="cs-hero-overlay">
-            <h1>Check-in Counters</h1>
-            <p>Real-time counter status across all terminals</p>
+            <h1>{t("cs.title")}</h1>
+            <p>{t("cs.sub")}</p>
           </div>
         </div>
 
@@ -315,21 +318,21 @@ export default function CounterS() {
               <div className="cs-stat-icon" style={{ background: "#dbeafe" }}>🏢</div>
               <div>
                 <div className="cs-stat-num">{allCounters.length}</div>
-                <div className="cs-stat-label">Total Counters</div>
+                <div className="cs-stat-label">{t("cs.total")}</div>
               </div>
             </div>
             <div className="cs-stat-card">
               <div className="cs-stat-icon" style={{ background: "#dcfce7" }}>✅</div>
               <div>
                 <div className="cs-stat-num" style={{ color: "#16a34a" }}>{allCounters.filter((c) => c.status === "Open").length}</div>
-                <div className="cs-stat-label">Currently Open</div>
+                <div className="cs-stat-label">{t("cs.currentlyOpen")}</div>
               </div>
             </div>
             <div className="cs-stat-card">
               <div className="cs-stat-icon" style={{ background: "#fee2e2" }}>🔴</div>
               <div>
                 <div className="cs-stat-num" style={{ color: "#dc2626" }}>{allCounters.filter((c) => c.status === "Closed").length}</div>
-                <div className="cs-stat-label">Closed</div>
+                <div className="cs-stat-label">{t("cs.closed")}</div>
               </div>
             </div>
           </div>
@@ -338,18 +341,18 @@ export default function CounterS() {
             <div className="cs-tabs">
               <button className={`cs-tab ${activeTab === "domestic" ? "active" : ""}`}
                 onClick={() => { setActiveTab("domestic"); setSearch(""); }}>
-                ✈ Domestic
+                ✈ {t("cs.domestic")}
               </button>
               <button className={`cs-tab ${activeTab === "international" ? "active" : ""}`}
                 onClick={() => { setActiveTab("international"); setSearch(""); }}>
-                🌍 International
+                🌍 {t("cs.intl")}
               </button>
             </div>
             <div className="cs-search-wrap">
               <span className="cs-search-icon">🔍</span>
               <input
                 type="text"
-                placeholder="Search airline, terminal, zone..."
+                placeholder={t("cs.search")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -366,13 +369,13 @@ export default function CounterS() {
             {loading ? (
               <div className="cs-empty">
                 <div className="cs-empty-icon">⏳</div>
-                <h3>Loading counters…</h3>
+                <h3>{t("cs.loading")}</h3>
               </div>
             ) : filtered.length === 0 ? (
               <div className="cs-empty">
                 <div className="cs-empty-icon">🔍</div>
-                <h3>No counters found</h3>
-                <p>Try a different search term</p>
+                <h3>{t("cs.noCounters")}</h3>
+                <p>{t("cs.tryDifferent")}</p>
               </div>
             ) : (
               filtered.map((counter) => <CounterCard key={counter.id} counter={counter} />)

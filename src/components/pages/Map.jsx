@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
 import { openApk } from "../../config.js";
+import { useLang } from "../../context/LanguageContext.jsx";
 
 // ── Colors ────────────────────────────────────────────────────────────────────
 const PRIMARY = "#002D6B";
@@ -161,6 +162,7 @@ function FeatureTag({ icon, label }) {
 // ── Map Page ──────────────────────────────────────────────────────────────────
 export default function Map() {
   const navigate = useNavigate();
+  const { t } = useLang();
 
   return (
     <div style={styles.page}>
@@ -181,14 +183,12 @@ export default function Map() {
           </div>
 
           {/* Title */}
-          <h1 style={styles.title}>Airport Map</h1>
-          <p style={styles.subtitle}>Available on the Mobile App</p>
+          <h1 style={styles.title}>{t("map.title")}</h1>
+          <p style={styles.subtitle}>{t("map.subtitle")}</p>
 
           {/* Description */}
           <p style={styles.desc}>
-            The interactive airport map is exclusively available on the Gate Buddy
-            mobile app. Navigate terminals, find your gate, locate services, and get real-time
-            directions — all from your phone.
+            {t("map.desc")}
           </p>
 
           {/* Feature Tags */}
@@ -204,18 +204,18 @@ export default function Map() {
           {/* Download CTA */}
           <p style={styles.downloadLabel}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={PRIMARY} strokeWidth="2" strokeLinecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke={PRIMARY} strokeWidth="3"/></svg>
-            Download the Gate Buddy App
+            {t("map.download")}
           </p>
 
           {/* Buttons */}
           <div style={styles.buttonsRow}>
             <button style={styles.btnDownload} onClick={openApk}>
               <DownloadIcon />
-              Download APP
+              {t("map.downloadApp")}
             </button>
             <button style={styles.btnBack} onClick={() => navigate("/home")}>
               <HomeIcon />
-              Back to Home
+              {t("map.backHome")}
             </button>
           </div>
 

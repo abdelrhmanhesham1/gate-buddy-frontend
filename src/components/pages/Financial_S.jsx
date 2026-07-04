@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
 import { servicesAPI } from "../../../utils/Api.js";
+import { useLang } from "../../context/LanguageContext.jsx";
 
 // ── Live FINANCIAL services → the three card shapes this page renders ──────────
 // Classify by the service's subCategory (ATMs / Currency Exchange / Banks / …),
@@ -64,6 +65,7 @@ const SearchIcon = () => (
 // ── Card Components ───────────────────────────────────────────────────────────
 function ATMCard({ item }) {
   const navigate = useNavigate();
+  const { t } = useLang();
   const isAvail = item.status === "Available";
   return (
     <div className="fs-card">
@@ -93,7 +95,7 @@ function ATMCard({ item }) {
         {item.accepts.map((a) => <span key={a} className="fs-tag">{a}</span>)}
       </div>
       <div className="fs-card-footer">
-        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> Show on Map</button>
+        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> {t("common.showOnMap")}</button>
         <span className="fs-open-status" style={{ color: item.open ? "#16a34a" : "#dc2626" }}>
           {item.open ? "Open" : "Closed"}
         </span>
@@ -104,6 +106,7 @@ function ATMCard({ item }) {
 
 function BankCard({ item }) {
   const navigate = useNavigate();
+  const { t } = useLang();
   return (
     <div className="fs-card">
       <div className="fs-card-bar" />
@@ -129,7 +132,7 @@ function BankCard({ item }) {
         {item.services.map((s) => <span key={s} className="fs-tag">{s}</span>)}
       </div>
       <div className="fs-card-footer">
-        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> Show on Map</button>
+        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> {t("common.showOnMap")}</button>
         <span className="fs-open-status" style={{ color: item.open ? "#16a34a" : "#dc2626" }}>
           {item.open ? "Open" : "Closed"}
         </span>
@@ -140,6 +143,7 @@ function BankCard({ item }) {
 
 function CurrencyCard({ item }) {
   const navigate = useNavigate();
+  const { t } = useLang();
   return (
     <div className="fs-card">
       <div className="fs-card-bar" />
@@ -165,7 +169,7 @@ function CurrencyCard({ item }) {
         <div className="fs-info-row"><span className="fs-info-emoji">📋</span><span>{item.commission}</span></div>
       </div>
       <div className="fs-card-footer">
-        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> Show on Map</button>
+        <button className="fs-map-btn" onClick={() => navigate("/map")}><PinIcon /> {t("common.showOnMap")}</button>
         <span className="fs-open-status" style={{ color: item.open ? "#16a34a" : "#dc2626" }}>
           {item.open ? "Open" : "Closed"}
         </span>
@@ -177,6 +181,7 @@ function CurrencyCard({ item }) {
 // ── Main Page ─────────────────────────────────────────────────────────────────
 export default function FinancialS() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [activeTab, setActiveTab] = useState("atms");
   const [search, setSearch]       = useState("");
   const [filterOpen, setFilterOpen] = useState("all");
@@ -193,9 +198,9 @@ export default function FinancialS() {
 
   const dataMap = data;
   const tabs = [
-    { key: "atms",     label: "ATMs",              count: data.atms.length     },
-    { key: "banks",    label: "Banks",             count: data.banks.length    },
-    { key: "currency", label: "Currency Exchange", count: data.currency.length },
+    { key: "atms",     label: t("fs.atms"),     count: data.atms.length     },
+    { key: "banks",    label: t("fs.banks"),    count: data.banks.length    },
+    { key: "currency", label: t("fs.currency"), count: data.currency.length },
   ];
 
   const current = dataMap[activeTab].filter((item) => {
@@ -532,7 +537,7 @@ export default function FinancialS() {
             <div className="fs-hero-btns">
             
               <button className="fs-btn-outline" onClick={() => navigate("/map")}>
-                View Map
+                {t("fs.viewMap")}
               </button>
             </div>
           </div>
@@ -543,7 +548,7 @@ export default function FinancialS() {
         {/* ── Content ── */}
         <div className="fs-main" id="fs-content">
           <h2 className="fs-section-title">
-            <PlaneIcon /> Airport Financial Services
+            <PlaneIcon /> {t("fs.sectionTitle")}
           </h2>
 
           {/* Toolbar */}
@@ -553,7 +558,7 @@ export default function FinancialS() {
               <input
                 className="fs-search-input"
                 type="text"
-                placeholder="Search by name, terminal or location..."
+                placeholder={t("fs.search")}
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />
@@ -593,7 +598,7 @@ export default function FinancialS() {
           {current.length === 0 ? (
             <div className="fs-empty">
               <div className="fs-empty-icon">🔍</div>
-              No results found{search ? ` for "${search}"` : ""}
+              {t("common.noResults")}{search ? ` "${search}"` : ""}
             </div>
           ) : (
             <div className="fs-grid">
@@ -607,7 +612,7 @@ export default function FinancialS() {
         {/* ── Info Banner ── */}
         <div className="fs-banner">
           <div className="fs-banner-inner">
-            <h3 className="fs-banner-title"><PlaneIcon /> Good to Know</h3>
+            <h3 className="fs-banner-title"><PlaneIcon /> {t("fs.goodToKnow")}</h3>
             <div className="fs-banner-grid">
               {[
                 { emoji: "💱", title: "Live Exchange Rates",  desc: "Real-time currency rates at airport exchange points for all major world currencies." },

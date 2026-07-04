@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
 import { servicesAPI } from "../../../utils/Api.js";
+import { useLang } from "../../context/LanguageContext.jsx";
 
 const PRIMARY = "#002D6B";
 const SECONDARY = "#EDB046";
 
 function ServiceCard({ s }) {
   const navigate = useNavigate();
+  const { t } = useLang();
   const img = (s.images && s.images[0]) || "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&w=800";
   return (
     <div style={S.card}>
@@ -33,7 +35,7 @@ function ServiceCard({ s }) {
           {(s.terminal || s.zone) && <span>📍 {[s.terminal, s.zone].filter(Boolean).join(" · ")}</span>}
           {s.operatingHours && <span>🕐 {s.operatingHours}</span>}
         </div>
-        <button style={S.mapBtn} onClick={() => navigate("/map")}>Show on Map</button>
+        <button style={S.mapBtn} onClick={() => navigate("/map")}>{t("common.showOnMap")}</button>
       </div>
     </div>
   );
@@ -41,6 +43,7 @@ function ServiceCard({ s }) {
 
 export default function ShopsDining() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [tab, setTab] = useState("dining");
   const [shops, setShops] = useState([]);
   const [dining, setDining] = useState([]);
@@ -71,9 +74,9 @@ export default function ShopsDining() {
       <section style={S.hero}>
         <button style={S.back} onClick={() => navigate("/home")}>←</button>
         <div style={S.heroInner}>
-          <span style={S.eyebrow}>AIRPORT EXPERIENCE</span>
-          <h1 style={S.title}>Shops &amp; Dining</h1>
-          <p style={S.sub}>Discover restaurants, cafés, and shops across the terminals.</p>
+          <span style={S.eyebrow}>{t("sh.eyebrow")}</span>
+          <h1 style={S.title}>{t("sh.title")}</h1>
+          <p style={S.sub}>{t("sh.sub")}</p>
         </div>
       </section>
 
@@ -81,19 +84,19 @@ export default function ShopsDining() {
         <div style={S.controls}>
           <div style={S.tabs}>
             <button style={{ ...S.tab, ...(tab === "dining" ? S.tabActive : {}) }} onClick={() => { setTab("dining"); setSearch(""); }}>
-              🍽️ Dining ({dining.length})
+              🍽️ {t("sh.dining")} ({dining.length})
             </button>
             <button style={{ ...S.tab, ...(tab === "shops" ? S.tabActive : {}) }} onClick={() => { setTab("shops"); setSearch(""); }}>
-              🛍️ Shops ({shops.length})
+              🛍️ {t("sh.shops")} ({shops.length})
             </button>
           </div>
-          <input style={S.search} placeholder="Search by name…" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <input style={S.search} placeholder={t("sh.search")} value={search} onChange={(e) => setSearch(e.target.value)} />
         </div>
 
         {loading ? (
-          <div style={S.empty}>Loading…</div>
+          <div style={S.empty}>{t("common.loading")}</div>
         ) : list.length === 0 ? (
-          <div style={S.empty}>No results found.</div>
+          <div style={S.empty}>{t("common.noResults")}</div>
         ) : (
           <div style={S.grid}>
             {list.map((s) => <ServiceCard key={s._id} s={s} />)}

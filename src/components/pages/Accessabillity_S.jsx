@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
 import { servicesAPI } from "../../../utils/Api.js";
+import { useLang } from "../../context/LanguageContext.jsx";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const WheelchairIcon = () => (
@@ -176,6 +177,7 @@ const A11Y_ICONS = [<WheelchairIcon />, <RestroomIcon />, <GolfCartIcon />, <Lug
 // ── Component ──────────────────────────────────────────────────────────────────
 export default function AccessabillityS() {
   const navigate = useNavigate();
+  const { t } = useLang();
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -216,11 +218,10 @@ export default function AccessabillityS() {
         <div style={S.heroContent}>
           
           <h1 style={S.heroTitle}>
-            Making Your Journey <br />
-            <span style={S.heroTitleAccent}>Smoother & Comfortable</span>
+            {t("acc.heroTitle")}
           </h1>
           <p style={S.heroSub}>
-            All our special assistance services are highlighted on the map for your convenience. Our team is here to support every passenger.
+            {t("acc.heroSub")}
           </p>
         </div>
       </section>
@@ -229,10 +230,10 @@ export default function AccessabillityS() {
       <section style={S.section}>
         <div style={S.container}>
           <div style={S.sectionHead}>
-            <span style={S.eyebrow}>Our Services</span>
-            <h2 style={S.sectionTitle}>Accessibility Services</h2>
+            <span style={S.eyebrow}>{t("acc.ourServices")}</span>
+            <h2 style={S.sectionTitle}>{t("acc.servicesTitle")}</h2>
             <p style={S.sectionSub}>
-              From arrival to boarding, we provide full support so every passenger can travel with ease and dignity.
+              {t("acc.servicesSub")}
             </p>
           </div>
           <div style={S.grid}>
@@ -273,7 +274,7 @@ export default function AccessabillityS() {
                     onMouseLeave={(e) => (e.currentTarget.style.background = "#002D6B")}
                   >
                     <MapPinIcon />
-                    Locate on Map
+                    {t("common.locateOnMap")}
                   </button>
                 </div>
               </div>
@@ -287,10 +288,10 @@ export default function AccessabillityS() {
         <div style={S.container}>
           <div style={S.commitInner}>
             <div>
-              <span style={S.commitEyebrow}>Our Promise</span>
-              <h2 style={S.commitTitle}>Our Commitment to <br /> Every Passenger</h2>
+              <span style={S.commitEyebrow}>{t("acc.ourPromise")}</span>
+              <h2 style={S.commitTitle}>{t("acc.commitTitle")}</h2>
               <p style={S.commitSub}>
-                We believe every traveler deserves equal access. Our team is trained to provide compassionate, professional support tailored to each passenger's unique needs.
+                {t("acc.commitSub")}
               </p>
               <div style={S.commitList}>
                 {commitments.map((c, i) => (
@@ -317,10 +318,10 @@ export default function AccessabillityS() {
       {/* CTA */}
       <section style={S.cta}>
         <div style={S.ctaInner}>
-          <span style={S.eyebrow}>Need Help?</span>
-          <h2 style={S.ctaTitle}>Request Assistance Before Your Flight</h2>
+          <span style={S.eyebrow}>{t("acc.needHelp")}</span>
+          <h2 style={S.ctaTitle}>{t("acc.ctaTitle")}</h2>
           <p style={S.ctaSub}>
-            Pre-book your accessibility services to ensure our team is ready and waiting for you upon arrival.
+            {t("acc.ctaSub")}
           </p>
           <button
             style={S.ctaBtn}
@@ -328,7 +329,7 @@ export default function AccessabillityS() {
             onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             onClick={() => navigate("/chatbot")}
           >
-            Request Assistance
+            {t("acc.requestAssistance")}
           </button>
         </div>
       </section>

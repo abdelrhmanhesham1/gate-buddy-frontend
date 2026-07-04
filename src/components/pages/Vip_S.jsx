@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../shared/Navbar.jsx";
 import Footer from "../shared/Footer.jsx";
 import { servicesAPI } from "../../../utils/Api.js";
+import { useLang } from "../../context/LanguageContext.jsx";
 
 // ── Icons ─────────────────────────────────────────────────────────────────────
 const LoungeIcon = () => (
@@ -117,6 +118,7 @@ const perks = [
 const FEATURE_ICONS = [<LoungeIcon />, <FoodIcon />, <WifiIcon />, <SmokingIcon />, <MapPinIcon />];
 
 export default function VipS() {
+  const { t } = useLang();
   const [hoveredCard, setHoveredCard] = useState(null);
   const [lounges, setLounges] = useState([]);
 
@@ -156,10 +158,9 @@ export default function VipS() {
         />
         <div style={s.heroOverlay} />
         <div style={s.heroContent}>
-          <h1 style={s.heroTitle}>VIP Experience</h1>
+          <h1 style={s.heroTitle}>{t("vip.heroTitle")}</h1>
           <p style={s.heroSub}>
-            Enjoy exclusive comfort and personalized airport services
-            designed for your luxury travel.
+            {t("vip.heroSub")}
           </p>
           <div style={s.heroStats}>
             {[["5★", "Rated Lounges"], ["24/7", "Concierge"], ["100+", "Services"]].map(([num, label]) => (
@@ -176,10 +177,10 @@ export default function VipS() {
       <section style={s.section} id="vip-lounges">
         <div style={s.container}>
           <div style={s.sectionHead}>
-            <span style={s.sectionEyebrow}>WHAT&apos;S INCLUDED</span>
-            <h2 style={s.sectionTitle}>Premium Services</h2>
+            <span style={s.sectionEyebrow}>{t("vip.whatsIncluded")}</span>
+            <h2 style={s.sectionTitle}>{t("vip.premiumServices")}</h2>
             <p style={s.sectionSub}>
-              Every detail crafted for your ultimate airport comfort
+              {t("vip.everyDetail")}
             </p>
           </div>
 
@@ -222,13 +223,12 @@ export default function VipS() {
         <div style={s.container}>
           <div style={s.perksInner}>
             <div style={s.perksLeft}>
-              <span style={s.sectionEyebrow}>EXCLUSIVE BENEFITS</span>
+              <span style={s.sectionEyebrow}>{t("vip.exclusiveBenefits")}</span>
               <h2 style={{ ...s.sectionTitle, color: "white", marginBottom: "12px" }}>
-                Everything You Deserve
+                {t("vip.everythingYouDeserve")}
               </h2>
               <p style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.95rem", lineHeight: 1.7, marginBottom: "28px" }}>
-                Our VIP members enjoy a curated selection of services that transform
-                every airport visit into an unforgettable luxury experience.
+                {t("vip.perksIntro")}
               </p>
               <div style={s.perksList}>
                 {perks.map((p) => (
@@ -250,7 +250,7 @@ export default function VipS() {
                   <div style={{ display: "flex", gap: "4px", marginBottom: "6px" }}>
                     {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
                   </div>
-                  <div style={{ color: "white", fontWeight: 700, fontSize: "1rem" }}>Luxury Rated</div>
+                  <div style={{ color: "white", fontWeight: 700, fontSize: "1rem" }}>{t("vip.luxuryRated")}</div>
                   <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.78rem" }}>By 2,400+ travelers</div>
                 </div>
               </div>
@@ -262,11 +262,11 @@ export default function VipS() {
       {/* ── CTA ── */}
       <section style={s.cta}>
         <div style={s.ctaInner}>
-          <h2 style={s.ctaTitle}>Ready for a Premium Experience?</h2>
+          <h2 style={s.ctaTitle}>{t("vip.ctaTitle")}</h2>
           <p style={s.ctaSub}>
-            Upgrade your journey and access world-class VIP lounges today.
+            {t("vip.ctaSub")}
           </p>
-          <button style={s.ctaBtn} onClick={() => document.getElementById("vip-lounges")?.scrollIntoView({ behavior: "smooth" })}>Explore VIP Lounges</button>
+          <button style={s.ctaBtn} onClick={() => document.getElementById("vip-lounges")?.scrollIntoView({ behavior: "smooth" })}>{t("vip.exploreLounges")}</button>
         </div>
       </section>
 
