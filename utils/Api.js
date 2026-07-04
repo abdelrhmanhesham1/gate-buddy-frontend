@@ -91,12 +91,9 @@ export const authAPI = {
 export const userAPI = {
   getMe: () => api.get("/users/me"),
   // `data` may be a plain object (JSON) or FormData (multipart, for photo upload).
-  updateMe: (data) => {
-    const isForm = typeof FormData !== "undefined" && data instanceof FormData;
-    return api.patch("/users/updateMe", data, {
-      headers: isForm ? { "Content-Type": "multipart/form-data" } : undefined,
-    });
-  },
+  // For FormData, let axios/the browser set Content-Type WITH the multipart
+  // boundary — setting it manually (no boundary) breaks server-side parsing.
+  updateMe: (data) => api.patch("/users/updateMe", data),
   updatePreferences: (preferences) =>
     api.patch("/users/updateMe", { preferences }),
   updatePassword: (passwordCurrent, password, passwordConfirm) =>
