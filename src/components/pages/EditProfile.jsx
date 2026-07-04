@@ -6,10 +6,11 @@ import Swal from "sweetalert2";
 import { useAuth } from "../../context/AuthContext.jsx";
 import { userAPI } from "../../../utils/Api.js";
 import { DEFAULT_AVATAR } from "../../config.js";
+import { downscaleImage } from "../../lib/image.js";
 
 export default function EditProfile() {
   const navigate = useNavigate();
-  const { user: authUser, refreshUser, logout } = useAuth();
+  const { user: authUser, refreshUser, setSession, logout } = useAuth();
 
   const [user, setUser] = useState(
     authUser || {
@@ -37,14 +38,25 @@ export default function EditProfile() {
     try {
       let payload;
       if (photoFile) {
+        // Downscale in the browser so any photo size fits under the upload limit.
+        let toUpload = photoFile;
+        try {
+          toUpload = await downscaleImage(photoFile, { maxDim: 512, quality: 0.85 });
+        } catch {
+          /* fall back to the original file if canvas processing fails */
+        }
         payload = new FormData();
         payload.append("name", formData.name);
-        payload.append("photo", photoFile);
+        payload.append("photo", toUpload, "avatar.jpg");
       } else {
         payload = { name: formData.name };
       }
-      await userAPI.updateMe(payload);       // email is intentionally not sent (API ignores it)
-      await refreshUser();
+      const res = await userAPI.updateMe(payload); // email is intentionally not sent (API ignores it)
+      // updateMe returns the updated user (data.user); use it immediately so the
+      // new photo shows without depending on a follow-up fetch.
+      const updated = res.data?.data?.user || res.data?.data?.data;
+      if (updated) setSession(undefined, updated);
+      else await refreshUser();
       Swal.fire({ icon: "success", title: "Saved!", text: "Profile updated successfully.", showConfirmButton: false, timer: 1500 });
       setTimeout(() => navigate("/profile"), 1600);
     } catch (e) {

@@ -88,7 +88,9 @@ export function AuthProvider({ children }) {
   const refreshUser = useCallback(async () => {
     try {
       const res = await userAPI.getMe();
-      const u = res.data?.data?.user;
+      // getMe returns the user under data.data (factory shape); other endpoints
+      // use data.user — accept either.
+      const u = res.data?.data?.user || res.data?.data?.data;
       if (u) {
         cacheUserLight(u);
         setUser(normalizeUser(u));
