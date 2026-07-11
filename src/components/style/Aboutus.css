@@ -616,3 +616,37 @@
     align-items: center;
   }
 }
+
+/* ============================================================================
+   Responsive refinements — collapse the desktop-scale spacing/margins that
+   otherwise overflow or leave huge gaps on tablets and phones.
+   ========================================================================== */
+@media (max-width: 992px) {
+  .about-container { padding: 32px 16px 60px; }
+  .about-card { padding: 32px 20px; }
+  .about-text { margin-left: 0; }
+  .about-text h2 { font-size: clamp(1.8rem, 6vw, 2.5rem); }
+  .about-text h3 { font-size: clamp(1.5rem, 5vw, 2.1rem); }
+  .about-text h4 { font-size: clamp(1.25rem, 4vw, 1.75rem); }
+  .about-text p { font-size: 1rem; }
+
+  .mission { padding: 40px 20px 10px; margin-bottom: 60px; }
+  .mission-container { gap: 48px; }
+  .main { height: auto; }
+
+  /* The absolutely-positioned overlay thumbnails hang off the edges on a
+     desktop; on small screens they push horizontal overflow, so tuck them in. */
+  .small { position: static; width: 45%; height: auto; margin: 8px; }
+
+  /* tech-section carries big desktop-only gaps/margins — reset them. */
+  .tech-section { gap: 40px; margin-top: 80px; }
+  .tech-image img { margin-left: 0; width: 100%; }
+  .tech-content { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .features, .timeline, .why-us, .values-section { padding: 48px 16px; }
+  .mission-content h2,
+  .features h2, .timeline h2, .why-us h2, .values-section h2 { font-size: 26px; }
+  .cta-buttons button { display: block; width: 100%; margin: 8px 0; }
+}

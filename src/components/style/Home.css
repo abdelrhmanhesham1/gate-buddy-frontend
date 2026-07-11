@@ -724,3 +724,22 @@
   .hm-vip-content { padding: 30px 24px; }
   .hm-footer-grid { gap: 28px; }
 }
+
+/* Small phones: reduce edges and the hero height so it never dominates. */
+@media (max-width: 480px) {
+  .hm-container { padding: 0 16px; }
+  .hm-hero { min-height: 300px; }
+  .hm-hero-content { padding: 32px 16px; }
+  .hm-hero-content h1 { font-size: 1.45rem; }
+  .hm-vip-title-row { font-size: 1.3rem; flex-wrap: wrap; }
+  .hm-access-content h2 { font-size: 1.5rem; }
+  .hm-weather-card,
+  .hm-airport-info-card { padding: 20px 18px; }
+  .hm-weather-details { margin-left: 0; }
+}
+
+/* Large iMac / 4K: give the content a touch more room but keep it centered. */
+@media (min-width: 1800px) {
+  .hm-container,
+  .hm-footer-grid { max-width: 1320px; }
+}

@@ -864,3 +864,59 @@ img { display: block; max-width: 100%; }
   font-weight: 700;
   cursor: default;
 }
+
+/* ============================================================================
+   Responsive refinements — tablet (iPad) range + phone hero safety
+   Appended last so these win over the earlier @media blocks.
+   ========================================================================== */
+
+/* Let the big display heading wrap instead of forcing one line that
+   overflows narrow screens. Fluid size keeps it from ever clipping. */
+@media (max-width: 1024px) {
+  .hero-title {
+    white-space: normal;
+    font-size: clamp(1.6rem, 4.5vw, 2.2rem);
+  }
+}
+
+/* iPad / small-laptop range that fell between the 900 and 600 breakpoints. */
+@media (max-width: 1024px) and (min-width: 601px) {
+  .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; }
+  .save-time-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-plane-visual { width: 45%; }
+}
+
+/* Phones: the hero copy box is absolutely positioned at a fixed width on
+   desktop — release it so it fits the screen and never overflows. */
+@media (max-width: 600px) {
+  .hero {
+    min-height: calc(100vh - 68px);
+    align-items: center;
+  }
+  .hero-content {
+    left: 0;
+    right: 0;
+    bottom: auto;
+    width: auto;
+    padding: 0 24px;
+  }
+  .hero-subtitle { -webkit-line-clamp: 3; }
+  .vip-content { padding: 32px 24px; }
+  .vip-desc { font-size: 14px; }
+  .vip-brand, .vip-tag { font-size: 1.3rem; }
+  .metric-card { padding: 24px 14px; }
+  .access-content { padding: 32px 24px; }
+}
+
+/* Very small phones (≈320px): drop metrics to a single column. */
+@media (max-width: 380px) {
+  .metrics-grid { grid-template-columns: 1fr; }
+}
+
+/* Keep the landing hero from stretching absurdly tall on large iMac screens. */
+@media (min-width: 1600px) {
+  .hero { min-height: 760px; }
+}

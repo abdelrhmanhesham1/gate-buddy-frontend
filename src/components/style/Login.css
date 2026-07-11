@@ -58,9 +58,9 @@ min-height: 100vh;
 
 .auth-card {
   background: white;
-  width: 420px;
+  width: min(420px, 92vw);
   padding: 40px;
-  border-radius: 60px; 
+  border-radius: 60px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.3);
   margin-top: 60px;
     max-height: 100vh;
@@ -172,4 +172,62 @@ min-height: 100vh;
 .signup-prompt {
   text-align: center;
   margin-top: 18px;
+}
+
+/* ============================================================================
+   Responsive — Login & Contact (both use .login-page / .auth-card)
+   ========================================================================== */
+
+/* Tablets / iPad portrait and below: stack the hero text above the card,
+   drop the big negative offsets that only make sense on a wide desktop. */
+@media (max-width: 992px) {
+  .login-page {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 24px;
+    padding: 40px 16px;
+  }
+
+  .hero-text {
+    margin-top: 0;
+    margin-left: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-logo { margin-right: -20px; }
+
+  .hero-text h1 {
+    font-size: clamp(2rem, 8vw, 3.2rem);
+    margin-left: 0;
+  }
+
+  .hero-text p {
+    margin-left: 0;
+    margin-top: 6px;
+    text-align: center;
+  }
+
+  .auth-card {
+    margin-top: 0;
+    margin-bottom: 0;
+    max-height: none;
+  }
+}
+
+/* Phones: tighten the card padding and rounding so nothing feels cramped. */
+@media (max-width: 480px) {
+  .login-page { padding: 28px 12px; }
+
+  .auth-card {
+    width: 100%;
+    padding: 28px 22px;
+    border-radius: 32px;
+  }
+
+  .hero-text h1 { font-size: clamp(1.8rem, 10vw, 2.6rem); }
+  .hero-text p { font-size: 1rem; }
+
+  .welcome-text h3 { font-size: 20px; }
 }

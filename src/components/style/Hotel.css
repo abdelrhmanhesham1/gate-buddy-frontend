@@ -10,7 +10,9 @@
 
 /* HERO */
 .hotel-hero {
-  width: 100vw;
+  /* 100vw includes the scrollbar width and forces a horizontal scrollbar;
+     100% fills the container without overflow. */
+  width: 100%;
   height: 450px;
   background:
     linear-gradient(

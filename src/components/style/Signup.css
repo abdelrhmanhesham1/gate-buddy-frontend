@@ -1,22 +1,23 @@
 /* تعديل خاص بكارد التسجيل عشان الحقول كتير */
 .auth-card {
   background: white;
-  
-  /* التعديل هنا لتقليل العرض من 420px لـ 380px */
-  width: 400px !important; 
-  height: 650px !important; 
 
-  
-  /* يمكنك أيضاً تقليل الـ padding الأفقي (الشمال واليمين) ليتناسب مع الحجم الجديد */
-  padding: 20px !important; 
-  
-  border-radius: 40px!important; /* القوس الكبير الذي يميز التصميم */
+  /* Fluid width — never wider than 400px, never wider than the viewport. */
+  width: min(400px, 92vw) !important;
+  /* Height grows with the content (the signup form is tall) instead of being
+     clamped to a fixed 650px that overflowed small screens. */
+  height: auto !important;
+  max-height: none !important;
+
+  padding: 20px !important;
+
+  border-radius: 40px !important; /* القوس الكبير الذي يميز التصميم */
   box-shadow: 0 15px 40px rgba(0,0,0,0.3);
 }
 .signup-card {
   padding: 15px 30px !important; /* تقليل الفراغات عشان الفورم طويلة */
-  width: 300px !important;
-  height: 200px !important; /* عرض أكبر سيكة عشان الأرقام والأسماء */
+  width: min(320px, 92vw) !important;
+  height: auto !important;
 }
 
 .signup-card .card-title {

@@ -89,3 +89,16 @@
   background: #082644;
   transform: translateY(-2px);
 }
+
+/* Phones: stack the contact-method buttons so the labels stay readable
+   instead of being squeezed into a cramped 3-across row. */
+@media (max-width: 480px) {
+  .contact-options {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .contact-options button {
+    margin: 0;
+  }
+  .contact-title { font-size: 22px; }
+}

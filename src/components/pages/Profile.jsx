@@ -111,10 +111,10 @@ export default function Profile() {
       <Navbar />
       <div style={{ minHeight: "100vh", background: "white", display: "flex", flexDirection: "column" }}>
         <div style={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "flex-start", padding: "36px 20px" }}>
-          <div style={{ display: "flex", width: "100%", maxWidth: "1000px", border: "1.5px solid #e2e8f0", borderRadius: "14px", overflow: "hidden" }}>
+          <div className="gb-acct-shell" style={{ display: "flex", width: "100%", maxWidth: "1000px", border: "1.5px solid #e2e8f0", borderRadius: "14px", overflow: "hidden" }}>
 
             {/* ===== SIDEBAR ===== */}
-            <div style={{
+            <div className="gb-acct-sidebar" style={{
               width: "240px", minWidth: "240px", background: "#002D6B",
               display: "flex", flexDirection: "column", alignItems: "center",
               color: "white", paddingBottom: 16
